@@ -1,0 +1,38 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\Radko\\Desktop\\DiplomnaRabota\\Skillo\\wwwroot\\css\\styles.css",
+      "PackagePath": "staticwebassets\\css\\styles.css"
+    },
+    {
+      "Id": "C:\\Users\\Radko\\Desktop\\DiplomnaRabota\\Skillo\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "C:\\Users\\Radko\\Desktop\\DiplomnaRabota\\Skillo\\wwwroot\\js\\auth.js",
+      "PackagePath": "staticwebassets\\js\\auth.js"
+    },
+    {
+      "Id": "C:\\Users\\Radko\\Desktop\\DiplomnaRabota\\Skillo\\wwwroot\\js\\dashboard.js",
+      "PackagePath": "staticwebassets\\js\\dashboard.js"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.Skillo.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.Skillo.props",
+      "PackagePath": "build\\Skillo.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.Skillo.props",
+      "PackagePath": "buildMultiTargeting\\Skillo.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.Skillo.props",
+      "PackagePath": "buildTransitive\\Skillo.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
+

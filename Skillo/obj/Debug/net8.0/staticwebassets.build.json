@@ -1,0 +1,97 @@
+{
+  "Version": 1,
+  "Hash": "JnO9VQHZZO9AC2iQZksI1+hU9kvZMG6WTayN+5fs+9A=",
+  "Source": "Skillo",
+  "BasePath": "_content/Skillo",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "Skillo\\wwwroot",
+      "Source": "Skillo",
+      "ContentRoot": "C:\\Users\\Radko\\Desktop\\DiplomnaRabota\\Skillo\\wwwroot\\",
+      "BasePath": "_content/Skillo",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\Radko\\Desktop\\DiplomnaRabota\\Skillo\\wwwroot\\css\\styles.css",
+      "SourceId": "Skillo",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Radko\\Desktop\\DiplomnaRabota\\Skillo\\wwwroot\\",
+      "BasePath": "_content/Skillo",
+      "RelativePath": "css/styles.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\styles.css"
+    },
+    {
+      "Identity": "C:\\Users\\Radko\\Desktop\\DiplomnaRabota\\Skillo\\wwwroot\\index.html",
+      "SourceId": "Skillo",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Radko\\Desktop\\DiplomnaRabota\\Skillo\\wwwroot\\",
+      "BasePath": "_content/Skillo",
+      "RelativePath": "index.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\index.html"
+    },
+    {
+      "Identity": "C:\\Users\\Radko\\Desktop\\DiplomnaRabota\\Skillo\\wwwroot\\js\\auth.js",
+      "SourceId": "Skillo",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Radko\\Desktop\\DiplomnaRabota\\Skillo\\wwwroot\\",
+      "BasePath": "_content/Skillo",
+      "RelativePath": "js/auth.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\auth.js"
+    },
+    {
+      "Identity": "C:\\Users\\Radko\\Desktop\\DiplomnaRabota\\Skillo\\wwwroot\\js\\dashboard.js",
+      "SourceId": "Skillo",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Radko\\Desktop\\DiplomnaRabota\\Skillo\\wwwroot\\",
+      "BasePath": "_content/Skillo",
+      "RelativePath": "js/dashboard.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\dashboard.js"
+    }
+  ]
+}
+

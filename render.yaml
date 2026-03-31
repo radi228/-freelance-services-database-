@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: skillo-platform
+    runtime: dotnet
+    plan: free
+    buildCommand: dotnet publish SkilloPlatform/SkilloPlatform.csproj -c Release -o out
+    startCommand: dotnet out/SkilloPlatform.dll
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: ConnectionStrings__DefaultConnection
+        value: Data Source=/data/skillo.db
+      - key: Jwt__Key
+        generateValue: true
+      - key: Jwt__Issuer
+        value: SkilloPlatform
+      - key: Jwt__Audience
+        value: SkilloUsers
+      - key: Stripe__SecretKey
+        sync: false
+      - key: PayPal__ClientId
+        sync: false
+      - key: PayPal__ClientSecret
+        sync: false
+    disk:
+      name: skillo-data
+      mountPath: /data
+      sizeGB: 1

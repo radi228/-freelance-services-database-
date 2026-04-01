@@ -1,0 +1,110 @@
+using SkilloPlatform.Controllers;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using SkilloPlatform.Data;
+using SkilloPlatform.Services;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// ── Database ──────────────────────────────────────────────────
+builder.Services.AddDbContext<SkilloDbContext>(opt =>
+    opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// ── JWT Auth ──────────────────────────────────────────────────
+var jwtKey = builder.Configuration["Jwt:Key"]!;
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(opt =>
+    {
+        opt.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer           = true,
+            ValidateAudience         = true,
+            ValidateLifetime         = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer              = builder.Configuration["Jwt:Issuer"],
+            ValidAudience            = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey         = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
+        };
+    });
+
+builder.Services.AddAuthorization();
+
+// ── CORS ──────────────────────────────────────────────────────
+builder.Services.AddCors(opt =>
+    opt.AddDefaultPolicy(p => p.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
+
+// ── Services ──────────────────────────────────────────────────
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IPaymentService, PaymentService>();
+
+// ── Controllers + Swagger ─────────────────────────────────────
+builder.Services.AddControllers();
+builder.Services.AddSignalR();
+builder.Services.AddSignalR();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title   = "Skillo API",
+        Version = "v1",
+        Description = "Пазар за фрийланс услуги — REST API"
+    });
+
+    // JWT в Swagger UI
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name         = "Authorization",
+        Type         = SecuritySchemeType.Http,
+        Scheme       = "bearer",
+        BearerFormat = "JWT",
+        Description  = "Въведи JWT токена: Bearer {token}",
+    });
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
+            },
+            Array.Empty<string>()
+        }
+    });
+});
+
+var app = builder.Build();
+
+// ── Migrations + Seed ─────────────────────────────────────────
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<SkilloDbContext>();
+    db.Database.Migrate();
+    SkilloDbContext.SeedData(db);
+}
+
+// ── Middleware ────────────────────────────────────────────────
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+    app.UseSwagger();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Skillo API v1"));
+}
+
+app.UseStaticFiles();
+app.UseCors();
+app.UseAuthentication();
+app.UseAuthorization();
+app.MapControllers();
+app.MapHub<SkilloPlatform.Controllers.ChatHub>("/chatHub");
+app.MapHub<ChatHub>("/chatHub");
+
+// Serve frontend SPA for non-API routes
+app.MapFallbackToFile("index.html");
+
+app.Run();
+
+// Needed for integration tests
+public partial class Program { }

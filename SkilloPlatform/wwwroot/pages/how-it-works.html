@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Как работи – Skillo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <style>
+    .hw-section{padding:80px 5vw;max-width:1100px;margin:0 auto}
+    .steps-big{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-bottom:60px}
+    .step-big{display:flex;gap:20px;align-items:flex-start}
+    .step-num{width:52px;height:52px;border-radius:50%;background:var(--blue);color:#fff;font-family:'Sora',sans-serif;font-weight:800;font-size:1.2rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .step-big h3{font-family:'Sora',sans-serif;font-weight:700;font-size:1.05rem;margin-bottom:6px}
+    .step-big p{color:var(--g500);font-size:.88rem;line-height:1.65}
+    .roles-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:40px}
+    .role-card{background:#fff;border-radius:var(--rl);padding:32px;box-shadow:var(--sh);border:1px solid var(--g200)}
+    .role-card h3{font-family:'Sora',sans-serif;font-weight:800;font-size:1.15rem;margin-bottom:6px}
+    .role-card p{color:var(--g500);font-size:.88rem;margin-bottom:18px}
+    .role-card ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+    .role-card ul li::before{content:'✓ ';color:var(--blue);font-weight:700}
+    .role-card ul li{font-size:.88rem;color:var(--g700)}
+    @media(max-width:700px){.steps-big,.roles-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<nav id="main-nav">
+  <a href="/index.html" class="logo"><div class="logo-icon">🚀</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
+  <ul class="nav-links"></ul>
+  <div class="nav-cta">
+    <a href="#" id="nav-login-btn" class="btn btn-outline btn-sm" onclick="window.location='/index.html#login';return false">Вход</a>
+    <a href="#" id="nav-register-btn" class="btn btn-orange btn-sm" onclick="window.location='/index.html#register';return false">Регистрация</a>
+    <div id="nav-user" style="display:none;align-items:center;gap:8px">
+      <div id="nav-user-avatar" style="width:34px;height:34px;border-radius:50%;background:var(--g100);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--blue);border:2px solid var(--blue);overflow:hidden;cursor:pointer"></div>
+      <span id="nav-user-name" style="font-size:.88rem;font-weight:600;color:var(--blue)"></span>
+      <a href="/pages/chat.html" id="nav-chat-btn" class="btn btn-ghost btn-sm" style="display:none" title="Съобщения">💬</a>
+      <a href="/pages/dashboard.html" class="btn btn-ghost btn-sm">Табло</a>
+      <a id="nav-admin-link" href="/pages/admin.html" class="btn btn-ghost btn-sm" style="display:none">⚙ Админ</a>
+      <button onclick="logout()" class="btn btn-ghost btn-sm">Изход</button>
+    </div>
+  </div>
+</nav>
+
+<div class="page-hero"><h1>Как работи Skillo?</h1><p>Прост и прозрачен процес за клиенти и фрийлансъри</p></div>
+
+<div class="hw-section">
+  <div style="text-align:center;margin-bottom:48px">
+    <div class="section-label" style="justify-content:center"><span class="dot"></span>Процесът</div>
+    <h2 class="section-title">4 стъпки до успешен проект</h2>
+  </div>
+  <div class="steps-big">
+    <div class="step-big"><div class="step-num">1</div><div><h3>Регистрация безплатно</h3><p>Създай акаунт като клиент или фрийлансър. Отнема само 30 секунди.</p></div></div>
+    <div class="step-big"><div class="step-num">2</div><div><h3>Публикувай или намери работа</h3><p>Клиентите публикуват проекти, фрийлансърите разглеждат и кандидатстват с оферта.</p></div></div>
+    <div class="step-big"><div class="step-num">3</div><div><h3>Избери и договори</h3><p>Клиентът разглежда офертите, избира фрийлансър и те се договарят за условията.</p></div></div>
+    <div class="step-big"><div class="step-num">4</div><div><h3>Завърши и остави отзив</h3><p>След успешно завършване плащането се освобождава и двете страни оставят отзив.</p></div></div>
+  </div>
+
+  <div style="text-align:center;margin-bottom:32px">
+    <h2 class="section-title">Роли в платформата</h2>
+  </div>
+  <div class="roles-grid">
+    <div class="role-card" style="border-top:4px solid var(--blue)">
+      <div style="font-size:2.5rem;margin-bottom:12px">👨‍💼</div>
+      <h3>Клиент</h3>
+      <p>Бизнеси и частни лица, търсещи специалисти за проектите си.</p>
+      <ul>
+        <li>Публикувай неограничено проекти</li>
+        <li>Получавай оферти от фрийлансъри</li>
+        <li>Разглеждай профилите и портфолията</li>
+        <li>Управлявай активните си проекти</li>
+        <li>Оставяй отзиви за работата</li>
+      </ul>
+      <a href="/index.html" class="btn btn-primary" style="margin-top:20px;padding:11px 24px">Регистрирай се като клиент</a>
+    </div>
+    <div class="role-card" style="border-top:4px solid var(--orange)">
+      <div style="font-size:2.5rem;margin-bottom:12px">👨‍💻</div>
+      <h3>Фрийлансър</h3>
+      <p>Специалисти, предлагащи своите умения и услуги на платформата.</p>
+      <ul>
+        <li>Попълни пълен профил с умения и опит</li>
+        <li>Добавяй сертификати и трудов опит</li>
+        <li>Създавай услуги с фиксирани цени</li>
+        <li>Кандидатствай за проекти с оферти</li>
+        <li>Качи портфолио снимки</li>
+      </ul>
+      <a href="/index.html" class="btn btn-orange" style="margin-top:20px;padding:11px 24px">Регистрирай се като фрийлансър</a>
+    </div>
+  </div>
+</div>
+
+<div style="background:linear-gradient(135deg,var(--blue-dark),var(--blue));padding:72px 5vw;text-align:center">
+  <h2 style="font-family:Sora,sans-serif;font-weight:800;font-size:2rem;color:#fff;margin-bottom:12px">Готов да започнеш?</h2>
+  <p style="color:rgba(255,255,255,.72);margin-bottom:28px">Присъедини се към платформата напълно безплатно.</p>
+  <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+    <a href="/pages/freelancers.html" class="btn btn-orange" style="padding:13px 32px">Намери фрийлансър</a>
+    <a href="/index.html" class="btn" style="padding:12px 32px;border:2px solid rgba(255,255,255,.5);color:#fff;border-radius:50px">Регистрирай се</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="/index.html" class="logo" style="color:#fff"><div class="logo-icon">🚀</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
+      <p>Платформата за фрийланс услуги, свързваща бизнеси с проверени специалисти.</p>
+    </div>
+    <div class="footer-col"><h4>Платформа</h4><ul>
+      <li><a href="/pages/freelancers.html">Фрийлансъри</a></li>
+      <li><a href="/pages/projects.html">Проекти</a></li>
+      <li><a href="/pages/how-it-works.html">Как работи</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Компания</h4><ul>
+      <li><a href="/pages/about.html">За нас</a></li>
+      <li><a href="/pages/contact.html">Контакти</a></li>
+      <li><a href="/pages/privacy.html">Поверителност</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Правни</h4><ul>
+      <li><a href="/pages/terms.html">Условия за ползване</a></li>
+      <li><a href="/pages/privacy.html">Поверителност</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom"><p>© 2025 Skillo. Всички права запазени.</p></div>
+</footer>
+
+<script src="/js/shared.js"></script>
+</body>
+</html>

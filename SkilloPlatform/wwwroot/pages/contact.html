@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Контакти – Skillo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <style>
+    .contact-wrap{max-width:800px;margin:0 auto;padding:60px 5vw}
+    .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:32px}
+    .contact-card{background:#fff;border-radius:var(--rl);padding:28px;box-shadow:var(--sh);border:1px solid var(--g200);text-align:center}
+    .contact-icon{font-size:2.5rem;margin-bottom:14px}
+    .contact-card h3{font-family:'Sora',sans-serif;font-weight:700;margin-bottom:8px}
+    .contact-card p{color:var(--g500);font-size:.88rem;line-height:1.6}
+    .contact-card a{color:var(--blue);font-weight:600;text-decoration:none}
+    @media(max-width:600px){.contact-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<nav id="main-nav">
+  <a href="/index.html" class="logo"><div class="logo-icon">🚀</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
+  <ul class="nav-links"></ul>
+  <div class="nav-cta">
+    <a href="#" id="nav-login-btn" class="btn btn-outline btn-sm" onclick="window.location='/index.html#login';return false">Вход</a>
+    <a href="#" id="nav-register-btn" class="btn btn-orange btn-sm" onclick="window.location='/index.html#register';return false">Регистрация</a>
+    <div id="nav-user" style="display:none;align-items:center;gap:8px">
+      <div id="nav-user-avatar" style="width:34px;height:34px;border-radius:50%;background:var(--g100);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--blue);border:2px solid var(--blue);overflow:hidden;cursor:pointer"></div>
+      <span id="nav-user-name" style="font-size:.88rem;font-weight:600;color:var(--blue)"></span>
+      <a href="/pages/chat.html" id="nav-chat-btn" class="btn btn-ghost btn-sm" style="display:none" title="Съобщения">💬</a>
+      <a href="/pages/dashboard.html" class="btn btn-ghost btn-sm">Табло</a>
+      <a id="nav-admin-link" href="/pages/admin.html" class="btn btn-ghost btn-sm" style="display:none">⚙ Админ</a>
+      <button onclick="logout()" class="btn btn-ghost btn-sm">Изход</button>
+    </div>
+  </div>
+</nav>
+
+<div class="page-hero"><h1>📬 Контакти</h1><p>Свържи се с нас — отговаряме в рамките на 24 часа</p></div>
+
+<div class="contact-wrap">
+  <div class="contact-grid">
+    <div class="contact-card">
+      <div class="contact-icon">📧</div>
+      <h3>Имейл</h3>
+      <p>За общи въпроси и партньорства</p>
+      <a href="mailto:info@skillo.bg">info@skillo.bg</a>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">🛠</div>
+      <h3>Поддръжка</h3>
+      <p>Технически проблеми и помощ</p>
+      <a href="mailto:support@skillo.bg">support@skillo.bg</a>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">💼</div>
+      <h3>Бизнес запитвания</h3>
+      <p>За корпоративни клиенти</p>
+      <a href="mailto:business@skillo.bg">business@skillo.bg</a>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">📍</div>
+      <h3>Адрес</h3>
+      <p>ул. Витоша 1, София 1000<br/>България</p>
+    </div>
+  </div>
+
+  <div style="background:#fff;border-radius:var(--rl);padding:36px;box-shadow:var(--sh);border:1px solid var(--g200);margin-top:32px">
+    <h3 style="font-family:'Sora',sans-serif;font-weight:700;margin-bottom:20px">Изпрати ни съобщение</h3>
+    <div id="contact-alert" class="alert"></div>
+    <div class="form-row">
+      <div class="form-group"><label>Име</label><input id="c-name" placeholder="Иван Иванов"/></div>
+      <div class="form-group"><label>Имейл</label><input id="c-email" type="email" placeholder="ivan@example.com"/></div>
+    </div>
+    <div class="form-group"><label>Тема</label><input id="c-subject" placeholder="Въпрос относно…"/></div>
+    <div class="form-group"><label>Съобщение</label><textarea id="c-msg" rows="5" placeholder="Опиши въпроса или проблема…"></textarea></div>
+    <button class="btn btn-primary" style="padding:12px 32px" onclick="sendContact()">Изпрати съобщение</button>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="/index.html" class="logo" style="color:#fff"><div class="logo-icon">🚀</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
+      <p>Платформата за фрийланс услуги, свързваща бизнеси с проверени специалисти.</p>
+    </div>
+    <div class="footer-col"><h4>Платформа</h4><ul>
+      <li><a href="/pages/freelancers.html">Фрийлансъри</a></li>
+      <li><a href="/pages/projects.html">Проекти</a></li>
+      <li><a href="/pages/how-it-works.html">Как работи</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Компания</h4><ul>
+      <li><a href="/pages/about.html">За нас</a></li>
+      <li><a href="/pages/contact.html">Контакти</a></li>
+      <li><a href="/pages/privacy.html">Поверителност</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Правни</h4><ul>
+      <li><a href="/pages/terms.html">Условия за ползване</a></li>
+      <li><a href="/pages/privacy.html">Поверителност</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom"><p>© 2025 Skillo. Всички права запазени.</p></div>
+</footer>
+<script src="/js/shared.js"></script>
+<script>
+function sendContact() {
+  const name = document.getElementById('c-name').value.trim();
+  const email = document.getElementById('c-email').value.trim();
+  const msg = document.getElementById('c-msg').value.trim();
+  if (!name || !email || !msg) { showAlert('contact-alert','Попълни всички полета.'); return; }
+  showAlert('contact-alert','✅ Съобщението е изпратено! Ще се свържем с теб скоро.','success');
+  ['c-name','c-email','c-subject','c-msg'].forEach(id => document.getElementById(id).value = '');
+}
+</script>
+</body>
+</html>

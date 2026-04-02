@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Поверителност – Skillo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <style>
+    .legal-wrap{max-width:800px;margin:0 auto;padding:60px 5vw}
+    .legal-wrap h2{font-family:'Sora',sans-serif;font-weight:700;font-size:1.2rem;margin:28px 0 10px;color:var(--blue)}
+    .legal-wrap p,.legal-wrap li{color:var(--g700);line-height:1.8;font-size:.93rem;margin-bottom:10px}
+    .legal-wrap ul{padding-left:20px}
+    .last-updated{background:var(--g100);border-radius:var(--r);padding:10px 16px;font-size:.82rem;color:var(--g500);margin-bottom:28px;display:inline-block}
+  </style>
+</head>
+<body>
+<nav id="main-nav">
+  <a href="/index.html" class="logo"><div class="logo-icon">🚀</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
+  <ul class="nav-links"></ul>
+  <div class="nav-cta">
+    <a href="#" id="nav-login-btn" class="btn btn-outline btn-sm" onclick="window.location='/index.html#login';return false">Вход</a>
+    <a href="#" id="nav-register-btn" class="btn btn-orange btn-sm" onclick="window.location='/index.html#register';return false">Регистрация</a>
+    <div id="nav-user" style="display:none;align-items:center;gap:8px">
+      <div id="nav-user-avatar" style="width:34px;height:34px;border-radius:50%;background:var(--g100);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--blue);border:2px solid var(--blue);overflow:hidden;cursor:pointer"></div>
+      <span id="nav-user-name" style="font-size:.88rem;font-weight:600;color:var(--blue)"></span>
+      <a href="/pages/chat.html" id="nav-chat-btn" class="btn btn-ghost btn-sm" style="display:none" title="Съобщения">💬</a>
+      <a href="/pages/dashboard.html" class="btn btn-ghost btn-sm">Табло</a>
+      <a id="nav-admin-link" href="/pages/admin.html" class="btn btn-ghost btn-sm" style="display:none">⚙ Админ</a>
+      <button onclick="logout()" class="btn btn-ghost btn-sm">Изход</button>
+    </div>
+  </div>
+</nav>
+
+<div class="page-hero"><h1>🔒 Поверителност</h1><p>Как събираме и използваме твоите данни</p></div>
+
+<div class="legal-wrap">
+  <div class="last-updated">Последна актуализация: 01.01.2025</div>
+
+  <h2>1. Какви данни събираме</h2>
+  <p>Събираме следните видове лична информация когато използваш Skillo:</p>
+  <ul>
+    <li>Имейл адрес и парола (хеширана) при регистрация</li>
+    <li>Пълно име и профилна снимка</li>
+    <li>Информация за проекти, оферти и услуги които публикуваш</li>
+    <li>Информация за плащания (обработвана от Stripe/PayPal — не съхраняваме карти)</li>
+    <li>IP адрес и информация за браузъра за сигурност</li>
+  </ul>
+
+  <h2>2. Как използваме данните</h2>
+  <ul>
+    <li>За да предоставим услугите на платформата</li>
+    <li>За комуникация между клиенти и фрийлансъри</li>
+    <li>За обработка на плащания</li>
+    <li>За подобряване на платформата</li>
+    <li>За предотвратяване на измами</li>
+  </ul>
+
+  <h2>3. Споделяне на данни</h2>
+  <p>Не продаваме твоите данни на трети страни. Споделяме данни само с:</p>
+  <ul>
+    <li><strong>Stripe и PayPal</strong> — за обработка на плащания</li>
+    <li><strong>Хостинг доставчици</strong> — за съхранение на данни</li>
+    <li><strong>Правоприлагащи органи</strong> — когато е задължително по закон</li>
+  </ul>
+
+  <h2>4. Сигурност</h2>
+  <p>Използваме индустриални стандарти за сигурност: BCrypt за пароли, JWT токени, HTTPS за всички комуникации и криптирани плащания.</p>
+
+  <h2>5. Твоите права</h2>
+  <p>Имаш право да: достъпиш данните си, коригираш ги, изтриеш акаунта си. За въпроси пиши на <a href="mailto:privacy@skillo.bg" style="color:var(--blue)">privacy@skillo.bg</a></p>
+
+  <h2>6. Бисквитки</h2>
+  <p>Използваме само технически необходими бисквитки за автентикация. Не използваме рекламни бисквитки.</p>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="/index.html" class="logo" style="color:#fff"><div class="logo-icon">🚀</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
+      <p>Платформата за фрийланс услуги, свързваща бизнеси с проверени специалисти.</p>
+    </div>
+    <div class="footer-col"><h4>Платформа</h4><ul>
+      <li><a href="/pages/freelancers.html">Фрийлансъри</a></li>
+      <li><a href="/pages/projects.html">Проекти</a></li>
+      <li><a href="/pages/how-it-works.html">Как работи</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Компания</h4><ul>
+      <li><a href="/pages/about.html">За нас</a></li>
+      <li><a href="/pages/contact.html">Контакти</a></li>
+      <li><a href="/pages/privacy.html">Поверителност</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Правни</h4><ul>
+      <li><a href="/pages/terms.html">Условия за ползване</a></li>
+      <li><a href="/pages/privacy.html">Поверителност</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom"><p>© 2025 Skillo. Всички права запазени.</p></div>
+</footer>
+<script src="/js/shared.js"></script>
+</body>
+</html>

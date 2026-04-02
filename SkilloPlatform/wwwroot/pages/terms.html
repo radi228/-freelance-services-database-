@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Условия за ползване – Skillo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <style>
+    .legal-wrap{max-width:800px;margin:0 auto;padding:60px 5vw}
+    .legal-wrap h2{font-family:'Sora',sans-serif;font-weight:700;font-size:1.2rem;margin:28px 0 10px;color:var(--blue)}
+    .legal-wrap p,.legal-wrap li{color:var(--g700);line-height:1.8;font-size:.93rem;margin-bottom:10px}
+    .legal-wrap ul{padding-left:20px}
+    .last-updated{background:var(--g100);border-radius:var(--r);padding:10px 16px;font-size:.82rem;color:var(--g500);margin-bottom:28px;display:inline-block}
+  </style>
+</head>
+<body>
+<nav id="main-nav">
+  <a href="/index.html" class="logo"><div class="logo-icon">🚀</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
+  <ul class="nav-links"></ul>
+  <div class="nav-cta">
+    <a href="#" id="nav-login-btn" class="btn btn-outline btn-sm" onclick="window.location='/index.html#login';return false">Вход</a>
+    <a href="#" id="nav-register-btn" class="btn btn-orange btn-sm" onclick="window.location='/index.html#register';return false">Регистрация</a>
+    <div id="nav-user" style="display:none;align-items:center;gap:8px">
+      <div id="nav-user-avatar" style="width:34px;height:34px;border-radius:50%;background:var(--g100);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--blue);border:2px solid var(--blue);overflow:hidden;cursor:pointer"></div>
+      <span id="nav-user-name" style="font-size:.88rem;font-weight:600;color:var(--blue)"></span>
+      <a href="/pages/chat.html" id="nav-chat-btn" class="btn btn-ghost btn-sm" style="display:none" title="Съобщения">💬</a>
+      <a href="/pages/dashboard.html" class="btn btn-ghost btn-sm">Табло</a>
+      <a id="nav-admin-link" href="/pages/admin.html" class="btn btn-ghost btn-sm" style="display:none">⚙ Админ</a>
+      <button onclick="logout()" class="btn btn-ghost btn-sm">Изход</button>
+    </div>
+  </div>
+</nav>
+
+<div class="page-hero"><h1>📄 Условия за ползване</h1><p>Правилата за използване на платформата Skillo</p></div>
+
+<div class="legal-wrap">
+  <div class="last-updated">Последна актуализация: 01.01.2025</div>
+
+  <h2>1. Приемане на условията</h2>
+  <p>С регистрацията и използването на Skillo приемаш тези условия. Ако не ги приемаш, не използвай платформата.</p>
+
+  <h2>2. Регистрация и акаунт</h2>
+  <ul>
+    <li>Трябва да си поне 18 години за да се регистрираш</li>
+    <li>Отговорен си за сигурността на акаунта си</li>
+    <li>Не може да имаш повече от един акаунт</li>
+    <li>Информацията в профила трябва да е вярна</li>
+  </ul>
+
+  <h2>3. Правила за фрийлансъри</h2>
+  <ul>
+    <li>Трябва да изпълняваш поетите ангажименти</li>
+    <li>Не може да заблуждаваш клиентите за уменията си</li>
+    <li>Трябва да общуваш само чрез платформата</li>
+    <li>Skillo взима 10% комисионна от всяко плащане</li>
+  </ul>
+
+  <h2>4. Правила за клиенти</h2>
+  <ul>
+    <li>Трябва да плащаш за приети и изпълнени услуги</li>
+    <li>Не може да заобикаляш платформата при плащане</li>
+    <li>Описанието на проекта трябва да е ясно и честно</li>
+  </ul>
+
+  <h2>5. Плащания</h2>
+  <p>Всички плащания се обработват чрез Stripe или PayPal. Skillo не съхранява данни за банкови карти. Връщане на средства е възможно в рамките на 7 дни при основателна причина.</p>
+
+  <h2>6. Ограничаване на отговорността</h2>
+  <p>Skillo е посредник между клиенти и фрийлансъри. Не носим отговорност за качеството на извършената работа, но предоставяме система за разрешаване на спорове.</p>
+
+  <h2>7. Прекратяване</h2>
+  <p>Запазваме правото да прекратим акаунт при нарушаване на тези условия.</p>
+
+  <p style="margin-top:32px">За въпроси: <a href="mailto:legal@skillo.bg" style="color:var(--blue)">legal@skillo.bg</a></p>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="/index.html" class="logo" style="color:#fff"><div class="logo-icon">🚀</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
+      <p>Платформата за фрийланс услуги, свързваща бизнеси с проверени специалисти.</p>
+    </div>
+    <div class="footer-col"><h4>Платформа</h4><ul>
+      <li><a href="/pages/freelancers.html">Фрийлансъри</a></li>
+      <li><a href="/pages/projects.html">Проекти</a></li>
+      <li><a href="/pages/how-it-works.html">Как работи</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Компания</h4><ul>
+      <li><a href="/pages/about.html">За нас</a></li>
+      <li><a href="/pages/contact.html">Контакти</a></li>
+      <li><a href="/pages/privacy.html">Поверителност</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Правни</h4><ul>
+      <li><a href="/pages/terms.html">Условия за ползване</a></li>
+      <li><a href="/pages/privacy.html">Поверителност</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom"><p>© 2025 Skillo. Всички права запазени.</p></div>
+</footer>
+<script src="/js/shared.js"></script>
+</body>
+</html>

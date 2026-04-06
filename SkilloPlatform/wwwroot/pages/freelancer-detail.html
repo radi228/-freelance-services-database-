@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Профил – Skillo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <style>
+    .profile-layout{display:grid;grid-template-columns:320px 1fr;gap:32px;max-width:1100px;margin:40px auto;padding:0 5vw}
+    .sidebar{display:flex;flex-direction:column;gap:20px}
+    .profile-card{background:#fff;border-radius:var(--rl);padding:28px;box-shadow:var(--sh);border:1px solid var(--g200);text-align:center}
+    .p-avatar{width:100px;height:100px;border-radius:50%;object-fit:cover;border:3px solid var(--blue);background:var(--g100);display:flex;align-items:center;justify-content:center;font-size:2.5rem;margin:0 auto 16px;overflow:hidden}
+    .p-avatar img{width:100%;height:100%;object-fit:cover}
+    .p-name{font-family:'Sora',sans-serif;font-weight:800;font-size:1.3rem;margin-bottom:4px}
+    .p-title{color:var(--g500);font-size:.9rem;margin-bottom:14px}
+    .p-stats{display:flex;justify-content:center;gap:20px;padding:14px 0;border-top:1px solid var(--g200);border-bottom:1px solid var(--g200);margin:14px 0}
+    .p-stat .num{font-family:'Sora',sans-serif;font-weight:800;font-size:1.2rem;color:var(--blue)}
+    .p-stat .lbl{font-size:.72rem;color:var(--g500)}
+    .info-row{display:flex;align-items:center;gap:10px;font-size:.86rem;color:var(--g700);padding:6px 0}
+    .info-row span:first-child{font-size:1rem;width:20px;text-align:center}
+    .main-col{display:flex;flex-direction:column;gap:24px}
+    .section-box{background:#fff;border-radius:var(--rl);padding:28px;box-shadow:var(--sh);border:1px solid var(--g200)}
+    .section-box h3{font-family:'Sora',sans-serif;font-weight:700;font-size:1.1rem;margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--g200)}
+    .exp-item{padding:16px 0;border-bottom:1px solid var(--g100)}
+    .exp-item:last-child{border-bottom:none;padding-bottom:0}
+    .exp-company{font-family:'Sora',sans-serif;font-weight:700;font-size:.95rem}
+    .exp-pos{color:var(--blue);font-size:.87rem;font-weight:600}
+    .exp-date{color:var(--g500);font-size:.8rem;margin-top:2px}
+    .exp-desc{color:var(--g700);font-size:.86rem;margin-top:6px;line-height:1.5}
+    .cert-item{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--g100)}
+    .cert-item:last-child{border-bottom:none}
+    .cert-icon{width:40px;height:40px;border-radius:10px;background:rgba(27,95,168,.1);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+    .cert-name{font-weight:700;font-size:.9rem}
+    .cert-issuer{color:var(--g500);font-size:.8rem}
+    .svc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+    .svc-card{border:2px solid var(--g200);border-radius:var(--r);padding:18px;transition:all .2s;cursor:pointer}
+    .svc-card:hover{border-color:var(--blue);box-shadow:var(--sh)}
+    .svc-title{font-family:'Sora',sans-serif;font-weight:700;font-size:.95rem;margin-bottom:6px}
+    .svc-desc{color:var(--g500);font-size:.82rem;line-height:1.5;margin-bottom:12px}
+    .svc-footer{display:flex;align-items:center;justify-content:space-between}
+    .svc-price{font-family:'Sora',sans-serif;font-weight:800;color:var(--blue);font-size:1.05rem}
+    .svc-meta{color:var(--g500);font-size:.76rem}
+    @media(max-width:900px){.profile-layout{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<nav id="main-nav">
+  <a href="/index.html" class="logo"><div class="logo-icon">🚀</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
+  <ul class="nav-links"></ul>
+  <div class="nav-cta">
+    <a href="#" id="nav-login-btn" class="btn btn-outline btn-sm" onclick="window.location='/index.html#login';return false">Вход</a>
+    <a href="#" id="nav-register-btn" class="btn btn-orange btn-sm" onclick="window.location='/index.html#register';return false">Регистрация</a>
+    <div id="nav-user" style="display:none;align-items:center;gap:8px">
+      <div id="nav-user-avatar" style="width:34px;height:34px;border-radius:50%;background:var(--g100);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--blue);border:2px solid var(--blue);overflow:hidden;cursor:pointer"></div>
+      <span id="nav-user-name" style="font-size:.88rem;font-weight:600;color:var(--blue)"></span>
+      <a href="/pages/chat.html" id="nav-chat-btn" class="btn btn-ghost btn-sm" style="display:none" title="Съобщения">💬</a>
+      <a href="/pages/dashboard.html" class="btn btn-ghost btn-sm">Табло</a>
+      <a id="nav-admin-link" href="/pages/admin.html" class="btn btn-ghost btn-sm" style="display:none">⚙ Админ</a>
+      <button onclick="logout()" class="btn btn-ghost btn-sm">Изход</button>
+    </div>
+  </div>
+</nav>
+
+<div style="padding-top:68px">
+  <div id="loading" class="loading" style="padding:80px"><div class="spinner"></div><p>Зарежда се…</p></div>
+  <div id="profile-wrap" style="display:none">
+    <div class="page-hero" id="profile-hero">
+      <div style="position:relative;z-index:1">
+        <div id="hero-name" style="font-family:Sora,sans-serif;font-size:2rem;font-weight:800;color:#fff;margin-bottom:6px"></div>
+        <div id="hero-title" style="color:rgba(255,255,255,.75);font-size:1rem"></div>
+        <div id="hero-badges" style="margin-top:12px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap"></div>
+      </div>
+    </div>
+    <div class="profile-layout">
+      <!-- SIDEBAR -->
+      <div class="sidebar">
+        <div class="profile-card">
+          <div class="p-avatar" id="p-avatar"></div>
+          <div class="p-name" id="p-name"></div>
+          <div class="p-title" id="p-title"></div>
+          <div class="p-stats">
+            <div class="p-stat"><div class="num" id="p-rating">—</div><div class="lbl">Рейтинг</div></div>
+            <div class="p-stat"><div class="num" id="p-reviews">0</div><div class="lbl">Отзиви</div></div>
+            <div class="p-stat"><div class="num" id="p-rate">—</div><div class="lbl">€/час</div></div>
+          </div>
+          <div id="p-infos"></div>
+          <button class="btn btn-orange btn-full" style="margin-top:18px;padding:13px" id="contact-btn">💬 Изпрати съобщение</button>
+        </div>
+        <div class="profile-card" id="skills-box" style="text-align:left">
+          <h3 style="font-family:Sora,sans-serif;font-weight:700;margin-bottom:14px">Умения</h3>
+          <div id="p-skills" style="display:flex;flex-wrap:wrap;gap:7px"></div>
+        </div>
+        <div class="profile-card" id="langs-box" style="text-align:left;display:none">
+          <h3 style="font-family:Sora,sans-serif;font-weight:700;margin-bottom:14px">Езици</h3>
+          <div id="p-langs" style="display:flex;flex-wrap:wrap;gap:7px"></div>
+        </div>
+      </div>
+
+      <!-- MAIN -->
+      <div class="main-col">
+        <div class="section-box" id="bio-box" style="display:none">
+          <h3>За мен</h3>
+          <p id="p-bio" style="color:var(--g700);line-height:1.7;font-size:.93rem"></p>
+        </div>
+        <div class="section-box" id="services-box" style="display:none">
+          <h3>Услуги и оферти</h3>
+          <div class="svc-grid" id="p-services"></div>
+        </div>
+        <div class="section-box" id="exp-box" style="display:none">
+          <h3>Трудов опит</h3>
+          <div id="p-exp"></div>
+        </div>
+        <div class="section-box" id="cert-box" style="display:none">
+          <h3>Сертификати</h3>
+          <div id="p-certs"></div>
+        </div>
+        <div class="section-box" id="reviews-box">
+          <h3>Отзиви</h3>
+          <div id="p-reviews-list"><p style="color:var(--g500)">Все още няма отзиви.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/js/shared.js"></script>
+<script>
+const userId = new URLSearchParams(location.search).get('id');
+
+async function load() {
+  if (!userId) { document.getElementById('loading').innerHTML = '<div class="empty"><div class="icon">❌</div><p>Невалиден профил.</p></div>'; return; }
+  try {
+    const raw = await apiFetch(`/freelancers/${userId}`);
+    // ASP.NET returns nested object with profile + arrays
+    const f = raw.profile || raw;
+    const workExps = raw.workExperiences || raw.workExperience || [];
+    const certs    = raw.certificates || [];
+    const services = raw.services || [];
+    document.title = `${f.fullName} – Skillo`;
+
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('profile-wrap').style.display = 'block';
+
+    // Hero
+    document.getElementById('hero-name').textContent = f.fullName;
+    document.getElementById('hero-title').textContent = f.title;
+    document.getElementById('hero-badges').innerHTML =
+      (f.isVerified ? '<span class="badge badge-green">✓ Верифициран</span>' : '') +
+      `<span class="badge badge-blue">${f.experienceLevel}</span>` +
+      (f.isAvailable ? '<span class="badge badge-orange">🟢 Свободен</span>' : '<span class="badge badge-gray">🔴 Зает</span>');
+
+    // Avatar
+    const avEl = document.getElementById('p-avatar');
+    avEl.innerHTML = f.avatar ? `<img src="http://localhost:5000${f.avatar}" alt=""/>` : f.fullName[0];
+
+    document.getElementById('p-name').textContent = f.fullName;
+    document.getElementById('p-title').textContent = f.title;
+    document.getElementById('p-rating').textContent = f.averageRating > 0 ? f.averageRating.toFixed(1) + '★' : '—';
+    document.getElementById('p-reviews').textContent = f.reviewCount;
+    document.getElementById('p-rate').textContent = f.hourlyRate;
+
+    // Info rows
+    const infos = [];
+    if (f.location) infos.push(`<div class="info-row"><span>📍</span>${f.location}</div>`);
+    if (f.website)  infos.push(`<div class="info-row"><span>🌐</span><a href="${f.website}" target="_blank" style="color:var(--blue)">${f.website}</a></div>`);
+    if (f.linkedin) infos.push(`<div class="info-row"><span>💼</span><a href="${f.linkedin}" target="_blank" style="color:var(--blue)">LinkedIn</a></div>`);
+    if (f.github)   infos.push(`<div class="info-row"><span>🐙</span><a href="${f.github}" target="_blank" style="color:var(--blue)">GitHub</a></div>`);
+    document.getElementById('p-infos').innerHTML = infos.join('');
+
+    // Skills
+    document.getElementById('p-skills').innerHTML = f.skills.map(s =>
+      `<span class="badge badge-blue" style="font-size:.8rem;padding:5px 12px">${s}</span>`).join('');
+
+    // Languages
+    if (f.languages?.length) {
+      document.getElementById('langs-box').style.display = 'block';
+      document.getElementById('p-langs').innerHTML = f.languages.map(l =>
+        `<span class="badge badge-gray" style="font-size:.8rem;padding:5px 12px">${l}</span>`).join('');
+    }
+
+    // Bio
+    if (f.bio) {
+      document.getElementById('bio-box').style.display = 'block';
+      document.getElementById('p-bio').textContent = f.bio;
+    }
+
+    // Services
+    if (services?.length) {
+      document.getElementById('services-box').style.display = 'block';
+      document.getElementById('p-services').innerHTML = services.map(s => `
+        <div class="svc-card">
+          <div class="svc-title">${s.title}</div>
+          <div class="svc-desc">${s.description || ''}</div>
+          <div class="svc-footer">
+            <div class="svc-price">${s.priceType === 'hourly' ? s.price + ' €/час' : 'от ' + s.price + ' лв'}</div>
+            <div class="svc-meta">⏱ ${s.deliveryDays} дни</div>
+          </div>
+          <div class="svc-meta" style="margin-top:6px">🔄 ${s.revisions} корекции</div>
+        </div>`).join('');
+    }
+
+    // Experience
+    if (workExps?.length) {
+      document.getElementById('exp-box').style.display = 'block';
+      document.getElementById('p-exp').innerHTML = workExps.map(e => `
+        <div class="exp-item">
+          <div class="exp-company">${e.company}</div>
+          <div class="exp-pos">${e.position}</div>
+          <div class="exp-date">${e.startDate} – ${e.isCurrent ? 'Настоящем' : (e.endDate || '—')}</div>
+          ${e.description ? `<div class="exp-desc">${e.description}</div>` : ''}
+        </div>`).join('');
+    }
+
+    // Certificates
+    if (certs?.length) {
+      document.getElementById('cert-box').style.display = 'block';
+      document.getElementById('p-certs').innerHTML = certs.map(c => `
+        <div class="cert-item">
+          <div class="cert-icon">🎓</div>
+          <div>
+            <div class="cert-name">${c.name}</div>
+            <div class="cert-issuer">${c.issuer} · ${c.issueDate}</div>
+            ${c.credential ? `<a href="${c.credential}" target="_blank" style="color:var(--blue);font-size:.78rem">Виж сертификат →</a>` : ''}
+          </div>
+        </div>`).join('');
+    }
+
+    // Reviews
+    const reviews = await apiFetch(`/reviews/user/${userId}`).catch(() => []);
+    if (reviews.length) {
+      document.getElementById('p-reviews-list').innerHTML = reviews.map(r => `
+        <div style="padding:14px 0;border-bottom:1px solid var(--g100)">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+            <div style="width:34px;height:34px;border-radius:50%;background:var(--g100);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--blue);font-size:.85rem">${r.reviewerName[0]}</div>
+            <div>
+              <div style="font-weight:700;font-size:.9rem">${r.reviewerName}</div>
+              <div style="color:var(--orange);font-size:.82rem">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</div>
+            </div>
+            <div style="margin-left:auto;color:var(--g500);font-size:.78rem">${r.createdAt?.slice(0,10)}</div>
+          </div>
+          ${r.comment ? `<p style="color:var(--g700);font-size:.88rem;line-height:1.6">${r.comment}</p>` : ''}
+        </div>`).join('');
+    }
+
+    // Contact button
+    document.getElementById('contact-btn').onclick = async () => {
+      const u = Auth.user();
+      if (!u) { window.location.href = '/index.html'; return; }
+      if (u.id === f.userId) { alert('Не може да пишеш на себе си.'); return; }
+      try {
+        const data = await apiFetch('/chat/conversations', {
+          method: 'POST',
+          body: JSON.stringify({ otherUserId: f.userId })
+        });
+        window.location.href = `/pages/chat.html?conv=${data.id}`;
+      } catch(e) { alert(e.message); }
+    };
+
+  } catch(e) {
+    document.getElementById('loading').innerHTML = `<div class="empty"><div class="icon">⚠️</div><p>${e.message}</p></div>`;
+  }
+}
+
+load();
+</script>
+</body>
+</html>

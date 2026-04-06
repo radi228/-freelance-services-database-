@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Табло – Skillo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <style>
+    .dash-layout{display:grid;grid-template-columns:240px 1fr;gap:32px;max-width:1200px;margin:40px auto;padding:0 5vw}
+    .side-menu{background:#fff;border-radius:var(--rl);padding:20px;box-shadow:var(--sh);border:1px solid var(--g200);height:fit-content;position:sticky;top:88px}
+    .side-menu .user-info{text-align:center;padding-bottom:18px;border-bottom:1px solid var(--g200);margin-bottom:14px}
+    .side-av{width:70px;height:70px;border-radius:50%;object-fit:cover;border:3px solid var(--blue);background:var(--g100);display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 10px;overflow:hidden;cursor:pointer}
+    .side-av img{width:100%;height:100%;object-fit:cover}
+    .side-av:hover{opacity:.85}
+    .side-name{font-family:'Sora',sans-serif;font-weight:700;font-size:.95rem}
+    .side-role{font-size:.78rem;color:var(--g500);margin-top:2px}
+    .menu-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--r);cursor:pointer;font-size:.9rem;font-weight:500;color:var(--g700);transition:all .18s;text-decoration:none;border:none;background:none;width:100%;text-align:left}
+    .menu-item:hover{background:var(--g100);color:var(--blue)}
+    .menu-item.active{background:rgba(27,95,168,.1);color:var(--blue);font-weight:700}
+    .menu-item .icon{width:22px;text-align:center}
+    .content-area{min-height:400px}
+    .stat-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;margin-bottom:28px}
+    .stat-card{background:#fff;border-radius:var(--r);padding:18px;box-shadow:var(--sh);border:1px solid var(--g200);text-align:center}
+    .stat-num{font-family:'Sora',sans-serif;font-weight:800;font-size:1.6rem;color:var(--blue)}
+    .stat-lbl{font-size:.75rem;color:var(--g500);margin-top:4px}
+    .item-row{background:#fff;border-radius:var(--r);padding:16px 18px;margin-bottom:10px;border:1px solid var(--g200);display:flex;align-items:center;gap:14px}
+    .item-row:last-child{margin-bottom:0}
+    .item-title{font-weight:700;font-size:.92rem;flex:1}
+    .item-meta{color:var(--g500);font-size:.8rem}
+    @media(max-width:900px){.dash-layout{grid-template-columns:1fr}.side-menu{position:static}}
+  </style>
+</head>
+<body>
+<nav id="main-nav">
+  <a href="/index.html" class="logo"><div class="logo-icon">🚀</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
+  <ul class="nav-links"></ul>
+  <div class="nav-cta">
+    <a href="#" id="nav-login-btn" class="btn btn-outline btn-sm" onclick="window.location='/index.html#login';return false">Вход</a>
+    <a href="#" id="nav-register-btn" class="btn btn-orange btn-sm" onclick="window.location='/index.html#register';return false">Регистрация</a>
+    <div id="nav-user" style="display:none;align-items:center;gap:8px">
+      <div id="nav-user-avatar" style="width:34px;height:34px;border-radius:50%;background:var(--g100);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--blue);border:2px solid var(--blue);overflow:hidden;cursor:pointer"></div>
+      <span id="nav-user-name" style="font-size:.88rem;font-weight:600;color:var(--blue)"></span>
+      <a href="/pages/chat.html" id="nav-chat-btn" class="btn btn-ghost btn-sm" style="display:none" title="Съобщения">💬</a>
+      <a href="/pages/dashboard.html" class="btn btn-ghost btn-sm">Табло</a>
+      <a id="nav-admin-link" href="/pages/admin.html" class="btn btn-ghost btn-sm" style="display:none">⚙ Админ</a>
+      <button onclick="logout()" class="btn btn-ghost btn-sm">Изход</button>
+    </div>
+  </div>
+</nav>
+
+<div style="padding-top:68px">
+  <div class="dash-layout">
+    <!-- SIDEBAR -->
+    <div class="side-menu">
+      <div class="user-info">
+        <div class="side-av" id="side-avatar" onclick="document.getElementById('avatar-input').click()" title="Смени снимката">👤</div>
+        <input type="file" id="avatar-input" accept="image/*" style="display:none" onchange="uploadAvatar(this)"/>
+        <div class="side-name" id="side-name">…</div>
+        <div class="side-role" id="side-role"></div>
+      </div>
+      <div id="menu-items"></div>
+      <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--g200)">
+        <button onclick="logout()" class="menu-item" style="color:#DC2626"><span class="icon">🚪</span>Изход</button>
+      </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content-area" id="content"></div>
+  </div>
+</div>
+
+<script src="/js/shared.js"></script>
+<script>
+const u = Auth.user();
+if (!u) window.location.href = '/index.html';
+
+const isFL  = u?.role === 'Freelancer';
+const isCL  = u?.role === 'Client';
+const isAdm = Auth.isAdmin();
+
+// Build sidebar menu
+const menus = isFL ? [
+  { id:'overview',  icon:'🏠', label:'Обзор' },
+  { id:'profile',   icon:'👤', label:'Моят профил', link:'/pages/profile.html' },
+  { id:'services',  icon:'🛠', label:'Моите услуги', link:'/pages/services.html' },
+  { id:'bids',      icon:'📨', label:'Мои оферти' },
+] : isCL ? [
+  { id:'overview',  icon:'🏠', label:'Обзор' },
+  { id:'myprojects',icon:'📋', label:'Мои проекти' },
+] : [];
+
+if (isAdm) menus.push({ id:'admin', icon:'⚙', label:'Администрация', link:'/pages/admin.html' });
+
+function buildMenu(activeId) {
+  document.getElementById('menu-items').innerHTML = menus.map(m => `
+    <${m.link ? `a href="${m.link}"` : `button onclick="showTab('${m.id}')`}"
+      class="menu-item ${m.id === activeId ? 'active' : ''}"
+      id="menu-${m.id}">
+      <span class="icon">${m.icon}</span>${m.label}
+    </${m.link ? 'a' : 'button'}>`).join('');
+}
+
+function showTab(id) {
+  document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
+  document.getElementById('menu-' + id)?.classList.add('active');
+  const fn = { overview: renderOverview, bids: renderBids, myprojects: renderMyProjects }[id];
+  if (fn) fn();
+}
+
+// Avatar
+document.getElementById('side-name').textContent = u.name;
+document.getElementById('side-role').textContent = { Freelancer:'Фрийлансър', Client:'Клиент', Admin:'Администратор', SuperAdmin:'Супер Администратор' }[u.role] || u.role;
+const av = document.getElementById('side-avatar');
+if (u.avatar) av.innerHTML = `<img src="http://localhost:5000${u.avatar}" alt=""/>`;
+else av.textContent = u.name[0];
+
+async function uploadAvatar(input) {
+  if (!input.files[0]) return;
+  const fd = new FormData();
+  fd.append('avatar', input.files[0]);
+  try {
+    const data = await apiFetch('/users/avatar', { method:'POST', body: fd });
+    const saved = Auth.user();
+    saved.avatar = data.avatar;
+    localStorage.setItem('sk_user', JSON.stringify(saved));
+    av.innerHTML = `<img src="http://localhost:5000${data.avatar}" alt=""/>`;
+    buildNav();
+  } catch(e) { alert(e.message); }
+}
+
+// ── OVERVIEW ──────────────────────────────────────────
+async function renderOverview() {
+  const el = document.getElementById('content');
+  el.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+
+  if (isFL) {
+    const [profile, bids] = await Promise.all([
+      apiFetch('/freelancers/me/full').catch(()=>null),
+      apiFetch('/bids/mine').catch(()=>[]),
+    ]);
+
+    const pending  = bids.filter(b=>b.status==='Pending').length;
+    const accepted = bids.filter(b=>b.status==='Accepted').length;
+    const complete = Math.round(
+      [(profile?.title?10:0),(profile?.bio?20:0),(profile?.skills?.length?20:0),
+       (profile?.hourlyRate?15:0),(profile?.location?10:0),(profile?.workExperience?.length?15:0),(profile?.certificates?.length?10:0)]
+      .reduce((a,b)=>a+b,0));
+
+    el.innerHTML = `
+      <h2 style="font-family:Sora,sans-serif;font-weight:800;margin-bottom:24px">Добре дошъл, ${u.name.split(' ')[0]}! 👋</h2>
+      <div class="stat-cards">
+        <div class="stat-card"><div class="stat-num">${bids.length}</div><div class="stat-lbl">Общо оферти</div></div>
+        <div class="stat-card"><div class="stat-num">${pending}</div><div class="stat-lbl">Чакащи</div></div>
+        <div class="stat-card"><div class="stat-num">${accepted}</div><div class="stat-lbl">Приети</div></div>
+        <div class="stat-card"><div class="stat-num">${complete}%</div><div class="stat-lbl">Профил попълнен</div></div>
+      </div>
+      ${complete < 80 ? `
+        <div class="alert alert-info show" style="margin-bottom:20px">
+          💡 Профилът ти е попълнен на ${complete}%. <a href="/pages/profile.html" style="color:var(--blue);font-weight:700">Попълни го сега →</a>
+        </div>` : ''}
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;flex-wrap:wrap">
+        <a href="/pages/profile.html" class="card" style="text-decoration:none;display:flex;align-items:center;gap:14px;padding:20px">
+          <span style="font-size:2rem">👤</span>
+          <div><div style="font-family:Sora,sans-serif;font-weight:700">Редактирай профил</div><div style="font-size:.82rem;color:var(--g500)">Снимка, умения, опит</div></div>
+        </a>
+        <a href="/pages/services.html" class="card" style="text-decoration:none;display:flex;align-items:center;gap:14px;padding:20px">
+          <span style="font-size:2rem">🛠</span>
+          <div><div style="font-family:Sora,sans-serif;font-weight:700">Управлявай услуги</div><div style="font-size:.82rem;color:var(--g500)">Добави, редактирай, изтрий</div></div>
+        </a>
+        <a href="/pages/projects.html" class="card" style="text-decoration:none;display:flex;align-items:center;gap:14px;padding:20px">
+          <span style="font-size:2rem">🔍</span>
+          <div><div style="font-family:Sora,sans-serif;font-weight:700">Разгледай проекти</div><div style="font-size:.82rem;color:var(--g500)">Намери работа</div></div>
+        </a>
+        <div class="card" style="display:flex;align-items:center;gap:14px;padding:20px;cursor:pointer" onclick="showTab('bids')">
+          <span style="font-size:2rem">📨</span>
+          <div><div style="font-family:Sora,sans-serif;font-weight:700">Мои оферти</div><div style="font-size:.82rem;color:var(--g500)">${pending} чакащи</div></div>
+        </div>
+      </div>`;
+  } else {
+    const projects = await apiFetch('/projects?status=Open').catch(()=>[]);
+    const mine = projects.filter(p => p.clientId === u.id);
+    el.innerHTML = `
+      <h2 style="font-family:Sora,sans-serif;font-weight:800;margin-bottom:24px">Добре дошъл, ${u.name.split(' ')[0]}! 👋</h2>
+      <div class="stat-cards">
+        <div class="stat-card"><div class="stat-num">${mine.length}</div><div class="stat-lbl">Активни проекти</div></div>
+        <div class="stat-card"><div class="stat-num">${mine.reduce((a,p)=>a+p.bidCount,0)}</div><div class="stat-lbl">Общо оферти</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <a href="/pages/projects.html" class="card" style="text-decoration:none;display:flex;align-items:center;gap:14px;padding:20px">
+          <span style="font-size:2rem">➕</span>
+          <div><div style="font-family:Sora,sans-serif;font-weight:700">Публикувай проект</div><div style="font-size:.82rem;color:var(--g500)">Намери фрийлансър</div></div>
+        </a>
+        <div class="card" style="display:flex;align-items:center;gap:14px;padding:20px;cursor:pointer" onclick="showTab('myprojects')">
+          <span style="font-size:2rem">📋</span>
+          <div><div style="font-family:Sora,sans-serif;font-weight:700">Мои проекти</div><div style="font-size:.82rem;color:var(--g500)">${mine.length} активни</div></div>
+        </div>
+        <a href="/pages/freelancers.html" class="card" style="text-decoration:none;display:flex;align-items:center;gap:14px;padding:20px">
+          <span style="font-size:2rem">🔍</span>
+          <div><div style="font-family:Sora,sans-serif;font-weight:700">Намери фрийлансър</div><div style="font-size:.82rem;color:var(--g500)">Разгледай профили</div></div>
+        </a>
+      </div>`;
+  }
+}
+
+// ── BIDS ─────────────────────────────────────────────
+async function renderBids() {
+  const el = document.getElementById('content');
+  el.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+  try {
+    const bids = await apiFetch('/bids/mine');
+    if (!bids.length) { el.innerHTML = '<div class="empty"><div class="icon">📭</div><p>Нямаш подадени оферти все още.</p><a href="/pages/projects.html" class="btn btn-primary" style="margin-top:14px">Разгледай проекти</a></div>'; return; }
+    el.innerHTML = `<h3 style="font-family:Sora,sans-serif;font-weight:800;margin-bottom:20px">Мои оферти (${bids.length})</h3>` +
+      bids.map(b => {
+        const badge = { Pending:'badge-orange', Accepted:'badge-green', Rejected:'badge-red' }[b.status] || 'badge-gray';
+        const label = { Pending:'⏳ Чака', Accepted:'✅ Приета', Rejected:'❌ Отказана' }[b.status] || b.status;
+        return `<div class="item-row">
+          <div style="flex:1">
+            <div class="item-title">${b.projectTitle}</div>
+            <div class="item-meta">${b.amount} € · ${b.deliveryDays} дни</div>
+            ${b.coverLetter ? `<div style="font-size:.82rem;color:var(--g500);margin-top:4px">${b.coverLetter.substring(0,100)}…</div>` : ''}
+          </div>
+          <span class="badge ${badge}">${label}</span>
+        </div>`;
+      }).join('');
+  } catch(e) { el.innerHTML = `<div class="empty"><div class="icon">⚠️</div><p>${e.message}</p></div>`; }
+}
+
+// ── MY PROJECTS ──────────────────────────────────────
+async function renderMyProjects() {
+  const el = document.getElementById('content');
+  el.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+  try {
+    const all = await apiFetch('/projects?status=Open');
+    const mine = all.filter(p => p.clientId === u.id);
+    if (!mine.length) {
+      el.innerHTML = '<div class="empty"><div class="icon">📋</div><p>Нямаш публикувани проекти.</p><a href="/pages/projects.html" class="btn btn-orange" style="margin-top:14px">+ Публикувай проект</a></div>';
+      return;
+    }
+    el.innerHTML = `<h3 style="font-family:Sora,sans-serif;font-weight:800;margin-bottom:20px">Мои проекти (${mine.length})</h3>` +
+      mine.map(p => `
+        <div class="item-row">
+          <div style="flex:1">
+            <div class="item-title">${p.title}</div>
+            <div class="item-meta">${p.category} · ${p.budgetMin}–${p.budgetMax} € · ${p.bidCount} оферти</div>
+          </div>
+          <button class="btn btn-ghost btn-sm" onclick="viewBids(${p.id},'${p.title.replace(/'/g,"\\'")}')">Оферти</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteProject(${p.id})">Изтрий</button>
+        </div>`).join('');
+  } catch(e) { el.innerHTML = `<div class="empty"><p>${e.message}</p></div>`; }
+}
+
+async function viewBids(projectId, title) {
+  const el = document.getElementById('content');
+  el.innerHTML = `<div style="display:flex;align-items:center;gap:12px;margin-bottom:20px"><button class="btn btn-ghost btn-sm" onclick="renderMyProjects()">← Назад</button><h3 style="font-family:Sora,sans-serif;font-weight:800">Оферти: ${title}</h3></div><div class="loading"><div class="spinner"></div></div>`;
+  try {
+    const bids = await apiFetch(`/bids/project/${projectId}`);
+    const container = document.createElement('div');
+    if (!bids.length) { container.innerHTML = '<div class="empty"><div class="icon">📭</div><p>Няма оферти за този проект.</p></div>'; }
+    else container.innerHTML = bids.map(b => {
+      const badge = { Pending:'badge-orange', Accepted:'badge-green', Rejected:'badge-red' }[b.status];
+      const label = { Pending:'⏳ Чака', Accepted:'✅ Приета', Rejected:'❌ Отказана' }[b.status];
+      return `<div class="item-row" style="flex-direction:column;align-items:flex-start;gap:10px">
+        <div style="display:flex;width:100%;align-items:center;gap:12px">
+          <div style="flex:1"><div class="item-title">${b.freelancerName} — ${b.freelancerTitle}</div>
+          <div class="item-meta">${b.amount} € · ${b.deliveryDays} дни</div></div>
+          <span class="badge ${badge}">${label}</span>
+        </div>
+        ${b.coverLetter ? `<p style="font-size:.87rem;color:var(--g700);line-height:1.6">${b.coverLetter}</p>` : ''}
+        ${b.status === 'Pending' ? `<div style="display:flex;gap:8px">
+          <button class="btn btn-primary btn-sm" onclick="decideBid(${b.id},'Accepted')">✅ Приеми</button>
+          <button class="btn btn-danger btn-sm" onclick="decideBid(${b.id},'Rejected')">❌ Откажи</button>
+        </div>` : ''}
+      </div>`;
+    }).join('');
+    el.querySelector('.loading')?.replaceWith(container);
+  } catch(e) { el.innerHTML += `<p>${e.message}</p>`; }
+}
+
+async function decideBid(bidId, status) {
+  try {
+    await apiFetch(`/bids/${bidId}/status`, { method:'PATCH', body: JSON.stringify(status) });
+    renderMyProjects();
+  } catch(e) { alert(e.message); }
+}
+
+async function deleteProject(id) {
+  if (!confirm('Сигурен ли си, че искаш да изтриеш проекта?')) return;
+  try {
+    await apiFetch(`/projects/${id}`, { method:'DELETE' });
+    renderMyProjects();
+  } catch(e) { alert(e.message); }
+}
+
+buildMenu('overview');
+renderOverview();
+</script>
+</body>
+</html>

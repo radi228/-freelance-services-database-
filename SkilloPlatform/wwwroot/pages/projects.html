@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Проекти – Skillo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <style>
+    .filters{background:#fff;border-radius:var(--rl);padding:24px;box-shadow:var(--sh);margin-bottom:28px;display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end}
+    .filter-group{display:flex;flex-direction:column;gap:6px}
+    .filter-group label{font-size:.78rem;font-weight:700;color:var(--g700);text-transform:uppercase;letter-spacing:.04em}
+    .filter-group input,.filter-group select{padding:9px 14px;border:2px solid var(--g200);border-radius:var(--r);font-family:'DM Sans',sans-serif;font-size:.88rem;outline:none;transition:.2s}
+    .filter-group input:focus,.filter-group select:focus{border-color:var(--blue)}
+    .proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:22px}
+    .proj-card{background:#fff;border-radius:var(--rl);padding:26px;box-shadow:var(--sh);border:1px solid var(--g200);transition:all .25s}
+    .proj-card:hover{transform:translateY(-4px);box-shadow:var(--shl)}
+    .proj-cat{display:inline-block;padding:3px 12px;border-radius:20px;background:rgba(27,95,168,.1);color:var(--blue);font-size:.74rem;font-weight:700;margin-bottom:12px}
+    .proj-title{font-family:'Sora',sans-serif;font-weight:700;font-size:1.05rem;margin-bottom:8px}
+    .proj-desc{color:var(--g500);font-size:.87rem;line-height:1.6;margin-bottom:14px}
+    .proj-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+    .ptag{padding:3px 10px;border-radius:20px;background:var(--g100);color:var(--g700);font-size:.76rem}
+    .proj-footer{display:flex;align-items:center;justify-content:space-between;padding-top:14px;border-top:1px solid var(--g200)}
+    .budget{font-family:'Sora',sans-serif;font-weight:700;color:var(--orange);font-size:1rem}
+    .budget-lbl{color:var(--g500);font-size:.74rem;margin-bottom:2px}
+  </style>
+</head>
+<body>
+<nav id="main-nav">
+  <a href="/index.html" class="logo"><div class="logo-icon">🚀</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
+  <ul class="nav-links"></ul>
+  <div class="nav-cta">
+    <a href="#" id="nav-login-btn" class="btn btn-outline btn-sm" onclick="window.location='/index.html#login';return false">Вход</a>
+    <a href="#" id="nav-register-btn" class="btn btn-orange btn-sm" onclick="window.location='/index.html#register';return false">Регистрация</a>
+    <div id="nav-user" style="display:none;align-items:center;gap:8px">
+      <div id="nav-user-avatar" style="width:34px;height:34px;border-radius:50%;background:var(--g100);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--blue);border:2px solid var(--blue);overflow:hidden;cursor:pointer"></div>
+      <span id="nav-user-name" style="font-size:.88rem;font-weight:600;color:var(--blue)"></span>
+      <a href="/pages/chat.html" id="nav-chat-btn" class="btn btn-ghost btn-sm" style="display:none" title="Съобщения">💬</a>
+      <a href="/pages/dashboard.html" class="btn btn-ghost btn-sm">Табло</a>
+      <a id="nav-admin-link" href="/pages/admin.html" class="btn btn-ghost btn-sm" style="display:none">⚙ Админ</a>
+      <button onclick="logout()" class="btn btn-ghost btn-sm">Изход</button>
+    </div>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <h1>📋 Активни проекти</h1>
+  <p>Намери проект за твоите умения и кандидатствай сега</p>
+</div>
+
+<div class="page-wrap" style="padding-top:40px">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px">
+    <div id="results-info" style="color:var(--g500);font-size:.88rem"></div>
+    <button id="post-btn" class="btn btn-orange" onclick="openPostProject()" style="display:none">+ Публикувай проект</button>
+  </div>
+
+  <div class="filters">
+    <div class="filter-group" style="flex:2;min-width:200px">
+      <label>Търси</label>
+      <input id="f-search" type="text" placeholder="Ключова дума…" oninput="load()"/>
+    </div>
+    <div class="filter-group">
+      <label>Категория</label>
+      <select id="f-cat" onchange="load()"><option value="">Всички</option></select>
+    </div>
+    <button class="btn btn-ghost" onclick="document.getElementById('f-search').value='';document.getElementById('f-cat').value='';load()">✕ Изчисти</button>
+  </div>
+
+  <div class="proj-grid" id="proj-grid">
+    <div class="loading" style="grid-column:1/-1"><div class="spinner"></div></div>
+  </div>
+</div>
+
+<!-- BID MODAL -->
+<div class="modal-overlay" id="bid-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('bid-modal')">✕</button>
+    <h2>Подай оферта</h2>
+    <p class="modal-sub" id="bid-proj-title"></p>
+    <div id="bid-alert" class="alert"></div>
+    <input type="hidden" id="bid-proj-id"/>
+    <div class="form-row">
+      <div class="form-group"><label>Сума (лв)</label><input id="bid-amount" type="number" placeholder="1500"/></div>
+      <div class="form-group"><label>Срок (дни)</label><input id="bid-days" type="number" placeholder="21"/></div>
+    </div>
+    <div class="form-group"><label>Мотивационно писмо</label><textarea id="bid-letter" placeholder="Защо си подходящ?"></textarea></div>
+    <button class="btn btn-orange btn-full" style="padding:13px" onclick="submitBid()">Изпрати оферта</button>
+  </div>
+</div>
+
+<!-- POST PROJECT MODAL -->
+<div class="modal-overlay" id="post-modal">
+  <div class="modal modal-lg">
+    <button class="modal-close" onclick="closeModal('post-modal')">✕</button>
+    <h2>Публикувай проект</h2>
+    <p class="modal-sub">Опиши задачата и получи оферти от фрийлансъри</p>
+    <div id="post-alert" class="alert"></div>
+    <div class="form-group"><label>Заглавие</label><input id="pp-title" placeholder="напр. Разработка на уебсайт"/></div>
+    <div class="form-group"><label>Описание</label><textarea id="pp-desc" placeholder="Опиши подробно задачата…"></textarea></div>
+    <div class="form-row">
+      <div class="form-group" style="grid-column:1/-1">
+        <label>Категории (избери една или повече)</label>
+        <div id="pp-cats-wrap" style="display:flex;flex-wrap:wrap;gap:8px;padding:10px;border:2px solid var(--g200);border-radius:var(--r);min-height:46px;"></div>
+        <input type="hidden" id="pp-cat"/>
+      </div>
+      <div class="form-group"><label>Срок (дни)</label><input id="pp-deadline" type="number" placeholder="30"/></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Бюджет от (€)</label><input id="pp-bmin" type="number" placeholder="500"/></div>
+      <div class="form-group"><label>Бюджет до (€)</label><input id="pp-bmax" type="number" placeholder="2000"/></div>
+    </div>
+    <div class="form-group"><label>Необходими умения (натисни Enter)</label>
+      <div class="skills-input-wrap" id="pp-skills-wrap"><input id="pp-skills-input" placeholder="React…"/></div>
+      <input type="hidden" id="pp-skills-hidden"/>
+    </div>
+    <button class="btn btn-orange btn-full" style="padding:13px" onclick="submitProject()">Публикувай</button>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="/index.html" class="logo" style="color:#fff"><div class="logo-icon">🚀</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
+      <p>Платформата за фрийланс услуги, свързваща бизнеси с проверени специалисти.</p>
+    </div>
+    <div class="footer-col"><h4>Платформа</h4><ul>
+      <li><a href="/pages/freelancers.html">Фрийлансъри</a></li>
+      <li><a href="/pages/projects.html">Проекти</a></li>
+      <li><a href="/pages/how-it-works.html">Как работи</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Компания</h4><ul>
+      <li><a href="/pages/about.html">За нас</a></li>
+      <li><a href="/pages/contact.html">Контакти</a></li>
+      <li><a href="/pages/privacy.html">Поверителност</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Правни</h4><ul>
+      <li><a href="/pages/terms.html">Условия за ползване</a></li>
+      <li><a href="/pages/privacy.html">Поверителност</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom"><p>© 2025 Skillo. Всички права запазени.</p></div>
+</footer>
+
+<script src="/js/shared.js"></script>
+<script>
+let cats = [];
+
+async function init() {
+  const catsRaw = await apiFetch('/categories').catch(() => []);
+  cats = Array.isArray(catsRaw) ? catsRaw : (catsRaw?.$values || catsRaw?.value || []);
+  const sel = document.getElementById('f-cat');
+  if (sel) cats.forEach(cat => sel.add(new Option(cat.name, cat.name)));
+
+  // Build category chips for post modal
+  const wrap = document.getElementById('pp-cats-wrap');
+  if (wrap) {
+    wrap.innerHTML = cats.map(cat => `
+      <span class="cat-chip" data-val="${cat.name}" 
+        onclick="toggleCat(this, '${cat.name.replace(/'/g,"\'")}')
+        " style="display:inline-flex;align-items:center;gap:5px;padding:6px 14px;
+        border:2px solid var(--g200);border-radius:20px;cursor:pointer;
+        font-size:.82rem;font-weight:600;transition:all .15s;background:#fff;color:var(--g700)">
+        ${cat.icon||'📁'} ${cat.name}
+      </span>`).join('');
+  }
+
+  const u = Auth.user();
+  if (u?.role === 'Client') document.getElementById('post-btn').style.display = '';
+  initSkillsInput('pp-skills-wrap', 'pp-skills-input', 'pp-skills-hidden');
+  load();
+}
+
+function toggleCat(el) {
+  const selected = el.getAttribute('data-selected') === 'true';
+  if (selected) {
+    el.removeAttribute('data-selected');
+    el.style.background = '#fff';
+    el.style.color = 'var(--g700)';
+    el.style.borderColor = 'var(--g200)';
+  } else {
+    el.setAttribute('data-selected', 'true');
+    el.style.background = 'var(--blue)';
+    el.style.color = '#fff';
+    el.style.borderColor = 'var(--blue)';
+  }
+  // Update hidden input
+  const selected2 = [...document.querySelectorAll('#pp-cats-wrap [data-selected]')].map(e=>e.getAttribute('data-val'));
+  document.getElementById('pp-cat').value = selected2.join(',');
+}
+
+async function load() {
+  const search = document.getElementById('f-search').value.trim();
+  const cat    = document.getElementById('f-cat').value;
+  const params = new URLSearchParams();
+  if (search) params.set('search', search);
+  if (cat)    params.set('category', cat);
+
+  const grid = document.getElementById('proj-grid');
+  grid.innerHTML = '<div class="loading" style="grid-column:1/-1"><div class="spinner"></div></div>';
+
+  try {
+    const raw = await apiFetch('/projects?' + params);
+    const list = Array.isArray(raw) ? raw : (raw?.$values || raw?.value || []);
+    const projArr = Array.isArray(list) ? list : (list?.$values || list?.value || []);
+    list = projArr;
+    document.getElementById('results-info').textContent = `${list.length} активни проекта`;
+    if (!list.length) {
+      grid.innerHTML = '<div class="empty" style="grid-column:1/-1"><div class="icon">📭</div><p>Няма намерени проекти.</p></div>';
+      return;
+    }
+    grid.innerHTML = list.map(p => `
+      <div class="proj-card">
+        <div class="proj-cat">${p.category}</div>
+        <div class="proj-title">${p.title}</div>
+        <div class="proj-desc">${p.description.substring(0,150)}${p.description.length>150?'…':''}</div>
+        <div class="proj-tags">${(p.requiredSkills||[]).map(s=>`<span class="ptag">${s}</span>`).join('')}</div>
+        <div class="proj-footer">
+          <div>
+            <div class="budget-lbl">Бюджет</div>
+            <div class="budget">${p.budgetMin} – ${p.budgetMax} €</div>
+          </div>
+          <div style="text-align:right">
+            <div class="budget-lbl">Срок / Оферти</div>
+            <div style="font-size:.84rem;color:var(--g700)">${p.deadlineDays}д · ${p.bidCount} оферти</div>
+          </div>
+        </div>
+        ${canBid() ? `<button class="btn btn-orange btn-full" style="margin-top:14px;padding:11px" onclick="openBid(${p.id},'${p.title.replace(/'/g,"\\'")}')">Кандидатствай</button>` : ''}
+      </div>`).join('');
+  } catch(e) {
+    grid.innerHTML = `<div class="empty" style="grid-column:1/-1"><div class="icon">⚠️</div><p>${e.message}</p></div>`;
+  }
+}
+
+function canBid() { const u = Auth.user(); return u?.role === 'Freelancer'; }
+
+function openBid(id, title) {
+  if (!Auth.loggedIn()) { window.location.href = '/index.html'; return; }
+  document.getElementById('bid-proj-id').value = id;
+  document.getElementById('bid-proj-title').textContent = title;
+  hideAlert('bid-alert');
+  openModal('bid-modal');
+}
+
+async function submitBid() {
+  hideAlert('bid-alert');
+  try {
+    await apiFetch('/bids', { method:'POST', body: JSON.stringify({
+      projectId: parseInt(document.getElementById('bid-proj-id').value),
+      amount: parseFloat(document.getElementById('bid-amount').value),
+      coverLetter: document.getElementById('bid-letter').value,
+      deliveryDays: parseInt(document.getElementById('bid-days').value) || 30,
+    })});
+    closeModal('bid-modal');
+    showAlert('bid-alert', 'Офертата е изпратена!', 'success');
+    load();
+  } catch(e) { showAlert('bid-alert', e.message); }
+}
+
+function openPostProject() {
+  hideAlert('post-alert');
+  // Reset category chips
+  document.querySelectorAll('#pp-cats-wrap [data-selected]').forEach(el => {
+    el.removeAttribute('data-selected');
+    el.style.background = '#fff';
+    el.style.color = 'var(--g700)';
+    el.style.borderColor = 'var(--g200)';
+  });
+  document.getElementById('pp-cat').value = '';
+  openModal('post-modal');
+}
+
+async function submitProject() {
+  hideAlert('post-alert');
+  try {
+    const skills = document.getElementById('pp-skills-hidden').value.split(',').filter(Boolean);
+    await apiFetch('/projects', { method:'POST', body: JSON.stringify({
+      title: document.getElementById('pp-title').value.trim(),
+      description: document.getElementById('pp-desc').value.trim(),
+      category: document.getElementById('pp-cat').value,
+      budgetMin: parseFloat(document.getElementById('pp-bmin').value) || 0,
+      budgetMax: parseFloat(document.getElementById('pp-bmax').value) || 0,
+      deadlineDays: parseInt(document.getElementById('pp-deadline').value) || 30,
+      requiredSkills: skills,
+    })});
+    closeModal('post-modal');
+    load();
+  } catch(e) { showAlert('post-alert', e.message); }
+}
+
+init();
+</script>
+</body>
+</html>

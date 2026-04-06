@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Оферти от фрийлансъри – Skillo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <style>
+    .filters{background:#fff;border-radius:var(--rl);padding:20px 24px;box-shadow:var(--sh);margin-bottom:28px;display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end;border:1px solid var(--g200)}
+    .filter-group{display:flex;flex-direction:column;gap:6px}
+    .filter-group label{font-size:.76rem;font-weight:700;color:var(--g700);text-transform:uppercase;letter-spacing:.04em}
+    .filter-group input,.filter-group select{padding:9px 14px;border:2px solid var(--g200);border-radius:var(--r);font-family:'DM Sans',sans-serif;font-size:.88rem;outline:none;transition:.2s}
+    .filter-group input:focus,.filter-group select:focus{border-color:var(--blue)}
+    .svc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:20px}
+    .svc-card{background:#fff;border-radius:var(--rl);padding:24px;box-shadow:var(--sh);border:1px solid var(--g200);transition:all .22s;display:flex;flex-direction:column}
+    .svc-card:hover{transform:translateY(-4px);box-shadow:var(--shl);border-color:var(--blue)}
+    .svc-provider{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--g100)}
+    .prov-av{width:38px;height:38px;border-radius:50%;background:var(--g100);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--blue);font-size:.9rem;overflow:hidden;flex-shrink:0;border:2px solid var(--g200)}
+    .prov-av img{width:100%;height:100%;object-fit:cover}
+    .prov-name{font-weight:700;font-size:.9rem}
+    .prov-cat{font-size:.75rem;color:var(--g500)}
+    .svc-title{font-family:'Sora',sans-serif;font-weight:800;font-size:1rem;margin-bottom:8px;line-height:1.3}
+    .svc-desc{color:var(--g500);font-size:.85rem;line-height:1.6;margin-bottom:14px;flex:1}
+    .svc-meta-row{display:flex;gap:14px;margin-bottom:14px;font-size:.82rem;color:var(--g700);flex-wrap:wrap}
+    .svc-meta-item{display:flex;align-items:center;gap:4px}
+    .svc-footer{display:flex;align-items:center;justify-content:space-between;padding-top:14px;border-top:1px solid var(--g100)}
+    .svc-price{font-family:'Sora',sans-serif;font-weight:800;color:var(--blue);font-size:1.15rem}
+    .svc-price span{font-size:.78rem;color:var(--g500);font-weight:400}
+    .ptype-badge{padding:3px 10px;border-radius:20px;font-size:.72rem;font-weight:700}
+  </style>
+</head>
+<body>
+<nav id="main-nav">
+  <a href="/index.html" class="logo"><div class="logo-icon">🚀</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
+  <ul class="nav-links"></ul>
+  <div class="nav-cta">
+    <a href="#" id="nav-login-btn" class="btn btn-outline btn-sm" onclick="window.location='/index.html#login';return false">Вход</a>
+    <a href="#" id="nav-register-btn" class="btn btn-orange btn-sm" onclick="window.location='/index.html#register';return false">Регистрация</a>
+    <div id="nav-user" style="display:none;align-items:center;gap:8px">
+      <div id="nav-user-avatar" style="width:34px;height:34px;border-radius:50%;background:var(--g100);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--blue);border:2px solid var(--blue);overflow:hidden;cursor:pointer"></div>
+      <span id="nav-user-name" style="font-size:.88rem;font-weight:600;color:var(--blue)"></span>
+      <a href="/pages/chat.html" id="nav-chat-btn" class="btn btn-ghost btn-sm" style="display:none" title="Съобщения">💬</a>
+      <a href="/pages/dashboard.html" class="btn btn-ghost btn-sm">Табло</a>
+      <a id="nav-admin-link" href="/pages/admin.html" class="btn btn-ghost btn-sm" style="display:none">⚙ Админ</a>
+      <button onclick="logout()" class="btn btn-ghost btn-sm">Изход</button>
+    </div>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <h1>🛍 Оферти от фрийлансъри</h1>
+  <p>Готови предложения с фиксирани цени — избери и поръчай директно</p>
+</div>
+
+<div class="page-wrap" style="padding-top:36px">
+  <div class="filters">
+    <div class="filter-group" style="flex:2;min-width:200px">
+      <label>Търси услуга</label>
+      <input id="f-search" type="text" placeholder="напр. лого, уебсайт, SEO…" oninput="load()"/>
+    </div>
+    <div class="filter-group">
+      <label>Категория</label>
+      <select id="f-cat" onchange="load()"><option value="">Всички</option></select>
+    </div>
+    <div class="filter-group">
+      <label>Сортирай по</label>
+      <select id="f-sort" onchange="load()">
+        <option value="newest">Най-нови</option>
+        <option value="price-asc">Цена: ниска → висока</option>
+        <option value="price-desc">Цена: висока → ниска</option>
+      </select>
+    </div>
+    <button class="btn btn-ghost btn-sm" onclick="clearF()">✕ Изчисти</button>
+  </div>
+
+  <div id="results-bar" style="color:var(--g500);font-size:.88rem;margin-bottom:16px"></div>
+
+  <div id="svc-grid" class="svc-grid">
+    <div class="loading" style="grid-column:1/-1"><div class="spinner"></div></div>
+  </div>
+</div>
+
+<!-- SERVICE DETAIL MODAL -->
+<div class="modal-overlay" id="svc-detail-modal">
+  <div class="modal modal-lg">
+    <button class="modal-close" onclick="closeModal('svc-detail-modal')">✕</button>
+    <div id="svc-detail-body"></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="/index.html" class="logo" style="color:#fff"><div class="logo-icon">🚀</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
+      <p>Платформата за фрийланс услуги, свързваща бизнеси с проверени специалисти.</p>
+    </div>
+    <div class="footer-col"><h4>Платформа</h4><ul>
+      <li><a href="/pages/freelancers.html">Фрийлансъри</a></li>
+      <li><a href="/pages/projects.html">Проекти</a></li>
+      <li><a href="/pages/how-it-works.html">Как работи</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Компания</h4><ul>
+      <li><a href="/pages/about.html">За нас</a></li>
+      <li><a href="/pages/contact.html">Контакти</a></li>
+      <li><a href="/pages/privacy.html">Поверителност</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Правни</h4><ul>
+      <li><a href="/pages/terms.html">Условия за ползване</a></li>
+      <li><a href="/pages/privacy.html">Поверителност</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom"><p>© 2025 Skillo. Всички права запазени.</p></div>
+</footer>
+
+<script src="/js/shared.js"></script>
+<script>
+const emojis = ['👨‍💻','🎨','✍️','📊','🎬','🤖','📱','🔒','🌐','📈'];
+const serviceMap = {};
+const ptypeLabel = { fixed:'Фиксирана', hourly:'На час', monthly:'На месец' };
+const ptypeSuffix = { fixed:'еднократно', hourly:'/час', monthly:'/месец' };
+
+async function initCats() {
+  const cats = await apiFetch('/categories').catch(() => []);
+  const sel = document.getElementById('f-cat');
+  const catArr = Array.isArray(cats) ? cats : []; catArr.forEach(c => sel.add(new Option(c.name, c.name)));
+
+  const p = new URLSearchParams(location.search);
+  if (p.get('category')) sel.value = p.get('category');
+  if (p.get('search'))   document.getElementById('f-search').value = p.get('search');
+}
+
+async function load() {
+  const search = document.getElementById('f-search').value.trim();
+  const cat    = document.getElementById('f-cat').value;
+  const sort   = document.getElementById('f-sort').value;
+  const params = new URLSearchParams();
+  if (search) params.set('search', search);
+  if (cat)    params.set('category', cat);
+
+  const grid = document.getElementById('svc-grid');
+  grid.innerHTML = '<div class="loading" style="grid-column:1/-1"><div class="spinner"></div></div>';
+
+  try {
+    let list = await apiFetch('/services?' + params);
+
+    if (sort === 'price-asc')  list.sort((a,b) => a.price - b.price);
+    if (sort === 'price-desc') list.sort((a,b) => b.price - a.price);
+
+    document.getElementById('results-bar').textContent = `${list.length} оферти намерени`;
+
+    if (!list.length) {
+      grid.innerHTML = '<div class="empty" style="grid-column:1/-1"><div class="icon">🔍</div><p>Няма намерени оферти. Опитай с различни филтри.</p></div>';
+      return;
+    }
+
+    list.forEach(s => { serviceMap[s.id] = s; });
+    grid.innerHTML = list.map((s,i) => {
+      const av = s.avatar
+        ? `<img src="http://localhost:5000${s.avatar}" alt=""/>`
+        : emojis[i % emojis.length];
+      return `
+      <div class="svc-card">
+        <div class="svc-provider">
+          <div class="prov-av">${av}</div>
+          <div>
+            <div class="prov-name">${s.freelancerName}</div>
+            <div class="prov-cat">${s.category || 'Фрийлансър'}</div>
+          </div>
+          <a href="/pages/freelancer-detail.html?id=${s.userId}" target="_blank"
+             class="btn btn-ghost btn-sm" style="margin-left:auto">Профил</a>
+        </div>
+        <div class="svc-title">${s.title}</div>
+        <div class="svc-desc">${(s.description||'').substring(0,120)}${(s.description||'').length>120?'…':''}</div>
+        <div class="svc-meta-row">
+          <div class="svc-meta-item">⏱ ${s.deliveryDays} дни</div>
+          <div class="svc-meta-item">🔄 ${s.revisions} корекции</div>
+          <span class="ptype-badge badge-blue">${ptypeLabel[s.priceType]||'Фиксирана'}</span>
+        </div>
+        <div class="svc-footer">
+          <div class="svc-price">${s.price} € <span>${ptypeSuffix[s.priceType]||''}</span></div>
+          <button class="btn btn-orange btn-sm" onclick="viewDetail(${s.id})">
+            Виж детайли
+          </button>
+        </div>
+      </div>`;
+    }).join('');
+  } catch(e) {
+    grid.innerHTML = `<div class="empty" style="grid-column:1/-1"><div class="icon">⚠️</div><p>${e.message}</p></div>`;
+  }
+}
+
+function viewDetail(id) {
+  const s = serviceMap[id];
+  if (!s) return;
+  const av = s.avatar
+    ? `<img src="http://localhost:5000${s.avatar}" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:50%"/>`
+    : (s.freelancerName?.[0] || '?');
+  document.getElementById('svc-detail-body').innerHTML = `
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--g200)">
+      <div class="prov-av" style="width:48px;height:48px;font-size:1.3rem">${av}</div>
+      <div>
+        <div style="font-weight:700">${s.freelancerName}</div>
+        <div style="color:var(--g500);font-size:.82rem">${s.category||'Фрийлансър'}</div>
+      </div>
+      <a href="/pages/freelancer-detail.html?id=${s.userId}" target="_blank" class="btn btn-outline btn-sm" style="margin-left:auto">Виж профил</a>
+    </div>
+    <h2 style="font-family:Sora,sans-serif;font-weight:800;font-size:1.3rem;margin-bottom:12px">${s.title}</h2>
+    <p style="color:var(--g700);line-height:1.7;margin-bottom:20px">${s.description||''}</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:20px">
+      <div style="background:var(--g100);border-radius:var(--r);padding:14px;text-align:center">
+        <div style="font-family:Sora,sans-serif;font-weight:800;font-size:1.2rem;color:var(--blue)">${s.price} €</div>
+        <div style="font-size:.74rem;color:var(--g500)">${ptypeSuffix[s.priceType]||'цена'}</div>
+      </div>
+      <div style="background:var(--g100);border-radius:var(--r);padding:14px;text-align:center">
+        <div style="font-family:Sora,sans-serif;font-weight:800;font-size:1.2rem;color:var(--blue)">${s.deliveryDays}</div>
+        <div style="font-size:.74rem;color:var(--g500)">дни срок</div>
+      </div>
+      <div style="background:var(--g100);border-radius:var(--r);padding:14px;text-align:center">
+        <div style="font-family:Sora,sans-serif;font-weight:800;font-size:1.2rem;color:var(--blue)">${s.revisions}</div>
+        <div style="font-size:.74rem;color:var(--g500)">корекции</div>
+      </div>
+    </div>
+    <button class="btn btn-orange btn-full" style="padding:14px;font-size:1rem" onclick="contactFreelancer(${s.userId})">
+      💬 Свържи се с фрийлансъра
+    </button>
+  `;
+  openModal('svc-detail-modal');
+}
+
+function clearF() {
+  document.getElementById('f-search').value = '';
+  document.getElementById('f-cat').value    = '';
+  document.getElementById('f-sort').value   = 'newest';
+  load();
+}
+
+initCats().then(load);
+</script>
+</body>
+</html>

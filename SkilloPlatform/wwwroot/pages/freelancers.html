@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Фрийлансъри – Skillo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <style>
+    .filters{background:#fff;border-radius:var(--rl);padding:24px;box-shadow:var(--sh);margin-bottom:32px;display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end}
+    .filter-group{display:flex;flex-direction:column;gap:6px;min-width:160px}
+    .filter-group label{font-size:.78rem;font-weight:700;color:var(--g700);text-transform:uppercase;letter-spacing:.04em}
+    .filter-group input,.filter-group select{padding:9px 14px;border:2px solid var(--g200);border-radius:var(--r);font-family:'DM Sans',sans-serif;font-size:.88rem;outline:none;transition:.2s}
+    .filter-group input:focus,.filter-group select:focus{border-color:var(--blue)}
+    .fl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:22px}
+    .fl-card{background:#fff;border-radius:var(--rl);padding:26px;box-shadow:var(--sh);border:1px solid var(--g200);transition:all .25s;text-decoration:none;display:block;color:inherit}
+    .fl-card:hover{transform:translateY(-5px);box-shadow:var(--shl)}
+    .fl-top{display:flex;align-items:flex-start;gap:14px;margin-bottom:14px}
+    .fl-av{width:58px;height:58px;border-radius:50%;object-fit:cover;border:2px solid var(--g200);background:var(--g100);display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;overflow:hidden}
+    .fl-av img{width:100%;height:100%;object-fit:cover}
+    .fl-name{font-family:'Sora',sans-serif;font-weight:700}
+    .fl-title{font-size:.82rem;color:var(--g500);margin-top:2px}
+    .fl-skills{display:flex;flex-wrap:wrap;gap:5px;margin:10px 0}
+    .sp{padding:3px 10px;border-radius:20px;background:rgba(27,95,168,.08);color:var(--blue);font-size:.75rem;font-weight:500}
+    .fl-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:14px;padding-top:14px;border-top:1px solid var(--g200)}
+    .fl-price{font-family:'Sora',sans-serif;font-weight:700;color:var(--blue);font-size:1rem}
+    .fl-price span{color:var(--g500);font-size:.78rem;font-weight:400}
+    .results-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+    .results-bar span{color:var(--g500);font-size:.88rem}
+  </style>
+</head>
+<body>
+<nav id="main-nav">
+  <a href="/index.html" class="logo"><div class="logo-icon">🚀</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
+  <ul class="nav-links"></ul>
+  <div class="nav-cta">
+    <a href="#" id="nav-login-btn" class="btn btn-outline btn-sm" onclick="window.location='/index.html#login';return false">Вход</a>
+    <a href="#" id="nav-register-btn" class="btn btn-orange btn-sm" onclick="window.location='/index.html#register';return false">Регистрация</a>
+    <div id="nav-user" style="display:none;align-items:center;gap:8px">
+      <div id="nav-user-avatar" style="width:34px;height:34px;border-radius:50%;background:var(--g100);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--blue);border:2px solid var(--blue);overflow:hidden;cursor:pointer"></div>
+      <span id="nav-user-name" style="font-size:.88rem;font-weight:600;color:var(--blue)"></span>
+      <a href="/pages/chat.html" id="nav-chat-btn" class="btn btn-ghost btn-sm" style="display:none" title="Съобщения">💬</a>
+      <a href="/pages/dashboard.html" class="btn btn-ghost btn-sm">Табло</a>
+      <a id="nav-admin-link" href="/pages/admin.html" class="btn btn-ghost btn-sm" style="display:none">⚙ Админ</a>
+      <button onclick="logout()" class="btn btn-ghost btn-sm">Изход</button>
+    </div>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <h1>🔍 Намери фрийлансър</h1>
+  <p>Проверени специалисти от цяла България, готови за твоя проект</p>
+</div>
+
+<div class="page-wrap" style="padding-top:40px">
+  <!-- FILTERS -->
+  <div class="filters">
+    <div class="filter-group" style="flex:2;min-width:220px">
+      <label>Търси</label>
+      <input id="f-search" type="text" placeholder="Име, умение, заглавие…" oninput="loadFL()"/>
+    </div>
+    <div class="filter-group">
+      <label>Категория</label>
+      <select id="f-cat" onchange="loadFL()"><option value="">Всички</option></select>
+    </div>
+    <div class="filter-group">
+      <label>Ниво</label>
+      <select id="f-level" onchange="loadFL()">
+        <option value="">Всички</option>
+        <option value="Junior">Junior</option>
+        <option value="Mid">Mid</option>
+        <option value="Senior">Senior</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Макс. цена (€/час)</label>
+      <input id="f-rate" type="number" placeholder="100" oninput="loadFL()"/>
+    </div>
+    <button class="btn btn-ghost" onclick="clearFilters()">✕ Изчисти</button>
+  </div>
+
+  <div class="results-bar">
+    <span id="results-count">Зарежда се…</span>
+  </div>
+
+  <div id="fl-grid" class="fl-grid">
+    <div class="loading" style="grid-column:1/-1"><div class="spinner"></div></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="/index.html" class="logo" style="color:#fff"><div class="logo-icon">🚀</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
+      <p>Платформата за фрийланс услуги, свързваща бизнеси с проверени специалисти.</p>
+    </div>
+    <div class="footer-col"><h4>Платформа</h4><ul>
+      <li><a href="/pages/freelancers.html">Фрийлансъри</a></li>
+      <li><a href="/pages/projects.html">Проекти</a></li>
+      <li><a href="/pages/how-it-works.html">Как работи</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Компания</h4><ul>
+      <li><a href="/pages/about.html">За нас</a></li>
+      <li><a href="/pages/contact.html">Контакти</a></li>
+      <li><a href="/pages/privacy.html">Поверителност</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Правни</h4><ul>
+      <li><a href="/pages/terms.html">Условия за ползване</a></li>
+      <li><a href="/pages/privacy.html">Поверителност</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom"><p>© 2025 Skillo. Всички права запазени.</p></div>
+</footer>
+
+<script src="/js/shared.js"></script>
+<script>
+const emojis = ['👨‍💻','🎨','✍️','📊','🎬','🤖','📱','🔒','🌐','📈'];
+let allFL = [];
+
+async function init() {
+  const cats = await apiFetch('/categories').catch(()=>[]);
+  const sel = document.getElementById('f-cat');
+  const catArr = Array.isArray(cats) ? cats : []; catArr.forEach(c => sel.add(new Option(c.name, c.name)));
+
+  // URL params
+  const p = new URLSearchParams(location.search);
+  if (p.get('search')) document.getElementById('f-search').value = p.get('search');
+  if (p.get('category')) document.getElementById('f-cat').value = p.get('category');
+
+  await loadFL();
+}
+
+async function loadFL() {
+  const search = document.getElementById('f-search').value.trim();
+  const cat    = document.getElementById('f-cat').value;
+  const level  = document.getElementById('f-level').value;
+  const rate   = document.getElementById('f-rate').value;
+
+  const params = new URLSearchParams();
+  if (search) params.set('search', search);
+  if (cat)    params.set('category', cat);
+
+  const grid = document.getElementById('fl-grid');
+  grid.innerHTML = '<div class="loading" style="grid-column:1/-1"><div class="spinner"></div></div>';
+
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8000);
+    let rawList;
+    try {
+      rawList = await apiFetch('/freelancers?' + params);
+    } catch(fetchErr) {
+      clearTimeout(timeout);
+      grid.innerHTML = `<div class="empty" style="grid-column:1/-1"><div class="icon">⚠️</div><p>${fetchErr.message}</p></div>`;
+      document.getElementById('results-count').textContent = '';
+      return;
+    }
+    clearTimeout(timeout);
+    let list = Array.isArray(rawList) ? rawList : (rawList?.$values || rawList?.value || []);
+    if (level) list = list.filter(f => f.experienceLevel === level);
+    if (rate)  list = list.filter(f => f.hourlyRate <= parseFloat(rate));
+
+    document.getElementById('results-count').textContent = `${list.length} фрийлансър${list.length !== 1 ? 'и' : ''}`;
+
+    if (!list.length) {
+      grid.innerHTML = '<div class="empty" style="grid-column:1/-1"><div class="icon">🔍</div><p>Няма намерени фрийлансъри.<br>Опитай с различни филтри.</p></div>';
+      return;
+    }
+
+    grid.innerHTML = list.map((f,i) => {
+      const stars = '★'.repeat(Math.round(f.averageRating||0)) + '☆'.repeat(5-Math.round(f.averageRating||0));
+      const av = f.avatar
+        ? `<img src="http://localhost:5000${f.avatar}" alt=""/>`
+        : emojis[i % emojis.length];
+      return `
+      <a class="fl-card" href="/pages/freelancer-detail.html?id=${f.userId}">
+        <div class="fl-top">
+          <div class="fl-av">${av}</div>
+          <div style="flex:1">
+            <div class="fl-name">${f.fullName}</div>
+            <div class="fl-title">${f.title || 'Фрийлансър'}</div>
+            <div style="margin-top:4px;display:flex;gap:6px;flex-wrap:wrap">
+              ${f.isVerified ? '<span class="badge badge-green" style="font-size:.68rem">✓ Верифициран</span>' : ''}
+              <span class="badge badge-gray" style="font-size:.68rem">${f.experienceLevel}</span>
+            </div>
+          </div>
+        </div>
+        <div style="color:var(--orange);font-size:.82rem;margin-bottom:8px">
+          ${stars} <span style="color:var(--g500)">${f.averageRating > 0 ? f.averageRating.toFixed(1) : 'Нов'} (${f.reviewCount})</span>
+        </div>
+        <div class="fl-skills">${(f.skills||[]).slice(0,4).map(s => `<span class="sp">${s}</span>`).join('')}</div>
+        <div class="fl-bottom">
+          <div class="fl-price">${f.hourlyRate} €<span>/час</span></div>
+          <span class="btn btn-primary btn-sm">Виж профил →</span>
+        </div>
+      </a>`;
+    }).join('');
+  } catch(e) {
+    grid.innerHTML = `<div class="empty" style="grid-column:1/-1"><div class="icon">⚠️</div><p>${e.message}</p></div>`;
+  }
+}
+
+function clearFilters() {
+  ['f-search','f-rate'].forEach(id => document.getElementById(id).value = '');
+  ['f-cat','f-level'].forEach(id => document.getElementById(id).value = '');
+  loadFL();
+}
+
+init();
+</script>
+</body>
+</html>

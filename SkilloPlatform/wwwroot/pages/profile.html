@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Моят профил – Skillo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <style>
+    .prof-layout{display:grid;grid-template-columns:260px 1fr;gap:28px;max-width:1100px;margin:40px auto;padding:0 5vw}
+    .prof-nav{background:#fff;border-radius:var(--rl);padding:16px;box-shadow:var(--sh);height:fit-content;position:sticky;top:88px}
+    .pnav-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--r);cursor:pointer;font-size:.88rem;font-weight:600;color:var(--g700);transition:all .18s;border:none;background:none;width:100%;text-align:left}
+    .pnav-item:hover{background:var(--g100);color:var(--blue)}
+    .pnav-item.active{background:rgba(27,95,168,.1);color:var(--blue)}
+    .tab-panel{display:none}
+    .tab-panel.active{display:block}
+    .section-card{background:#fff;border-radius:var(--rl);padding:28px;box-shadow:var(--sh);border:1px solid var(--g200);margin-bottom:20px}
+    .section-card h3{font-family:'Sora',sans-serif;font-weight:700;font-size:1.05rem;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--g200);display:flex;align-items:center;justify-content:space-between}
+    .exp-item-card{background:var(--g100);border-radius:var(--r);padding:16px;margin-bottom:10px;display:flex;align-items:flex-start;gap:12px}
+    .exp-item-card:last-child{margin-bottom:0}
+    .exp-body{flex:1}
+    .exp-company{font-weight:700;font-size:.93rem}
+    .exp-pos{color:var(--blue);font-size:.85rem}
+    .exp-date{color:var(--g500);font-size:.78rem;margin-top:2px}
+    @media(max-width:900px){.prof-layout{grid-template-columns:1fr}.prof-nav{position:static}}
+  </style>
+</head>
+<body>
+<nav id="main-nav">
+  <a href="/index.html" class="logo"><div class="logo-icon">🚀</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
+  <ul class="nav-links"></ul>
+  <div class="nav-cta">
+    <a href="#" id="nav-login-btn" class="btn btn-outline btn-sm" onclick="window.location='/index.html#login';return false">Вход</a>
+    <a href="#" id="nav-register-btn" class="btn btn-orange btn-sm" onclick="window.location='/index.html#register';return false">Регистрация</a>
+    <div id="nav-user" style="display:none;align-items:center;gap:8px">
+      <div id="nav-user-avatar" style="width:34px;height:34px;border-radius:50%;background:var(--g100);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--blue);border:2px solid var(--blue);overflow:hidden;cursor:pointer"></div>
+      <span id="nav-user-name" style="font-size:.88rem;font-weight:600;color:var(--blue)"></span>
+      <a href="/pages/chat.html" id="nav-chat-btn" class="btn btn-ghost btn-sm" style="display:none" title="Съобщения">💬</a>
+      <a href="/pages/dashboard.html" class="btn btn-ghost btn-sm">Табло</a>
+      <a id="nav-admin-link" href="/pages/admin.html" class="btn btn-ghost btn-sm" style="display:none">⚙ Админ</a>
+      <button onclick="logout()" class="btn btn-ghost btn-sm">Изход</button>
+    </div>
+  </div>
+</nav>
+
+<div style="padding-top:68px">
+  <div class="page-hero"><h1>👤 Моят профил</h1><p>Попълни профила си, за да привлечеш повече клиенти</p></div>
+  <div class="prof-layout">
+    <!-- NAV -->
+    <div class="prof-nav">
+      <button class="pnav-item active" onclick="switchPanel('basic')">📝 Основна информация</button>
+      <button class="pnav-item" onclick="switchPanel('avatar')">📷 Профилна снимка</button>
+      <button class="pnav-item" onclick="switchPanel('skills')">💡 Умения & Ниво</button>
+      <button class="pnav-item" onclick="switchPanel('links')">🔗 Линкове & Контакт</button>
+      <button class="pnav-item" onclick="switchPanel('experience')">💼 Трудов опит</button>
+      <button class="pnav-item" onclick="switchPanel('certs')">🎓 Сертификати</button>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--g200)">
+        <a href="/pages/services.html" class="pnav-item" style="text-decoration:none;color:var(--g700)">🛠 Моите услуги</a>
+        <a href="/pages/dashboard.html" class="pnav-item" style="text-decoration:none;color:var(--g700)">🏠 Табло</a>
+      </div>
+    </div>
+
+    <!-- PANELS -->
+    <div>
+      <!-- BASIC -->
+      <div id="panel-basic" class="tab-panel active">
+        <div class="section-card">
+          <h3>Основна информация</h3>
+          <div id="basic-alert" class="alert"></div>
+          <div class="form-group"><label>Заглавие (позиция)</label><input id="b-title" placeholder="напр. Full-Stack Developer"/></div>
+          <div class="form-group"><label>Биография</label><textarea id="b-bio" rows="5" placeholder="Разкажи за себе си, опита и специализацията ти…"></textarea></div>
+          <div class="form-row">
+            <div class="form-group"><label>Категория</label><select id="b-cat"><option value="">Избери…</option></select></div>
+            <div class="form-group"><label>Цена (€/час)</label><input id="b-rate" type="number" placeholder="45"/></div>
+          </div>
+          <div class="form-group"><label>Местоположение</label><input id="b-location" placeholder="София, България"/></div>
+          <div class="form-row">
+            <div class="form-group"><label>Налличност</label>
+              <select id="b-avail"><option value="1">🟢 Свободен за работа</option><option value="0">🔴 Зает</option></select>
+            </div>
+          </div>
+          <button class="btn btn-primary" style="padding:11px 28px" onclick="saveBasic()">💾 Запази</button>
+        </div>
+      </div>
+
+      <!-- AVATAR -->
+      <div id="panel-avatar" class="tab-panel">
+        <div class="section-card">
+          <h3>Профилна снимка</h3>
+          <div class="avatar-upload">
+            <div class="avatar-preview" id="av-preview">👤</div>
+            <div>
+              <p style="color:var(--g500);font-size:.88rem;margin-bottom:12px">Качи снимка (JPG, PNG, макс. 5MB)</p>
+              <input type="file" id="av-input" accept="image/*" style="display:none" onchange="previewAvatar(this)"/>
+              <button class="btn btn-outline" onclick="document.getElementById('av-input').click()">📷 Избери снимка</button>
+              <button class="btn btn-primary" style="margin-left:10px" onclick="uploadAv()">⬆ Качи</button>
+            </div>
+          </div>
+          <div id="av-alert" class="alert"></div>
+        </div>
+      </div>
+
+      <!-- SKILLS -->
+      <div id="panel-skills" class="tab-panel">
+        <div class="section-card">
+          <h3>Умения & Ниво</h3>
+          <div id="skills-alert" class="alert"></div>
+          <div class="form-group">
+            <label>Умения (натисни Enter за добавяне)</label>
+            <div class="skills-input-wrap" id="skills-wrap"><input id="skills-inp" placeholder="React, Figma, SEO…"/></div>
+            <input type="hidden" id="skills-hidden"/>
+          </div>
+          <div class="form-group"><label>Ниво на опит</label>
+            <select id="sk-level">
+              <option value="Junior">Junior (0–2 г.)</option>
+              <option value="Mid">Mid (2–5 г.)</option>
+              <option value="Senior">Senior (5+ г.)</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Езици (натисни Enter)</label>
+            <div class="skills-input-wrap" id="langs-wrap"><input id="langs-inp" placeholder="Български, Английски…"/></div>
+            <input type="hidden" id="langs-hidden"/>
+          </div>
+          <button class="btn btn-primary" style="padding:11px 28px" onclick="saveSkills()">💾 Запази</button>
+        </div>
+      </div>
+
+      <!-- LINKS -->
+      <div id="panel-links" class="tab-panel">
+        <div class="section-card">
+          <h3>Линкове & Контакт</h3>
+          <div id="links-alert" class="alert"></div>
+          <div class="form-group"><label>Уебсайт / Портфолио</label><input id="l-web" placeholder="https://mysite.com"/></div>
+          <div class="form-group"><label>LinkedIn</label><input id="l-li" placeholder="https://linkedin.com/in/…"/></div>
+          <div class="form-group"><label>GitHub</label><input id="l-gh" placeholder="https://github.com/…"/></div>
+          <button class="btn btn-primary" style="padding:11px 28px" onclick="saveLinks()">💾 Запази</button>
+        </div>
+      </div>
+
+      <!-- EXPERIENCE -->
+      <div id="panel-experience" class="tab-panel">
+        <div class="section-card">
+          <h3>Трудов опит <button class="btn btn-primary btn-sm" onclick="openExpModal()">+ Добави</button></h3>
+          <div id="exp-list"><div class="loading"><div class="spinner"></div></div></div>
+        </div>
+      </div>
+
+      <!-- CERTS -->
+      <div id="panel-certs" class="tab-panel">
+        <div class="section-card">
+          <h3>Сертификати <button class="btn btn-primary btn-sm" onclick="openCertModal()">+ Добави</button></h3>
+          <div id="cert-list"><div class="loading"><div class="spinner"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EXP MODAL -->
+<div class="modal-overlay" id="exp-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('exp-modal')">✕</button>
+    <h2 id="exp-modal-title">Добави опит</h2>
+    <div id="exp-alert" class="alert"></div>
+    <input type="hidden" id="exp-edit-id"/>
+    <div class="form-group"><label>Компания *</label><input id="exp-company" placeholder="SoftUni Solutions"/></div>
+    <div class="form-group"><label>Позиция *</label><input id="exp-position" placeholder="Senior Developer"/></div>
+    <div class="form-row">
+      <div class="form-group"><label>Начало *</label><input id="exp-start" type="month"/></div>
+      <div class="form-group"><label>Край</label><input id="exp-end" type="month"/></div>
+    </div>
+    <div class="form-group" style="display:flex;align-items:center;gap:10px">
+      <input type="checkbox" id="exp-current" onchange="document.getElementById('exp-end').disabled=this.checked"/>
+      <label style="margin:0;font-size:.9rem">Работя тук в момента</label>
+    </div>
+    <div class="form-group"><label>Описание</label><textarea id="exp-desc" placeholder="Кратко описание на задълженията…"></textarea></div>
+    <button class="btn btn-primary btn-full" style="padding:13px" onclick="saveExp()">💾 Запази</button>
+  </div>
+</div>
+
+<!-- CERT MODAL -->
+<div class="modal-overlay" id="cert-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('cert-modal')">✕</button>
+    <h2>Добави сертификат</h2>
+    <div id="cert-alert" class="alert"></div>
+    <div class="form-group"><label>Наименование *</label><input id="cert-name" placeholder="AWS Certified Developer"/></div>
+    <div class="form-group"><label>Издател *</label><input id="cert-issuer" placeholder="Amazon Web Services"/></div>
+    <div class="form-row">
+      <div class="form-group"><label>Дата на издаване *</label><input id="cert-date" type="month"/></div>
+      <div class="form-group"><label>Изтича на</label><input id="cert-expiry" type="month"/></div>
+    </div>
+    <div class="form-group"><label>URL на сертификата</label><input id="cert-url" placeholder="https://…"/></div>
+    <div class="form-group"><label>Качи файл (PDF/JPG)</label><input type="file" id="cert-file" accept=".pdf,.jpg,.jpeg,.png"/></div>
+    <button class="btn btn-primary btn-full" style="padding:13px" onclick="saveCert()">💾 Запази</button>
+  </div>
+</div>
+
+<script src="/js/shared.js"></script>
+<script>
+const user = Auth.user();
+if (!user || user.role !== 'Freelancer') window.location.href = '/index.html';
+
+let profile = null;
+let skillsCtrl, langsCtrl;
+
+function switchPanel(id) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.pnav-item').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + id)?.classList.add('active');
+  event.currentTarget.classList.add('active');
+  if (id === 'experience') loadExp();
+  if (id === 'certs') loadCerts();
+}
+
+async function loadProfile() {
+  try {
+    profile = await apiFetch('/freelancers/me/full');
+    const cats = await apiFetch('/categories');
+    const sel = document.getElementById('b-cat');
+    const catsArr = Array.isArray(cats) ? cats : (cats?.$values || []);
+    catsArr.forEach(c => sel.add(new Option(c.name, c.name)));
+
+    document.getElementById('b-title').value    = profile.title || '';
+    document.getElementById('b-bio').value      = profile.bio || '';
+    document.getElementById('b-rate').value     = profile.hourlyRate || '';
+    document.getElementById('b-location').value = profile.location || '';
+    document.getElementById('b-avail').value    = profile.isAvailable ? '1' : '0';
+    if (profile.category) sel.value             = profile.category;
+
+    document.getElementById('sk-level').value   = profile.experienceLevel || 'Mid';
+    document.getElementById('l-web').value      = profile.website || '';
+    document.getElementById('l-li').value       = profile.linkedin || '';
+    document.getElementById('l-gh').value       = profile.github || '';
+
+    if (profile.avatar) {
+      document.getElementById('av-preview').innerHTML = `<img src="http://localhost:5000${profile.avatar}" alt=""/>`;
+    }
+
+    document.getElementById('skills-hidden').value = profile.skills?.join(',') || '';
+    skillsCtrl = initSkillsInput('skills-wrap','skills-inp','skills-hidden');
+    if (skillsCtrl && profile.skills?.length) skillsCtrl.setSkills(profile.skills);
+
+    document.getElementById('langs-hidden').value = profile.languages?.join(',') || '';
+    langsCtrl = initSkillsInput('langs-wrap','langs-inp','langs-hidden');
+    if (langsCtrl && profile.languages?.length) langsCtrl.setSkills(profile.languages);
+
+  } catch(e) { console.error(e); }
+}
+
+async function saveBasic() {
+  hideAlert('basic-alert');
+  try {
+    const data = {
+      title: document.getElementById('b-title').value.trim(),
+      bio: document.getElementById('b-bio').value.trim(),
+      category: document.getElementById('b-cat').value,
+      hourlyRate: parseFloat(document.getElementById('b-rate').value) || 0,
+      location: document.getElementById('b-location').value.trim(),
+      isAvailable: document.getElementById('b-avail').value === '1',
+      skills: profile?.skills || [],
+      experienceLevel: profile?.experienceLevel || 'Mid',
+      website: profile?.website || '',
+      linkedin: profile?.linkedin || '',
+      github: profile?.github || '',
+      languages: profile?.languages || [],
+    };
+    await apiFetch('/freelancers/me', { method:'PUT', body: JSON.stringify(data) });
+    showAlert('basic-alert', '✅ Запазено успешно!', 'success');
+    loadProfile();
+  } catch(e) { showAlert('basic-alert', e.message); }
+}
+
+function previewAvatar(input) {
+  if (!input.files[0]) return;
+  const reader = new FileReader();
+  reader.onload = e => document.getElementById('av-preview').innerHTML = `<img src="${e.target.result}" alt=""/>`;
+  reader.readAsDataURL(input.files[0]);
+}
+
+async function uploadAv() {
+  const file = document.getElementById('av-input').files[0];
+  if (!file) { showAlert('av-alert','Избери снимка първо.'); return; }
+  const fd = new FormData();
+  fd.append('avatar', file);
+  try {
+    const data = await apiFetch('/users/avatar', { method:'POST', body: fd });
+    const saved = Auth.user();
+    saved.avatar = data.avatar;
+    localStorage.setItem('sk_user', JSON.stringify(saved));
+    showAlert('av-alert','✅ Снимката е качена!','success');
+    buildNav();
+  } catch(e) { showAlert('av-alert', e.message); }
+}
+
+async function saveSkills() {
+  hideAlert('skills-alert');
+  try {
+    const skills = document.getElementById('skills-hidden').value.split(',').filter(Boolean);
+    const langs  = document.getElementById('langs-hidden').value.split(',').filter(Boolean);
+    await apiFetch('/freelancers/me', { method:'PUT', body: JSON.stringify({
+      ...profile,
+      skills, languages: langs,
+      experienceLevel: document.getElementById('sk-level').value,
+    })});
+    showAlert('skills-alert','✅ Запазено!','success');
+    loadProfile();
+  } catch(e) { showAlert('skills-alert',e.message); }
+}
+
+async function saveLinks() {
+  hideAlert('links-alert');
+  try {
+    await apiFetch('/freelancers/me', { method:'PUT', body: JSON.stringify({
+      ...profile,
+      website: document.getElementById('l-web').value.trim(),
+      linkedin: document.getElementById('l-li').value.trim(),
+      github: document.getElementById('l-gh').value.trim(),
+    })});
+    showAlert('links-alert','✅ Запазено!','success');
+  } catch(e) { showAlert('links-alert',e.message); }
+}
+
+// ── EXPERIENCE ──────────────────────────────────────
+async function loadExp() {
+  const el = document.getElementById('exp-list');
+  el.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+  try {
+    const list = await apiFetch('/experience');
+    if (!list.length) { el.innerHTML = '<div class="empty" style="padding:28px"><div class="icon">💼</div><p>Добави своя трудов опит.</p></div>'; return; }
+    el.innerHTML = list.map(e => `
+      <div class="exp-item-card">
+        <div style="font-size:1.5rem">🏢</div>
+        <div class="exp-body">
+          <div class="exp-company">${e.company}</div>
+          <div class="exp-pos">${e.position}</div>
+          <div class="exp-date">${e.startDate} – ${e.isCurrent ? 'Настоящем' : (e.endDate || '—')}</div>
+          ${e.description ? `<div style="font-size:.84rem;color:var(--g700);margin-top:6px;line-height:1.5">${e.description}</div>` : ''}
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <button class="btn btn-ghost btn-sm" onclick="editExp(${e.id},'${e.company.replace(/'/g,"\\'")}','${e.position.replace(/'/g,"\\'")}','${e.startDate}','${e.endDate}',${e.isCurrent},'${(e.description||'').replace(/'/g,"\\'")}')">✏ Редактирай</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteExp(${e.id})">🗑 Изтрий</button>
+        </div>
+      </div>`).join('');
+  } catch(e) { el.innerHTML = `<p style="color:#DC2626">${e.message}</p>`; }
+}
+
+function openExpModal(id='') {
+  document.getElementById('exp-modal-title').textContent = id ? 'Редактирай опит' : 'Добави опит';
+  document.getElementById('exp-edit-id').value = id;
+  document.getElementById('exp-company').value = '';
+  document.getElementById('exp-position').value = '';
+  document.getElementById('exp-start').value = '';
+  document.getElementById('exp-end').value = '';
+  document.getElementById('exp-current').checked = false;
+  document.getElementById('exp-desc').value = '';
+  hideAlert('exp-alert');
+  openModal('exp-modal');
+}
+
+function editExp(id, company, position, start, end, isCurrent, desc) {
+  document.getElementById('exp-edit-id').value = id;
+  document.getElementById('exp-modal-title').textContent = 'Редактирай опит';
+  document.getElementById('exp-company').value = company;
+  document.getElementById('exp-position').value = position;
+  document.getElementById('exp-start').value = start;
+  document.getElementById('exp-end').value = end;
+  document.getElementById('exp-current').checked = !!isCurrent;
+  document.getElementById('exp-end').disabled = !!isCurrent;
+  document.getElementById('exp-desc').value = desc;
+  openModal('exp-modal');
+}
+
+async function saveExp() {
+  hideAlert('exp-alert');
+  const data = {
+    company: document.getElementById('exp-company').value.trim(),
+    position: document.getElementById('exp-position').value.trim(),
+    startDate: document.getElementById('exp-start').value,
+    endDate: document.getElementById('exp-end').value,
+    isCurrent: document.getElementById('exp-current').checked,
+    description: document.getElementById('exp-desc').value.trim(),
+  };
+  if (!data.company || !data.position || !data.startDate)
+    return showAlert('exp-alert','Попълни задължителните полета.');
+  try {
+    const editId = document.getElementById('exp-edit-id').value;
+    if (editId) await apiFetch(`/experience/${editId}`, { method:'PUT', body: JSON.stringify(data) });
+    else        await apiFetch('/experience', { method:'POST', body: JSON.stringify(data) });
+    closeModal('exp-modal');
+    loadExp();
+  } catch(e) { showAlert('exp-alert', e.message); }
+}
+
+async function deleteExp(id) {
+  if (!confirm('Изтрий опита?')) return;
+  await apiFetch(`/experience/${id}`, { method:'DELETE' }).catch(e => alert(e.message));
+  loadExp();
+}
+
+// ── CERTIFICATES ─────────────────────────────────────
+async function loadCerts() {
+  const el = document.getElementById('cert-list');
+  el.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+  try {
+    const list = await apiFetch('/certificates');
+    if (!list.length) { el.innerHTML = '<div class="empty" style="padding:28px"><div class="icon">🎓</div><p>Добави своите сертификати.</p></div>'; return; }
+    el.innerHTML = list.map(c => `
+      <div class="exp-item-card">
+        <div style="font-size:1.5rem">🏆</div>
+        <div class="exp-body">
+          <div class="exp-company">${c.name}</div>
+          <div class="exp-pos">${c.issuer}</div>
+          <div class="exp-date">Издаден: ${c.issueDate}${c.expiryDate ? ' · Изтича: '+c.expiryDate : ''}</div>
+          ${c.credential ? `<a href="${c.credential}" target="_blank" style="font-size:.8rem;color:var(--blue)">Провери →</a>` : ''}
+          ${c.fileUrl ? `<a href="http://localhost:5000${c.fileUrl}" target="_blank" style="font-size:.8rem;color:var(--blue);margin-left:8px">📄 Файл</a>` : ''}
+        </div>
+        <button class="btn btn-danger btn-sm" onclick="deleteCert(${c.id})">🗑</button>
+      </div>`).join('');
+  } catch(e) { el.innerHTML = `<p style="color:#DC2626">${e.message}</p>`; }
+}
+
+function openCertModal() {
+  ['cert-name','cert-issuer','cert-date','cert-expiry','cert-url'].forEach(id => { const el = document.getElementById(id); if(el) el.value=''; });
+  hideAlert('cert-alert');
+  openModal('cert-modal');
+}
+
+async function saveCert() {
+  hideAlert('cert-alert');
+  const fd = new FormData();
+  fd.append('name', document.getElementById('cert-name').value.trim());
+  fd.append('issuer', document.getElementById('cert-issuer').value.trim());
+  fd.append('issueDate', document.getElementById('cert-date').value);
+  fd.append('expiryDate', document.getElementById('cert-expiry').value);
+  fd.append('credential', document.getElementById('cert-url').value.trim());
+  const file = document.getElementById('cert-file').files[0];
+  if (file) fd.append('file', file);
+
+  if (!fd.get('name') || !fd.get('issuer') || !fd.get('issueDate'))
+    return showAlert('cert-alert','Попълни задължителните полета.');
+  try {
+    const headers = {};
+    if (Auth.token()) headers['Authorization'] = `Bearer ${Auth.token()}`;
+    const res = await fetch(`${API}/certificates`, { method:'POST', headers, body: fd });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message);
+    closeModal('cert-modal');
+    loadCerts();
+  } catch(e) { showAlert('cert-alert', e.message); }
+}
+
+async function deleteCert(id) {
+  if (!confirm('Изтрий сертификата?')) return;
+  await apiFetch(`/certificates/${id}`, { method:'DELETE' }).catch(e => alert(e.message));
+  loadCerts();
+}
+
+loadProfile();
+</script>
+</body>
+</html>

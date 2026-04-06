@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Моите услуги – Skillo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <style>
+    .svc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+    .svc-card{background:#fff;border-radius:var(--rl);padding:24px;box-shadow:var(--sh);border:2px solid var(--g200);transition:all .22s;position:relative}
+    .svc-card.inactive{opacity:.6;border-style:dashed}
+    .svc-card:hover{border-color:var(--blue);box-shadow:var(--shl)}
+    .svc-badge{position:absolute;top:16px;right:16px}
+    .svc-cat{font-size:.75rem;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px}
+    .svc-title{font-family:'Sora',sans-serif;font-weight:800;font-size:1.05rem;margin-bottom:8px;padding-right:60px}
+    .svc-desc{color:var(--g500);font-size:.87rem;line-height:1.6;margin-bottom:16px;min-height:42px}
+    .svc-meta{display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap}
+    .svc-meta-item{display:flex;align-items:center;gap:5px;font-size:.82rem;color:var(--g700)}
+    .svc-price-big{font-family:'Sora',sans-serif;font-weight:800;font-size:1.4rem;color:var(--blue);margin-bottom:16px}
+    .svc-price-big span{font-size:.8rem;color:var(--g500);font-weight:400}
+    .svc-actions{display:flex;gap:8px;padding-top:14px;border-top:1px solid var(--g200)}
+    .empty-cta{text-align:center;padding:60px 20px;background:#fff;border-radius:var(--rl);border:2px dashed var(--g200)}
+    .empty-cta .icon{font-size:3.5rem;margin-bottom:16px}
+    .empty-cta h3{font-family:'Sora',sans-serif;font-weight:700;font-size:1.2rem;margin-bottom:8px}
+    .empty-cta p{color:var(--g500);font-size:.9rem;margin-bottom:20px}
+  </style>
+</head>
+<body>
+<nav id="main-nav">
+  <a href="/index.html" class="logo"><div class="logo-icon">🚀</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
+  <ul class="nav-links"></ul>
+  <div class="nav-cta">
+    <a href="#" id="nav-login-btn" class="btn btn-outline btn-sm" onclick="window.location='/index.html#login';return false">Вход</a>
+    <a href="#" id="nav-register-btn" class="btn btn-orange btn-sm" onclick="window.location='/index.html#register';return false">Регистрация</a>
+    <div id="nav-user" style="display:none;align-items:center;gap:8px">
+      <div id="nav-user-avatar" style="width:34px;height:34px;border-radius:50%;background:var(--g100);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--blue);border:2px solid var(--blue);overflow:hidden;cursor:pointer"></div>
+      <span id="nav-user-name" style="font-size:.88rem;font-weight:600;color:var(--blue)"></span>
+      <a href="/pages/chat.html" id="nav-chat-btn" class="btn btn-ghost btn-sm" style="display:none" title="Съобщения">💬</a>
+      <a href="/pages/dashboard.html" class="btn btn-ghost btn-sm">Табло</a>
+      <a id="nav-admin-link" href="/pages/admin.html" class="btn btn-ghost btn-sm" style="display:none">⚙ Админ</a>
+      <button onclick="logout()" class="btn btn-ghost btn-sm">Изход</button>
+    </div>
+  </div>
+</nav>
+
+<div style="padding-top:68px">
+  <div class="page-hero">
+    <h1>🛠 Моите услуги</h1>
+    <p>Управлявай офертите, които предлагаш на клиентите</p>
+  </div>
+
+  <div class="page-wrap" style="padding-top:36px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:12px">
+      <div>
+        <div id="svc-count" style="color:var(--g500);font-size:.9rem"></div>
+      </div>
+      <button class="btn btn-orange" style="padding:11px 24px" onclick="openAdd()">+ Добави услуга</button>
+    </div>
+
+    <div id="alert-global" class="alert"></div>
+    <div id="svc-grid" class="svc-grid">
+      <div class="loading" style="grid-column:1/-1"><div class="spinner"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ADD / EDIT MODAL -->
+<div class="modal-overlay" id="svc-modal">
+  <div class="modal modal-lg">
+    <button class="modal-close" onclick="closeModal('svc-modal')">✕</button>
+    <h2 id="svc-modal-title">Добави услуга</h2>
+    <p class="modal-sub">Опиши точно какво предлагаш, за да привлечеш правилните клиенти</p>
+    <div id="svc-alert" class="alert"></div>
+    <input type="hidden" id="svc-edit-id"/>
+
+    <div class="form-group">
+      <label>Заглавие на услугата *</label>
+      <input id="svc-title" placeholder="напр. Разработка на Landing Page с React"/>
+    </div>
+    <div class="form-group">
+      <label>Описание *</label>
+      <textarea id="svc-desc" rows="4" placeholder="Какво включва услугата, какво получава клиентът…"></textarea>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Категория *</label>
+        <select id="svc-cat"><option value="">Избери…</option></select>
+      </div>
+      <div class="form-group">
+        <label>Тип ценообразуване</label>
+        <select id="svc-ptype" onchange="updatePriceLabel()">
+          <option value="fixed">Фиксирана цена</option>
+          <option value="hourly">На час</option>
+          <option value="monthly">На месец</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label id="price-label">Цена (лв) *</label>
+        <input id="svc-price" type="number" placeholder="500"/>
+      </div>
+      <div class="form-group">
+        <label>Срок на изпълнение (дни) *</label>
+        <input id="svc-delivery" type="number" placeholder="7"/>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Брой безплатни корекции</label>
+        <input id="svc-revisions" type="number" placeholder="2" min="0"/>
+      </div>
+      <div class="form-group" style="display:flex;align-items:center;gap:10px;padding-top:28px">
+        <input type="checkbox" id="svc-active" checked/>
+        <label style="margin:0;font-size:.9rem;font-weight:600">Активна (видима за клиенти)</label>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;margin-top:6px">
+      <button class="btn btn-orange btn-full" style="padding:13px" onclick="saveSvc()">💾 Запази услугата</button>
+      <button class="btn btn-ghost" style="padding:13px 20px" onclick="closeModal('svc-modal')">Откажи</button>
+    </div>
+  </div>
+</div>
+
+<!-- DELETE CONFIRM MODAL -->
+<div class="modal-overlay" id="del-modal">
+  <div class="modal" style="text-align:center;max-width:400px">
+    <div style="font-size:3rem;margin-bottom:16px">🗑️</div>
+    <h2>Изтрий услугата?</h2>
+    <p style="color:var(--g500);margin:10px 0 24px">Тази операция е необратима.</p>
+    <div style="display:flex;gap:10px;justify-content:center">
+      <button class="btn btn-danger" style="padding:11px 28px" id="del-confirm-btn">Да, изтрий</button>
+      <button class="btn btn-ghost" style="padding:11px 20px" onclick="closeModal('del-modal')">Откажи</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="/index.html" class="logo" style="color:#fff"><div class="logo-icon">🚀</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
+      <p>Платформата за фрийланс услуги, свързваща бизнеси с проверени специалисти.</p>
+    </div>
+    <div class="footer-col"><h4>Платформа</h4><ul>
+      <li><a href="/pages/freelancers.html">Фрийлансъри</a></li>
+      <li><a href="/pages/projects.html">Проекти</a></li>
+      <li><a href="/pages/how-it-works.html">Как работи</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Компания</h4><ul>
+      <li><a href="/pages/about.html">За нас</a></li>
+      <li><a href="/pages/contact.html">Контакти</a></li>
+      <li><a href="/pages/privacy.html">Поверителност</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Правни</h4><ul>
+      <li><a href="/pages/terms.html">Условия за ползване</a></li>
+      <li><a href="/pages/privacy.html">Поверителност</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom"><p>© 2025 Skillo. Всички права запазени.</p></div>
+</footer>
+
+<script src="/js/shared.js"></script>
+<script>
+const u = Auth.user();
+if (!u || u.role !== 'Freelancer') window.location.href = '/index.html';
+
+const priceTypeLabels = { fixed:'Цена (лв)', hourly:'Цена на час (лв)', monthly:'Цена на месец (лв)' };
+const priceTypeBadge  = { fixed:'Фиксирана', hourly:'На час', monthly:'На месец' };
+
+function updatePriceLabel() {
+  const t = document.getElementById('svc-ptype').value;
+  document.getElementById('price-label').textContent = priceTypeLabels[t] + ' *';
+}
+
+async function loadCats() {
+  const cats = await apiFetch('/categories').catch(() => []);
+  const sel = document.getElementById('svc-cat');
+  cats.forEach(c => sel.add(new Option(c.name, c.name)));
+}
+
+async function load() {
+  const grid = document.getElementById('svc-grid');
+  grid.innerHTML = '<div class="loading" style="grid-column:1/-1"><div class="spinner"></div></div>';
+  try {
+    const list = await apiFetch('/services/mine');
+    const active   = list.filter(s => s.isActive);
+    const inactive = list.filter(s => !s.isActive);
+    document.getElementById('svc-count').textContent =
+      `${active.length} активни · ${inactive.length} неактивни`;
+
+    if (!list.length) {
+      grid.innerHTML = `
+        <div class="empty-cta" style="grid-column:1/-1">
+          <div class="icon">🛠</div>
+          <h3>Нямаш добавени услуги</h3>
+          <p>Добави своята първа услуга и клиентите ще могат да я видят в профила ти.</p>
+          <button class="btn btn-orange" style="padding:12px 28px" onclick="openAdd()">+ Добави услуга</button>
+        </div>`;
+      return;
+    }
+
+    grid.innerHTML = list.map(s => {
+      const ptLabel = priceTypeBadge[s.priceType] || 'Фиксирана';
+      const priceStr = s.priceType === 'fixed'
+        ? `${s.price} € <span>еднократно</span>`
+        : s.priceType === 'hourly'
+        ? `${s.price} € <span>/час</span>`
+        : `${s.price} € <span>/месец</span>`;
+      return `
+        <div class="svc-card ${s.isActive ? '' : 'inactive'}">
+          <div class="svc-badge">
+            <span class="badge ${s.isActive ? 'badge-green' : 'badge-gray'}">
+              ${s.isActive ? '🟢 Активна' : '⚫ Неактивна'}
+            </span>
+          </div>
+          <div class="svc-cat">${s.category || 'Без категория'}</div>
+          <div class="svc-title">${s.title}</div>
+          <div class="svc-desc">${s.description || '<em style="color:var(--g500)">Няма описание</em>'}</div>
+          <div class="svc-meta">
+            <div class="svc-meta-item">⏱ <strong>${s.deliveryDays}</strong> дни</div>
+            <div class="svc-meta-item">🔄 <strong>${s.revisions}</strong> корекции</div>
+            <div class="svc-meta-item">💰 <strong>${ptLabel}</strong></div>
+          </div>
+          <div class="svc-price-big">${priceStr}</div>
+          <div class="svc-actions">
+            <button class="btn btn-primary btn-sm" onclick="openEdit(${s.id})">✏ Редактирай</button>
+            <button class="btn btn-ghost btn-sm" onclick="toggleActive(${s.id}, ${s.isActive})">
+              ${s.isActive ? '🔴 Деактивирай' : '🟢 Активирай'}
+            </button>
+            <button class="btn btn-danger btn-sm" onclick="confirmDelete(${s.id})">🗑</button>
+          </div>
+        </div>`;
+    }).join('');
+  } catch(e) {
+    grid.innerHTML = `<div class="empty" style="grid-column:1/-1"><div class="icon">⚠️</div><p>${e.message}</p></div>`;
+  }
+}
+
+function openAdd() {
+  document.getElementById('svc-modal-title').textContent = 'Добави услуга';
+  document.getElementById('svc-edit-id').value = '';
+  ['svc-title','svc-desc','svc-price','svc-delivery','svc-revisions'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('svc-cat').value    = '';
+  document.getElementById('svc-ptype').value  = 'fixed';
+  document.getElementById('svc-active').checked = true;
+  updatePriceLabel();
+  hideAlert('svc-alert');
+  openModal('svc-modal');
+}
+
+async function openEdit(id) {
+  hideAlert('svc-alert');
+  try {
+    const list = await apiFetch('/services/mine');
+    const s = list.find(x => x.id === id);
+    if (!s) return;
+    document.getElementById('svc-modal-title').textContent = 'Редактирай услуга';
+    document.getElementById('svc-edit-id').value   = id;
+    document.getElementById('svc-title').value     = s.title;
+    document.getElementById('svc-desc').value      = s.description;
+    document.getElementById('svc-cat').value       = s.category;
+    document.getElementById('svc-ptype').value     = s.priceType || 'fixed';
+    document.getElementById('svc-price').value     = s.price;
+    document.getElementById('svc-delivery').value  = s.deliveryDays;
+    document.getElementById('svc-revisions').value = s.revisions;
+    document.getElementById('svc-active').checked  = !!s.isActive;
+    updatePriceLabel();
+    openModal('svc-modal');
+  } catch(e) { alert(e.message); }
+}
+
+async function saveSvc() {
+  hideAlert('svc-alert');
+  const title    = document.getElementById('svc-title').value.trim();
+  const price    = parseFloat(document.getElementById('svc-price').value);
+  const delivery = parseInt(document.getElementById('svc-delivery').value);
+  if (!title)         return showAlert('svc-alert', 'Заглавието е задължително.');
+  if (isNaN(price))   return showAlert('svc-alert', 'Въведи валидна цена.');
+  if (!delivery || delivery < 1) return showAlert('svc-alert', 'Въведи валиден срок (дни).');
+
+  const body = {
+    title,
+    description: document.getElementById('svc-desc').value.trim(),
+    category:    document.getElementById('svc-cat').value,
+    priceType:   document.getElementById('svc-ptype').value,
+    price,
+    delivery,
+    revisions:   parseInt(document.getElementById('svc-revisions').value) || 0,
+    isActive:    document.getElementById('svc-active').checked,
+  };
+
+  try {
+    const editId = document.getElementById('svc-edit-id').value;
+    if (editId) {
+      await apiFetch(`/services/${editId}`, { method:'PUT', body: JSON.stringify(body) });
+    } else {
+      await apiFetch('/services', { method:'POST', body: JSON.stringify(body) });
+    }
+    closeModal('svc-modal');
+    showAlert('alert-global', editId ? '✅ Услугата е обновена!' : '✅ Услугата е добавена!', 'success');
+    load();
+  } catch(e) { showAlert('svc-alert', e.message); }
+}
+
+async function toggleActive(id, currentlyActive) {
+  try {
+    const list = await apiFetch('/services/mine');
+    const s = list.find(x => x.id === id);
+    if (!s) return;
+    await apiFetch(`/services/${id}`, { method:'PUT', body: JSON.stringify({
+      title: s.title, description: s.description, category: s.category,
+      priceType: s.priceType, price: s.price, delivery: s.deliveryDays,
+      revisions: s.revisions, isActive: !currentlyActive,
+    })});
+    load();
+  } catch(e) { alert(e.message); }
+}
+
+function confirmDelete(id) {
+  document.getElementById('del-confirm-btn').onclick = () => deleteSvc(id);
+  openModal('del-modal');
+}
+
+async function deleteSvc(id) {
+  try {
+    await apiFetch(`/services/${id}`, { method:'DELETE' });
+    closeModal('del-modal');
+    showAlert('alert-global', '🗑 Услугата е изтрита.', 'success');
+    load();
+  } catch(e) { alert(e.message); }
+}
+
+loadCats();
+load();
+</script>
+</body>
+</html>

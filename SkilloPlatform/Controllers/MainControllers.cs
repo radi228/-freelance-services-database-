@@ -1,4 +1,4 @@
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,9 +8,10 @@ using SkilloPlatform.Models;
 
 namespace SkilloPlatform.Controllers;
 
-// ══════════════════════════════════════════════════════════════
+// PROJECTS CONTROLLER
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  PROJECTS
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 [ApiController]
 [Route("api/projects")]
 public class ProjectsController : ControllerBase
@@ -102,9 +103,9 @@ public class ProjectsController : ControllerBase
     );
 }
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  BIDS
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 [ApiController]
 [Route("api/bids")]
 public class BidsController : ControllerBase
@@ -150,11 +151,11 @@ public class BidsController : ControllerBase
     public async Task<IActionResult> Create(BidRequest req)
     {
         var project = await _db.Projects.FindAsync(req.ProjectId);
-        if (project is null) return NotFound(new { message = "Проектът не е намерен." });
-        if (project.Status != "Open") return BadRequest(new { message = "Проектът не приема оферти." });
+        if (project is null) return NotFound(new { message = "ÐŸÑ€Ð¾ÐµÐºÑ‚ÑŠÑ‚ Ð½Ðµ Ðµ Ð½Ð°Ð¼ÐµÑ€ÐµÐ½." });
+        if (project.Status != "Open") return BadRequest(new { message = "ÐŸÑ€Ð¾ÐµÐºÑ‚ÑŠÑ‚ Ð½Ðµ Ð¿Ñ€Ð¸ÐµÐ¼Ð° Ð¾Ñ„ÐµÑ€Ñ‚Ð¸." });
 
         if (await _db.Bids.AnyAsync(b => b.ProjectId == req.ProjectId && b.FreelancerId == UserId))
-            return Conflict(new { message = "Вече си подал оферта за този проект." });
+            return Conflict(new { message = "Ð’ÐµÑ‡Ðµ ÑÐ¸ Ð¿Ð¾Ð´Ð°Ð» Ð¾Ñ„ÐµÑ€Ñ‚Ð° Ð·Ð° Ñ‚Ð¾Ð·Ð¸ Ð¿Ñ€Ð¾ÐµÐºÑ‚." });
 
         var bid = new Bid
         {
@@ -181,13 +182,13 @@ public class BidsController : ControllerBase
         var bid = await _db.Bids.FindAsync(id);
         if (bid is null) return NotFound();
         if (bid.FreelancerId != UserId) return Forbid();
-        if (bid.Status != "Pending") return BadRequest(new { message = "Може да редактираш само чакащи оферти." });
+        if (bid.Status != "Pending") return BadRequest(new { message = "ÐœÐ¾Ð¶Ðµ Ð´Ð° Ñ€ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð°Ñˆ ÑÐ°Ð¼Ð¾ Ñ‡Ð°ÐºÐ°Ñ‰Ð¸ Ð¾Ñ„ÐµÑ€Ñ‚Ð¸." });
 
         bid.Amount       = req.Amount;
         bid.CoverLetter  = req.CoverLetter ?? bid.CoverLetter;
         bid.DeliveryDays = req.DeliveryDays;
         await _db.SaveChangesAsync();
-        return Ok(new { message = "Офертата е обновена." });
+        return Ok(new { message = "ÐžÑ„ÐµÑ€Ñ‚Ð°Ñ‚Ð° Ðµ Ð¾Ð±Ð½Ð¾Ð²ÐµÐ½Ð°." });
     }
 
     [HttpDelete("{id:int}")]
@@ -197,7 +198,7 @@ public class BidsController : ControllerBase
         var bid = await _db.Bids.FindAsync(id);
         if (bid is null) return NotFound();
         if (bid.FreelancerId != UserId) return Forbid();
-        if (bid.Status != "Pending") return BadRequest(new { message = "Може да изтриеш само чакащи оферти." });
+        if (bid.Status != "Pending") return BadRequest(new { message = "ÐœÐ¾Ð¶Ðµ Ð´Ð° Ð¸Ð·Ñ‚Ñ€Ð¸ÐµÑˆ ÑÐ°Ð¼Ð¾ Ñ‡Ð°ÐºÐ°Ñ‰Ð¸ Ð¾Ñ„ÐµÑ€Ñ‚Ð¸." });
 
         _db.Bids.Remove(bid);
         await _db.SaveChangesAsync();
@@ -209,7 +210,7 @@ public class BidsController : ControllerBase
     public async Task<IActionResult> UpdateStatus(int id, BidStatusRequest req)
     {
         if (!new[] { "Accepted", "Rejected" }.Contains(req.Status))
-            return BadRequest(new { message = "Невалиден статус." });
+            return BadRequest(new { message = "ÐÐµÐ²Ð°Ð»Ð¸Ð´ÐµÐ½ ÑÑ‚Ð°Ñ‚ÑƒÑ." });
 
         var bid = await _db.Bids.Include(b => b.Project).FirstOrDefaultAsync(b => b.Id == id);
         if (bid is null) return NotFound();
@@ -220,7 +221,7 @@ public class BidsController : ControllerBase
             bid.Project.Status = "InProgress";
 
         await _db.SaveChangesAsync();
-        return Ok(new { message = "Статусът е обновен." });
+        return Ok(new { message = "Ð¡Ñ‚Ð°Ñ‚ÑƒÑÑŠÑ‚ Ðµ Ð¾Ð±Ð½Ð¾Ð²ÐµÐ½." });
     }
 
     private static BidResponse Map(Bid b) => new(
@@ -231,9 +232,9 @@ public class BidsController : ControllerBase
     );
 }
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  REVIEWS
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 [ApiController]
 [Route("api/reviews")]
 public class ReviewsController : ControllerBase
@@ -265,7 +266,7 @@ public class ReviewsController : ControllerBase
                 r.ReviewerId == UserId &&
                 r.RevieweeId == req.RevieweeId &&
                 r.ProjectId  == req.ProjectId))
-            return Conflict(new { message = "Вече си оставил отзив." });
+            return Conflict(new { message = "Ð’ÐµÑ‡Ðµ ÑÐ¸ Ð¾ÑÑ‚Ð°Ð²Ð¸Ð» Ð¾Ñ‚Ð·Ð¸Ð²." });
 
         _db.Reviews.Add(new Review
         {
@@ -276,13 +277,13 @@ public class ReviewsController : ControllerBase
             Comment    = req.Comment ?? "",
         });
         await _db.SaveChangesAsync();
-        return Ok(new { message = "Отзивът е добавен." });
+        return Ok(new { message = "ÐžÑ‚Ð·Ð¸Ð²ÑŠÑ‚ Ðµ Ð´Ð¾Ð±Ð°Ð²ÐµÐ½." });
     }
 }
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  SERVICES
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 [ApiController]
 [Route("api/services")]
 public class ServicesController : ControllerBase
@@ -346,7 +347,7 @@ public class ServicesController : ControllerBase
         svc.PriceType = req.PriceType ?? "fixed"; svc.DeliveryDays = req.DeliveryDays;
         svc.Revisions = req.Revisions; svc.IsActive = req.IsActive;
         await _db.SaveChangesAsync();
-        return Ok(new { message = "Услугата е обновена." });
+        return Ok(new { message = "Ð£ÑÐ»ÑƒÐ³Ð°Ñ‚Ð° Ðµ Ð¾Ð±Ð½Ð¾Ð²ÐµÐ½Ð°." });
     }
 
     [HttpDelete("{id:int}")]
@@ -367,9 +368,9 @@ public class ServicesController : ControllerBase
     );
 }
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  WORK EXPERIENCE
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 [ApiController]
 [Route("api/experience")]
 [Authorize]
@@ -408,7 +409,7 @@ public class ExperienceController : ControllerBase
         item.StartDate = req.StartDate; item.EndDate = req.EndDate ?? "";
         item.IsCurrent = req.IsCurrent; item.Description = req.Description ?? "";
         await _db.SaveChangesAsync();
-        return Ok(new { message = "Обновено." });
+        return Ok(new { message = "ÐžÐ±Ð½Ð¾Ð²ÐµÐ½Ð¾." });
     }
 
     [HttpDelete("{id:int}")]
@@ -422,9 +423,9 @@ public class ExperienceController : ControllerBase
     }
 }
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  CERTIFICATES
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 [ApiController]
 [Route("api/certificates")]
 [Authorize]
@@ -475,3 +476,4 @@ public class CertificatesController : ControllerBase
         return NoContent();
     }
 }
+

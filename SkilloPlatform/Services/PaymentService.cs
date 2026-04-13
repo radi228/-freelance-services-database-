@@ -1,4 +1,4 @@
-using SkilloPlatform.Data;
+﻿using SkilloPlatform.Data;
 using SkilloPlatform.DTOs;
 using SkilloPlatform.Models;
 using Stripe;
@@ -18,19 +18,20 @@ public class PaymentService : IPaymentService
     private readonly SkilloDbContext _db;
     private readonly IConfiguration _config;
 
+    // Stripe, PayPal and Simulated payment processing
     public PaymentService(SkilloDbContext db, IConfiguration config)
     {
         _db = db;
         _config = config;
     }
 
-    // ── Stripe ────────────────────────────────────────────────
+    // â”€â”€ Stripe â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     public async Task<PaymentResponse> ProcessStripeAsync(int payerId, StripePaymentRequest req)
     {
         StripeConfiguration.ApiKey = _config["Stripe:SecretKey"];
 
         var project = await _db.Projects.FindAsync(req.ProjectId)
-            ?? throw new Exception("Проектът не е намерен.");
+            ?? throw new Exception("ÐŸÑ€Ð¾ÐµÐºÑ‚ÑŠÑ‚ Ð½Ðµ Ðµ Ð½Ð°Ð¼ÐµÑ€ÐµÐ½.");
 
         string transactionId;
         string status;
@@ -39,10 +40,10 @@ public class PaymentService : IPaymentService
         {
             var options = new ChargeCreateOptions
             {
-                Amount      = (long)(req.Amount * 100), // стотинки
+                Amount      = (long)(req.Amount * 100), // ÑÑ‚Ð¾Ñ‚Ð¸Ð½ÐºÐ¸
                 Currency    = "bgn",
                 Source      = req.StripeToken,
-                Description = $"Skillo плащане за проект: {project.Title}",
+                Description = $"Skillo Ð¿Ð»Ð°Ñ‰Ð°Ð½Ðµ Ð·Ð° Ð¿Ñ€Ð¾ÐµÐºÑ‚: {project.Title}",
             };
             var service = new ChargeService();
             var charge  = await service.CreateAsync(options);
@@ -60,11 +61,11 @@ public class PaymentService : IPaymentService
         return await SavePayment(payerId, req.ProjectId, req.Amount, "BGN", "Stripe", status, transactionId);
     }
 
-    // ── PayPal ────────────────────────────────────────────────
+    // â”€â”€ PayPal â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     public async Task<PaymentResponse> ProcessPayPalAsync(int payerId, PayPalPaymentRequest req)
     {
         var project = await _db.Projects.FindAsync(req.ProjectId)
-            ?? throw new Exception("Проектът не е намерен.");
+            ?? throw new Exception("ÐŸÑ€Ð¾ÐµÐºÑ‚ÑŠÑ‚ Ð½Ðµ Ðµ Ð½Ð°Ð¼ÐµÑ€ÐµÐ½.");
 
         // PayPal SDK verification
         string transactionId;
@@ -86,27 +87,27 @@ public class PaymentService : IPaymentService
         return await SavePayment(payerId, req.ProjectId, req.Amount, "BGN", "PayPal", status, transactionId);
     }
 
-    // ── Simulated ─────────────────────────────────────────────
+    // â”€â”€ Simulated â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     public async Task<PaymentResponse> ProcessSimulatedAsync(int payerId, PaymentRequest req)
     {
         var project = await _db.Projects.FindAsync(req.ProjectId)
-            ?? throw new Exception("Проектът не е намерен.");
+            ?? throw new Exception("ÐŸÑ€Ð¾ÐµÐºÑ‚ÑŠÑ‚ Ð½Ðµ Ðµ Ð½Ð°Ð¼ÐµÑ€ÐµÐ½.");
 
         var transactionId = $"sim_{Guid.NewGuid():N}";
-        return await SavePayment(payerId, req.ProjectId, req.Amount, req.Currency ?? "BGN", "Simulated", "Completed", transactionId, "Симулирано плащане");
+        return await SavePayment(payerId, req.ProjectId, req.Amount, req.Currency ?? "BGN", "Simulated", "Completed", transactionId, "Ð¡Ð¸Ð¼ÑƒÐ»Ð¸Ñ€Ð°Ð½Ð¾ Ð¿Ð»Ð°Ñ‰Ð°Ð½Ðµ");
     }
 
-    // ── Refund ────────────────────────────────────────────────
+    // â”€â”€ Refund â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     public async Task<PaymentResponse> RefundAsync(int paymentId, int requesterId)
     {
         var payment = await _db.Payments.FindAsync(paymentId)
-            ?? throw new Exception("Плащането не е намерено.");
+            ?? throw new Exception("ÐŸÐ»Ð°Ñ‰Ð°Ð½ÐµÑ‚Ð¾ Ð½Ðµ Ðµ Ð½Ð°Ð¼ÐµÑ€ÐµÐ½Ð¾.");
 
         if (payment.PayerId != requesterId)
-            throw new UnauthorizedAccessException("Нямаш права за тази операция.");
+            throw new UnauthorizedAccessException("ÐÑÐ¼Ð°Ñˆ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð° Ñ‚Ð°Ð·Ð¸ Ð¾Ð¿ÐµÑ€Ð°Ñ†Ð¸Ñ.");
 
         if (payment.Status != "Completed")
-            throw new Exception("Може да върнеш само успешни плащания.");
+            throw new Exception("ÐœÐ¾Ð¶Ðµ Ð´Ð° Ð²ÑŠÑ€Ð½ÐµÑˆ ÑÐ°Ð¼Ð¾ ÑƒÑÐ¿ÐµÑˆÐ½Ð¸ Ð¿Ð»Ð°Ñ‰Ð°Ð½Ð¸Ñ.");
 
         if (payment.Method == "Stripe")
         {
@@ -126,7 +127,7 @@ public class PaymentService : IPaymentService
         return MapPayment(payment, "");
     }
 
-    // ── Helper ────────────────────────────────────────────────
+    // â”€â”€ Helper â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     private async Task<PaymentResponse> SavePayment(
         int payerId, int projectId, decimal amount,
         string currency, string method, string status,
@@ -160,3 +161,4 @@ public class PaymentService : IPaymentService
         p.TransactionId, p.Notes, p.CreatedAt
     );
 }
+

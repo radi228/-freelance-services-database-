@@ -14,6 +14,7 @@ public class FreelancersController : ControllerBase
 {
     private readonly SkilloDbContext _db;
 
+    // Freelancers Controller - handles profile CRUD
     // Dependency injection
     public FreelancersController(SkilloDbContext db) => _db = db;
 
@@ -220,4 +221,5 @@ public class FreelancersController : ControllerBase
         );
     }
 }
+
 

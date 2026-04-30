@@ -20,7 +20,7 @@ public class TokenService : ITokenService
         _config = config;
     }
 
-    // Generates signed JWT token with 7-day validity
+    // Generates HMAC-SHA256 signed JWT token with 7-day validity
     public string GenerateToken(User user)
     {
         var key     = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]!));
@@ -46,4 +46,5 @@ public class TokenService : ITokenService
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 }
+
 

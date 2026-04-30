@@ -83,7 +83,7 @@ public class SkilloDbContext : DbContext
         mb.Entity<Payment>().Property(p => p.Amount).HasPrecision(18, 2);
     }
 
-    // Loads demo data on first run
+    // Loads demo data on first run - idempotent check
     public static void SeedData(SkilloDbContext db)
     {
         if (db.Users.Any()) return;
@@ -196,4 +196,5 @@ public class SkilloDbContext : DbContext
         db.SaveChanges();
     }
 }
+
 

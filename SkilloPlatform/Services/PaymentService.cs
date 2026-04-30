@@ -19,6 +19,7 @@ public class PaymentService : IPaymentService
     private readonly IConfiguration _config;
 
     // Stripe, PayPal and Simulated payment processing
+    // Implements IPaymentService interface
     public PaymentService(SkilloDbContext db, IConfiguration config)
     {
         _db = db;
@@ -161,4 +162,5 @@ public class PaymentService : IPaymentService
         p.TransactionId, p.Notes, p.CreatedAt
     );
 }
+
 

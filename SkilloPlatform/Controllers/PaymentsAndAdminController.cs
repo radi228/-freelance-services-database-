@@ -1,4 +1,4 @@
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,9 +9,9 @@ using SkilloPlatform.Services;
 
 namespace SkilloPlatform.Controllers;
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  PAYMENTS
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 [ApiController]
 [Route("api/payments")]
 [Authorize]
@@ -28,7 +28,7 @@ public class PaymentsController : ControllerBase
 
     private int UserId => int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
-    // GET /api/payments/mine — payment history for logged-in user
+    // GET /api/payments/mine â€” payment history for logged-in user
     [HttpGet("mine")]
     public async Task<IActionResult> GetMine()
     {
@@ -42,7 +42,7 @@ public class PaymentsController : ControllerBase
         return Ok(payments.Select(Map));
     }
 
-    // GET /api/payments/project/{id} — payments for a specific project
+    // GET /api/payments/project/{id} â€” payments for a specific project
     [HttpGet("project/{projectId:int}")]
     public async Task<IActionResult> GetByProject(int projectId)
     {
@@ -139,9 +139,9 @@ public class PaymentsController : ControllerBase
     );
 }
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  ADMIN
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 [ApiController]
 [Route("api/admin")]
 [Authorize(Roles = "Admin,SuperAdmin")]
@@ -213,7 +213,7 @@ public class AdminController : ControllerBase
 
         target.IsBanned = req.Banned;
         await _db.SaveChangesAsync();
-        return Ok(new { message = req.Banned ? "Акаунтът е блокиран." : "Акаунтът е разблокиран." });
+        return Ok(new { message = req.Banned ? "ÐÐºÐ°ÑƒÐ½Ñ‚ÑŠÑ‚ Ðµ Ð±Ð»Ð¾ÐºÐ¸Ñ€Ð°Ð½." : "ÐÐºÐ°ÑƒÐ½Ñ‚ÑŠÑ‚ Ðµ Ñ€Ð°Ð·Ð±Ð»Ð¾ÐºÐ¸Ñ€Ð°Ð½." });
     }
 
     // PATCH /api/admin/freelancers/{userId}/verify
@@ -224,10 +224,10 @@ public class AdminController : ControllerBase
         if (profile is null) return NotFound();
         profile.IsVerified = req.Verified;
         await _db.SaveChangesAsync();
-        return Ok(new { message = req.Verified ? "Верифициран." : "Верификацията е премахната." });
+        return Ok(new { message = req.Verified ? "Ð’ÐµÑ€Ð¸Ñ„Ð¸Ñ†Ð¸Ñ€Ð°Ð½." : "Ð’ÐµÑ€Ð¸Ñ„Ð¸ÐºÐ°Ñ†Ð¸ÑÑ‚Ð° Ðµ Ð¿Ñ€ÐµÐ¼Ð°Ñ…Ð½Ð°Ñ‚Ð°." });
     }
 
-    // DELETE /api/admin/users/{id} — SuperAdmin only
+    // DELETE /api/admin/users/{id} â€” SuperAdmin only
     [HttpDelete("users/{id:int}")]
     [Authorize(Roles = "SuperAdmin")]
     public async Task<IActionResult> DeleteUser(int id)
@@ -240,13 +240,13 @@ public class AdminController : ControllerBase
         return NoContent();
     }
 
-    // PATCH /api/admin/users/{id}/role — SuperAdmin only
+    // PATCH /api/admin/users/{id}/role â€” SuperAdmin only
     [HttpPatch("users/{id:int}/role")]
     [Authorize(Roles = "SuperAdmin")]
     public async Task<IActionResult> ChangeRole(int id, ChangeRoleRequest req)
     {
         if (!new[] { "Client", "Freelancer", "Admin" }.Contains(req.Role))
-            return BadRequest(new { message = "Невалидна роля." });
+            return BadRequest(new { message = "ÐÐµÐ²Ð°Ð»Ð¸Ð´Ð½Ð° Ñ€Ð¾Ð»Ñ." });
 
         var user = await _db.Users.FindAsync(id);
         if (user is null) return NotFound();
@@ -256,16 +256,16 @@ public class AdminController : ControllerBase
             _db.FreelancerProfiles.Add(new FreelancerProfile { UserId = id });
 
         await _db.SaveChangesAsync();
-        return Ok(new { message = "Ролята е сменена." });
+        return Ok(new { message = "Ð Ð¾Ð»ÑÑ‚Ð° Ðµ ÑÐ¼ÐµÐ½ÐµÐ½Ð°." });
     }
 
-    // POST /api/admin/create-admin — SuperAdmin only
+    // POST /api/admin/create-admin â€” SuperAdmin only
     [HttpPost("create-admin")]
     [Authorize(Roles = "SuperAdmin")]
     public async Task<IActionResult> CreateAdmin(CreateAdminRequest req)
     {
         if (await _db.Users.AnyAsync(u => u.Email == req.Email))
-            return Conflict(new { message = "Имейлът вече съществува." });
+            return Conflict(new { message = "Ð˜Ð¼ÐµÐ¹Ð»ÑŠÑ‚ Ð²ÐµÑ‡Ðµ ÑÑŠÑ‰ÐµÑÑ‚Ð²ÑƒÐ²Ð°." });
 
         var user = new User
         {
@@ -350,16 +350,16 @@ public class AdminController : ControllerBase
     public async Task<IActionResult> GetCategories() =>
         Ok(await _db.Categories.OrderBy(c => c.Name).ToListAsync());
 
-    // POST /api/admin/categories — Admin + SuperAdmin
+    // POST /api/admin/categories â€” Admin + SuperAdmin
     [HttpPost("categories")]
     public async Task<IActionResult> CreateCategory([FromBody] Category req)
     {
         _db.Categories.Add(new Category { Name = req.Name, Icon = req.Icon });
         await _db.SaveChangesAsync();
-        return Ok(new { message = "Категорията е добавена." });
+        return Ok(new { message = "ÐšÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸ÑÑ‚Ð° Ðµ Ð´Ð¾Ð±Ð°Ð²ÐµÐ½Ð°." });
     }
 
-    // DELETE /api/admin/categories/{id} — SuperAdmin only
+    // DELETE /api/admin/categories/{id} â€” SuperAdmin only
     [HttpDelete("categories/{id:int}")]
     [Authorize(Roles = "SuperAdmin")]
     public async Task<IActionResult> DeleteCategory(int id)
@@ -371,3 +371,4 @@ public class AdminController : ControllerBase
         return NoContent();
     }
 }
+

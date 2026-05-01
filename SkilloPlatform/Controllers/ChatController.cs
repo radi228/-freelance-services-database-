@@ -50,7 +50,7 @@ public class ChatController : ControllerBase
 
     public ChatController(SkilloDbContext db, IHubContext<ChatHub> hub) { _db = db; _hub = hub; }
 
-    // Gets current user ID from JWT claim
+    // Gets current authenticated user ID from JWT NameIdentifier claim
     private int UserId => int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
     [HttpGet("conversations")]
@@ -170,4 +170,5 @@ public class ChatController : ControllerBase
 
 public record StartConvRequest(int OtherUserId);
 public record SendMsgRequest(string Content);
+
 

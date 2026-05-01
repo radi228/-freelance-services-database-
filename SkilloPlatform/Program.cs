@@ -1,4 +1,4 @@
-using SkilloPlatform.Controllers;
+﻿using SkilloPlatform.Controllers;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -9,11 +9,11 @@ using SkilloPlatform.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ── Database ──────────────────────────────────────────────────
+// â”€â”€ Database â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 builder.Services.AddDbContext<SkilloDbContext>(opt =>
     opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// ── JWT Auth ──────────────────────────────────────────────────
+// â”€â”€ JWT Auth â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 var jwtKey = builder.Configuration["Jwt:Key"]!;
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(opt =>
@@ -32,15 +32,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddAuthorization();
 
-// ── CORS ──────────────────────────────────────────────────────
+// â”€â”€ CORS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 builder.Services.AddCors(opt =>
     opt.AddDefaultPolicy(p => p.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
 
-// ── Services ──────────────────────────────────────────────────
+// â”€â”€ Services â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 
-// ── Controllers + Swagger ─────────────────────────────────────
+// â”€â”€ Controllers + Swagger â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 builder.Services.AddControllers();
 builder.Services.AddSignalR();
 builder.Services.AddSignalR();
@@ -51,17 +51,17 @@ builder.Services.AddSwaggerGen(c =>
     {
         Title   = "Skillo API",
         Version = "v1",
-        Description = "Пазар за фрийланс услуги — REST API"
+        Description = "ÐŸÐ°Ð·Ð°Ñ€ Ð·Ð° Ñ„Ñ€Ð¸Ð¹Ð»Ð°Ð½Ñ ÑƒÑÐ»ÑƒÐ³Ð¸ â€” REST API"
     });
 
-    // JWT в Swagger UI
+    // JWT Ð² Swagger UI
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name         = "Authorization",
         Type         = SecuritySchemeType.Http,
         Scheme       = "bearer",
         BearerFormat = "JWT",
-        Description  = "Въведи JWT токена: Bearer {token}",
+        Description  = "Ð’ÑŠÐ²ÐµÐ´Ð¸ JWT Ñ‚Ð¾ÐºÐµÐ½Ð°: Bearer {token}",
     });
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
@@ -77,7 +77,7 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-// ── Migrations + Seed ─────────────────────────────────────────
+// â”€â”€ Migrations + Seed â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<SkilloDbContext>();
@@ -85,7 +85,7 @@ using (var scope = app.Services.CreateScope())
     SkilloDbContext.SeedData(db);
 }
 
-// ── Middleware ────────────────────────────────────────────────
+// â”€â”€ Middleware â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
@@ -108,3 +108,4 @@ app.Run();
 
 // Needed for integration tests
 public partial class Program { }
+

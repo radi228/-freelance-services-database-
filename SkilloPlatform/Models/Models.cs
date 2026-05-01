@@ -1,9 +1,9 @@
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SkilloPlatform.Models;
 
-// ── User ──────────────────────────────────────────────────────
+// â”€â”€ User â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 public class User
 {
     public int Id { get; set; }
@@ -34,7 +34,7 @@ public class User
     public ICollection<Service> Services { get; set; } = new List<Service>();
 }
 
-// ── FreelancerProfile ─────────────────────────────────────────
+// â”€â”€ FreelancerProfile â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 public class FreelancerProfile
 {
     public int Id { get; set; }
@@ -62,7 +62,7 @@ public class FreelancerProfile
     public ICollection<Certificate> Certificates { get; set; } = new List<Certificate>();
 }
 
-// ── WorkExperience ────────────────────────────────────────────
+// â”€â”€ WorkExperience â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 public class WorkExperience
 {
     public int Id { get; set; }
@@ -84,7 +84,7 @@ public class WorkExperience
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 }
 
-// ── Certificate ───────────────────────────────────────────────
+// â”€â”€ Certificate â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 public class Certificate
 {
     public int Id { get; set; }
@@ -106,7 +106,7 @@ public class Certificate
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 }
 
-// ── Service ───────────────────────────────────────────────────
+// â”€â”€ Service â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 public class Service
 {
     public int Id { get; set; }
@@ -128,7 +128,7 @@ public class Service
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 }
 
-// ── Project ───────────────────────────────────────────────────
+// â”€â”€ Project â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 public class Project
 {
     public int Id { get; set; }
@@ -153,7 +153,7 @@ public class Project
     public ICollection<Payment> Payments { get; set; } = new List<Payment>();
 }
 
-// ── Bid ───────────────────────────────────────────────────────
+// â”€â”€ Bid â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 public class Bid
 {
     public int Id { get; set; }
@@ -173,7 +173,7 @@ public class Bid
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 }
 
-// ── Payment ───────────────────────────────────────────────────
+// â”€â”€ Payment â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 public class Payment
 {
     public int Id { get; set; }
@@ -195,7 +195,7 @@ public class Payment
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 }
 
-// ── Review ────────────────────────────────────────────────────
+// â”€â”€ Review â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 public class Review
 {
     public int Id { get; set; }
@@ -218,7 +218,7 @@ public class Review
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 }
 
-// ── Category ──────────────────────────────────────────────────
+// â”€â”€ Category â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 public class Category
 {
     public int Id { get; set; }
@@ -229,7 +229,7 @@ public class Category
     public int FreelancerCount { get; set; } = 0;
 }
 
-// ── Conversation ──────────────────────────────────────────────
+// â”€â”€ Conversation â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 public class Conversation
 {
     public int Id { get; set; }
@@ -248,7 +248,7 @@ public class Conversation
     public ICollection<ChatMessage> Messages { get; set; } = new List<ChatMessage>();
 }
 
-// ── ChatMessage ───────────────────────────────────────────────
+// â”€â”€ ChatMessage â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 public class ChatMessage
 {
     public int Id { get; set; }
@@ -265,3 +265,4 @@ public class ChatMessage
     public string Content { get; set; } = "";
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 }
+

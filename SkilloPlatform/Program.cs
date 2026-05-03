@@ -93,7 +93,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Skillo API v1"));
 }
 
-app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions { OnPrepareResponse = ctx => { if (ctx.File.Name.EndsWith(".html")) ctx.Context.Response.Headers["Content-Type"] = "text/html; charset=utf-8"; } });
 app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
@@ -108,4 +108,5 @@ app.Run();
 
 // Needed for integration tests
 public partial class Program { }
+
 

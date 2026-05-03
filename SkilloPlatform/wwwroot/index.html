@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="bg">
 <head>
   <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Skillo – Фрийланс Платформа</title>
+  <title>Skillo â€“ Ð¤Ñ€Ð¸Ð¹Ð»Ð°Ð½Ñ ÐŸÐ»Ð°Ñ‚Ñ„Ð¾Ñ€Ð¼Ð°</title>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="/css/main.css"/>
   <style>
@@ -75,18 +75,18 @@
 <body>
 
 <nav id="main-nav">
-  <a href="/index.html" class="logo"><div class="logo-icon">🚀</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
+  <a href="/index.html" class="logo"><div class="logo-icon">ðŸš€</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
   <ul class="nav-links"></ul>
   <div class="nav-cta">
-    <a href="#" id="nav-login-btn" class="btn btn-outline btn-sm" onclick="switchAuthTab('login');openModal('auth-modal');return false">Вход</a>
-    <a href="#" id="nav-register-btn" class="btn btn-orange btn-sm" onclick="switchAuthTab('register');openModal('auth-modal');return false">Регистрация</a>
+    <a href="#" id="nav-login-btn" class="btn btn-outline btn-sm" onclick="switchAuthTab('login');openModal('auth-modal');return false">Ð’Ñ…Ð¾Ð´</a>
+    <a href="#" id="nav-register-btn" class="btn btn-orange btn-sm" onclick="switchAuthTab('register');openModal('auth-modal');return false">Ð ÐµÐ³Ð¸ÑÑ‚Ñ€Ð°Ñ†Ð¸Ñ</a>
     <div id="nav-user" style="display:none;align-items:center;gap:8px">
       <div id="nav-user-avatar" style="width:34px;height:34px;border-radius:50%;background:var(--g100);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--blue);border:2px solid var(--blue);overflow:hidden;cursor:pointer"></div>
       <span id="nav-user-name" style="font-size:.88rem;font-weight:600;color:var(--blue)"></span>
-      <a href="/pages/chat.html" id="nav-chat-btn" class="btn btn-ghost btn-sm" style="display:none" title="Съобщения">💬</a>
-      <a href="/pages/dashboard.html" class="btn btn-ghost btn-sm">Табло</a>
-      <a id="nav-admin-link" href="/pages/admin.html" class="btn btn-ghost btn-sm" style="display:none">⚙ Админ</a>
-      <button onclick="logout()" class="btn btn-ghost btn-sm">Изход</button>
+      <a href="/pages/chat.html" id="nav-chat-btn" class="btn btn-ghost btn-sm" style="display:none" title="Ð¡ÑŠÐ¾Ð±Ñ‰ÐµÐ½Ð¸Ñ">ðŸ’¬</a>
+      <a href="/pages/dashboard.html" class="btn btn-ghost btn-sm">Ð¢Ð°Ð±Ð»Ð¾</a>
+      <a id="nav-admin-link" href="/pages/admin.html" class="btn btn-ghost btn-sm" style="display:none">âš™ ÐÐ´Ð¼Ð¸Ð½</a>
+      <button onclick="logout()" class="btn btn-ghost btn-sm">Ð˜Ð·Ñ…Ð¾Ð´</button>
     </div>
   </div>
 </nav>
@@ -95,37 +95,37 @@
 <section class="hero">
   <div class="hero-inner">
     <div>
-      <div class="section-label" style="background:rgba(255,255,255,.12);color:var(--orange)"><span class="dot"></span>Фрийланс платформа</div>
-      <h1>Намери <span class="hl">топ таланти</span><br/>за твоя проект</h1>
-      <p>Свързваме бизнеси с проверени фрийлансъри. Бърз старт, качество, сигурни плащания.</p>
+      <div class="section-label" style="background:rgba(255,255,255,.12);color:var(--orange)"><span class="dot"></span>Ð¤Ñ€Ð¸Ð¹Ð»Ð°Ð½Ñ Ð¿Ð»Ð°Ñ‚Ñ„Ð¾Ñ€Ð¼Ð°</div>
+      <h1>ÐÐ°Ð¼ÐµÑ€Ð¸ <span class="hl">Ñ‚Ð¾Ð¿ Ñ‚Ð°Ð»Ð°Ð½Ñ‚Ð¸</span><br/>Ð·Ð° Ñ‚Ð²Ð¾Ñ Ð¿Ñ€Ð¾ÐµÐºÑ‚</h1>
+      <p>Ð¡Ð²ÑŠÑ€Ð·Ð²Ð°Ð¼Ðµ Ð±Ð¸Ð·Ð½ÐµÑÐ¸ Ñ Ð¿Ñ€Ð¾Ð²ÐµÑ€ÐµÐ½Ð¸ Ñ„Ñ€Ð¸Ð¹Ð»Ð°Ð½ÑÑŠÑ€Ð¸. Ð‘ÑŠÑ€Ð· ÑÑ‚Ð°Ñ€Ñ‚, ÐºÐ°Ñ‡ÐµÑÑ‚Ð²Ð¾, ÑÐ¸Ð³ÑƒÑ€Ð½Ð¸ Ð¿Ð»Ð°Ñ‰Ð°Ð½Ð¸Ñ.</p>
       <div class="hero-btns">
-        <a href="/pages/freelancers.html" class="btn btn-orange" style="padding:14px 32px;font-size:1rem">Намери фрийлансър</a>
-        <a href="#" class="btn" style="padding:13px 32px;border:2px solid rgba(255,255,255,.5);color:#fff;border-radius:50px;font-size:1rem" onclick="requireAuth();return false">Публикувай проект</a>
+        <a href="/pages/freelancers.html" class="btn btn-orange" style="padding:14px 32px;font-size:1rem">ÐÐ°Ð¼ÐµÑ€Ð¸ Ñ„Ñ€Ð¸Ð¹Ð»Ð°Ð½ÑÑŠÑ€</a>
+        <a href="#" class="btn" style="padding:13px 32px;border:2px solid rgba(255,255,255,.5);color:#fff;border-radius:50px;font-size:1rem" onclick="requireAuth();return false">ÐŸÑƒÐ±Ð»Ð¸ÐºÑƒÐ²Ð°Ð¹ Ð¿Ñ€Ð¾ÐµÐºÑ‚</a>
       </div>
       <div class="hero-stats">
-        <div class="stat"><div class="num" id="stat-fl">...</div><div class="lbl">Фрийлансъри</div></div>
-        <div class="stat"><div class="num" id="stat-pr">...</div><div class="lbl">Проекта</div></div>
-        <div class="stat"><div class="num">4.9★</div><div class="lbl">Средна оценка</div></div>
+        <div class="stat"><div class="num" id="stat-fl">...</div><div class="lbl">Ð¤Ñ€Ð¸Ð¹Ð»Ð°Ð½ÑÑŠÑ€Ð¸</div></div>
+        <div class="stat"><div class="num" id="stat-pr">...</div><div class="lbl">ÐŸÑ€Ð¾ÐµÐºÑ‚Ð°</div></div>
+        <div class="stat"><div class="num">4.9â˜…</div><div class="lbl">Ð¡Ñ€ÐµÐ´Ð½Ð° Ð¾Ñ†ÐµÐ½ÐºÐ°</div></div>
       </div>
     </div>
     <div class="hero-cards">
       <div class="hcard">
         <div class="hcard-top">
-          <div class="hcard-av" style="background:var(--blue)">👨‍💻</div>
-          <div><div class="hcard-name">Александър Тодоров</div><div class="hcard-role">Full-Stack Developer</div></div>
-          <div class="hcard-badge">ТОП</div>
+          <div class="hcard-av" style="background:var(--blue)">ðŸ‘¨â€ðŸ’»</div>
+          <div><div class="hcard-name">ÐÐ»ÐµÐºÑÐ°Ð½Ð´ÑŠÑ€ Ð¢Ð¾Ð´Ð¾Ñ€Ð¾Ð²</div><div class="hcard-role">Full-Stack Developer</div></div>
+          <div class="hcard-badge">Ð¢ÐžÐŸ</div>
         </div>
-        <div class="hcard-skills">React · Node.js · TypeScript · 5г. опит</div>
-        <div class="hcard-price">от 45 €/час</div>
+        <div class="hcard-skills">React Â· Node.js Â· TypeScript Â· 5Ð³. Ð¾Ð¿Ð¸Ñ‚</div>
+        <div class="hcard-price">Ð¾Ñ‚ 45 â‚¬/Ñ‡Ð°Ñ</div>
       </div>
       <div class="hcard">
         <div class="hcard-top">
-          <div class="hcard-av" style="background:var(--orange)">🎨</div>
-          <div><div class="hcard-name">Мария Георгиева</div><div class="hcard-role">UI/UX Designer</div></div>
+          <div class="hcard-av" style="background:var(--orange)">ðŸŽ¨</div>
+          <div><div class="hcard-name">ÐœÐ°Ñ€Ð¸Ñ Ð“ÐµÐ¾Ñ€Ð³Ð¸ÐµÐ²Ð°</div><div class="hcard-role">UI/UX Designer</div></div>
           <div class="hcard-badge">PRO</div>
         </div>
-        <div class="hcard-skills">Figma · Branding · iOS Design · 4г. опит</div>
-        <div class="hcard-price">от 60 €/час</div>
+        <div class="hcard-skills">Figma Â· Branding Â· iOS Design Â· 4Ð³. Ð¾Ð¿Ð¸Ñ‚</div>
+        <div class="hcard-price">Ð¾Ñ‚ 60 â‚¬/Ñ‡Ð°Ñ</div>
       </div>
     </div>
   </div>
@@ -134,14 +134,14 @@
 <!-- SEARCH -->
 <div class="search-wrap">
   <div class="search-bar">
-    <span>🔍</span>
-    <input id="s-input" type="text" placeholder="Търси услуга, умение или фрийлансър…" onkeydown="if(event.key==='Enter')doSearch()"/>
+    <span>ðŸ”</span>
+    <input id="s-input" type="text" placeholder="Ð¢ÑŠÑ€ÑÐ¸ ÑƒÑÐ»ÑƒÐ³Ð°, ÑƒÐ¼ÐµÐ½Ð¸Ðµ Ð¸Ð»Ð¸ Ñ„Ñ€Ð¸Ð¹Ð»Ð°Ð½ÑÑŠÑ€â€¦" onkeydown="if(event.key==='Enter')doSearch()"/>
     <div class="search-sep"></div>
-    <select class="search-sel" id="s-cat"><option value="">Всички категории</option></select>
-    <button class="btn btn-primary" style="border-radius:50px;padding:11px 28px" onclick="doSearch()">Търси</button>
+    <select class="search-sel" id="s-cat"><option value="">Ð’ÑÐ¸Ñ‡ÐºÐ¸ ÐºÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸Ð¸</option></select>
+    <button class="btn btn-primary" style="border-radius:50px;padding:11px 28px" onclick="doSearch()">Ð¢ÑŠÑ€ÑÐ¸</button>
   </div>
   <div class="popular">
-    <span style="font-size:.8rem;color:var(--g500);line-height:2">Популярно:</span>
+    <span style="font-size:.8rem;color:var(--g500);line-height:2">ÐŸÐ¾Ð¿ÑƒÐ»ÑÑ€Ð½Ð¾:</span>
     <span class="ptag" onclick="qs('React')">React</span>
     <span class="ptag" onclick="qs('Figma')">Figma</span>
     <span class="ptag" onclick="qs('SEO')">SEO</span>
@@ -153,8 +153,8 @@
 <!-- CATEGORIES -->
 <section class="white-bg">
   <div class="sec-hdr">
-    <div><div class="section-label"><span class="dot"></span>Разгледай</div><h2 class="section-title">Категории услуги</h2></div>
-    <a href="/pages/freelancers.html" class="btn btn-outline btn-sm">Виж всички →</a>
+    <div><div class="section-label"><span class="dot"></span>Ð Ð°Ð·Ð³Ð»ÐµÐ´Ð°Ð¹</div><h2 class="section-title">ÐšÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸Ð¸ ÑƒÑÐ»ÑƒÐ³Ð¸</h2></div>
+    <a href="/pages/freelancers.html" class="btn btn-outline btn-sm">Ð’Ð¸Ð¶ Ð²ÑÐ¸Ñ‡ÐºÐ¸ â†’</a>
   </div>
   <div class="cats-grid" id="cats-grid"><div class="loading"><div class="spinner"></div></div></div>
 </section>
@@ -162,8 +162,8 @@
 <!-- FREELANCERS -->
 <section class="gray-bg">
   <div class="sec-hdr">
-    <div><div class="section-label"><span class="dot"></span>Топ специалисти</div><h2 class="section-title">Проверени фрийлансъри</h2></div>
-    <a href="/pages/freelancers.html" class="btn btn-outline btn-sm">Виж всички →</a>
+    <div><div class="section-label"><span class="dot"></span>Ð¢Ð¾Ð¿ ÑÐ¿ÐµÑ†Ð¸Ð°Ð»Ð¸ÑÑ‚Ð¸</div><h2 class="section-title">ÐŸÑ€Ð¾Ð²ÐµÑ€ÐµÐ½Ð¸ Ñ„Ñ€Ð¸Ð¹Ð»Ð°Ð½ÑÑŠÑ€Ð¸</h2></div>
+    <a href="/pages/freelancers.html" class="btn btn-outline btn-sm">Ð’Ð¸Ð¶ Ð²ÑÐ¸Ñ‡ÐºÐ¸ â†’</a>
   </div>
   <div class="fl-grid" id="fl-grid"><div class="loading"><div class="spinner"></div></div></div>
 </section>
@@ -171,58 +171,58 @@
 <!-- HOW IT WORKS -->
 <section class="white-bg">
   <div style="text-align:center;max-width:560px;margin:0 auto 56px">
-    <div class="section-label" style="justify-content:center"><span class="dot"></span>Лесен процес</div>
-    <h2 class="section-title">Как работи Skillo?</h2>
+    <div class="section-label" style="justify-content:center"><span class="dot"></span>Ð›ÐµÑÐµÐ½ Ð¿Ñ€Ð¾Ñ†ÐµÑ</div>
+    <h2 class="section-title">ÐšÐ°Ðº Ñ€Ð°Ð±Ð¾Ñ‚Ð¸ Skillo?</h2>
   </div>
   <div class="steps">
-    <div class="step"><div class="step-n">1</div><span class="step-icon">📋</span><h3>Публикувай проект</h3><p>Опиши задачата, бюджет и срок.</p></div>
-    <div class="step"><div class="step-n">2</div><span class="step-icon">🤝</span><h3>Получи оферти</h3><p>Фрийлансъри изпращат предложения.</p></div>
-    <div class="step"><div class="step-n">3</div><span class="step-icon">🚀</span><h3>Стартирай</h3><p>Работете директно.</p></div>
-    <div class="step"><div class="step-n">4</div><span class="step-icon">✅</span><h3>Одобри и плати</h3><p>Прегледай резултата и плати.</p></div>
+    <div class="step"><div class="step-n">1</div><span class="step-icon">ðŸ“‹</span><h3>ÐŸÑƒÐ±Ð»Ð¸ÐºÑƒÐ²Ð°Ð¹ Ð¿Ñ€Ð¾ÐµÐºÑ‚</h3><p>ÐžÐ¿Ð¸ÑˆÐ¸ Ð·Ð°Ð´Ð°Ñ‡Ð°Ñ‚Ð°, Ð±ÑŽÐ´Ð¶ÐµÑ‚ Ð¸ ÑÑ€Ð¾Ðº.</p></div>
+    <div class="step"><div class="step-n">2</div><span class="step-icon">ðŸ¤</span><h3>ÐŸÐ¾Ð»ÑƒÑ‡Ð¸ Ð¾Ñ„ÐµÑ€Ñ‚Ð¸</h3><p>Ð¤Ñ€Ð¸Ð¹Ð»Ð°Ð½ÑÑŠÑ€Ð¸ Ð¸Ð·Ð¿Ñ€Ð°Ñ‰Ð°Ñ‚ Ð¿Ñ€ÐµÐ´Ð»Ð¾Ð¶ÐµÐ½Ð¸Ñ.</p></div>
+    <div class="step"><div class="step-n">3</div><span class="step-icon">ðŸš€</span><h3>Ð¡Ñ‚Ð°Ñ€Ñ‚Ð¸Ñ€Ð°Ð¹</h3><p>Ð Ð°Ð±Ð¾Ñ‚ÐµÑ‚Ðµ Ð´Ð¸Ñ€ÐµÐºÑ‚Ð½Ð¾.</p></div>
+    <div class="step"><div class="step-n">4</div><span class="step-icon">âœ…</span><h3>ÐžÐ´Ð¾Ð±Ñ€Ð¸ Ð¸ Ð¿Ð»Ð°Ñ‚Ð¸</h3><p>ÐŸÑ€ÐµÐ³Ð»ÐµÐ´Ð°Ð¹ Ñ€ÐµÐ·ÑƒÐ»Ñ‚Ð°Ñ‚Ð° Ð¸ Ð¿Ð»Ð°Ñ‚Ð¸.</p></div>
   </div>
 </section>
 
 <!-- CTA -->
 <div class="cta">
-  <h2>Готов да стартираш? 🚀</h2>
-  <p>Присъедини се към хиляди фрийлансъри и бизнеси в Skillo.</p>
+  <h2>Ð“Ð¾Ñ‚Ð¾Ð² Ð´Ð° ÑÑ‚Ð°Ñ€Ñ‚Ð¸Ñ€Ð°Ñˆ? ðŸš€</h2>
+  <p>ÐŸÑ€Ð¸ÑÑŠÐµÐ´Ð¸Ð½Ð¸ ÑÐµ ÐºÑŠÐ¼ Ñ…Ð¸Ð»ÑÐ´Ð¸ Ñ„Ñ€Ð¸Ð¹Ð»Ð°Ð½ÑÑŠÑ€Ð¸ Ð¸ Ð±Ð¸Ð·Ð½ÐµÑÐ¸ Ð² Skillo.</p>
   <div class="cta-btns">
-    <a href="#" class="btn btn-orange" style="padding:14px 32px" onclick="switchAuthTab('register');openModal('auth-modal');return false">Регистрирай се безплатно</a>
-    <a href="/pages/freelancers.html" class="btn" style="padding:13px 32px;border:2px solid rgba(255,255,255,.5);color:#fff;border-radius:50px">Разгледай фрийлансъри</a>
+    <a href="#" class="btn btn-orange" style="padding:14px 32px" onclick="switchAuthTab('register');openModal('auth-modal');return false">Ð ÐµÐ³Ð¸ÑÑ‚Ñ€Ð¸Ñ€Ð°Ð¹ ÑÐµ Ð±ÐµÐ·Ð¿Ð»Ð°Ñ‚Ð½Ð¾</a>
+    <a href="/pages/freelancers.html" class="btn" style="padding:13px 32px;border:2px solid rgba(255,255,255,.5);color:#fff;border-radius:50px">Ð Ð°Ð·Ð³Ð»ÐµÐ´Ð°Ð¹ Ñ„Ñ€Ð¸Ð¹Ð»Ð°Ð½ÑÑŠÑ€Ð¸</a>
   </div>
 </div>
 
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
-      <a href="/index.html" class="logo" style="color:#fff"><div class="logo-icon">🚀</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
-      <p>Платформата за фрийланс услуги, свързваща бизнеси с проверени специалисти.</p>
+      <a href="/index.html" class="logo" style="color:#fff"><div class="logo-icon">ðŸš€</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
+      <p>ÐŸÐ»Ð°Ñ‚Ñ„Ð¾Ñ€Ð¼Ð°Ñ‚Ð° Ð·Ð° Ñ„Ñ€Ð¸Ð¹Ð»Ð°Ð½Ñ ÑƒÑÐ»ÑƒÐ³Ð¸, ÑÐ²ÑŠÑ€Ð·Ð²Ð°Ñ‰Ð° Ð±Ð¸Ð·Ð½ÐµÑÐ¸ Ñ Ð¿Ñ€Ð¾Ð²ÐµÑ€ÐµÐ½Ð¸ ÑÐ¿ÐµÑ†Ð¸Ð°Ð»Ð¸ÑÑ‚Ð¸.</p>
     </div>
-    <div class="footer-col"><h4>Платформа</h4><ul>
-      <li><a href="/pages/freelancers.html">Фрийлансъри</a></li>
-      <li><a href="/pages/projects.html">Проекти</a></li>
-      <li><a href="/pages/how-it-works.html">Как работи</a></li>
+    <div class="footer-col"><h4>ÐŸÐ»Ð°Ñ‚Ñ„Ð¾Ñ€Ð¼Ð°</h4><ul>
+      <li><a href="/pages/freelancers.html">Ð¤Ñ€Ð¸Ð¹Ð»Ð°Ð½ÑÑŠÑ€Ð¸</a></li>
+      <li><a href="/pages/projects.html">ÐŸÑ€Ð¾ÐµÐºÑ‚Ð¸</a></li>
+      <li><a href="/pages/how-it-works.html">ÐšÐ°Ðº Ñ€Ð°Ð±Ð¾Ñ‚Ð¸</a></li>
     </ul></div>
-    <div class="footer-col"><h4>Компания</h4><ul>
-      <li><a href="/pages/about.html">За нас</a></li>
-      <li><a href="/pages/contact.html">Контакти</a></li>
-      <li><a href="/pages/privacy.html">Поверителност</a></li>
+    <div class="footer-col"><h4>ÐšÐ¾Ð¼Ð¿Ð°Ð½Ð¸Ñ</h4><ul>
+      <li><a href="/pages/about.html">Ð—Ð° Ð½Ð°Ñ</a></li>
+      <li><a href="/pages/contact.html">ÐšÐ¾Ð½Ñ‚Ð°ÐºÑ‚Ð¸</a></li>
+      <li><a href="/pages/privacy.html">ÐŸÐ¾Ð²ÐµÑ€Ð¸Ñ‚ÐµÐ»Ð½Ð¾ÑÑ‚</a></li>
     </ul></div>
-    <div class="footer-col"><h4>Правни</h4><ul>
-      <li><a href="/pages/terms.html">Условия за ползване</a></li>
-      <li><a href="/pages/privacy.html">Поверителност</a></li>
+    <div class="footer-col"><h4>ÐŸÑ€Ð°Ð²Ð½Ð¸</h4><ul>
+      <li><a href="/pages/terms.html">Ð£ÑÐ»Ð¾Ð²Ð¸Ñ Ð·Ð° Ð¿Ð¾Ð»Ð·Ð²Ð°Ð½Ðµ</a></li>
+      <li><a href="/pages/privacy.html">ÐŸÐ¾Ð²ÐµÑ€Ð¸Ñ‚ÐµÐ»Ð½Ð¾ÑÑ‚</a></li>
     </ul></div>
   </div>
-  <div class="footer-bottom"><p>© 2025 Skillo. Всички права запазени.</p></div>
+  <div class="footer-bottom"><p>Â© 2025 Skillo. Ð’ÑÐ¸Ñ‡ÐºÐ¸ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ð¿Ð°Ð·ÐµÐ½Ð¸.</p></div>
 </footer>
 
 <!-- AUTH MODAL -->
 <div class="modal-overlay" id="auth-modal">
   <div class="modal">
-    <button class="modal-close" onclick="closeModal('auth-modal')">✕</button>
+    <button class="modal-close" onclick="closeModal('auth-modal')">âœ•</button>
     <div style="display:flex;border:2px solid var(--g200);border-radius:50px;overflow:hidden;margin-bottom:24px" id="auth-tabs">
-      <button id="tab-login" onclick="switchAuthTab('login')" style="flex:1;border:none;padding:10px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.88rem;cursor:pointer;background:var(--blue);color:#fff">Вход</button>
-      <button id="tab-register" onclick="switchAuthTab('register')" style="flex:1;border:none;padding:10px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.88rem;cursor:pointer;background:transparent;color:var(--g500)">Регистрация</button>
+      <button id="tab-login" onclick="switchAuthTab('login')" style="flex:1;border:none;padding:10px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.88rem;cursor:pointer;background:var(--blue);color:#fff">Ð’Ñ…Ð¾Ð´</button>
+      <button id="tab-register" onclick="switchAuthTab('register')" style="flex:1;border:none;padding:10px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.88rem;cursor:pointer;background:transparent;color:var(--g500)">Ð ÐµÐ³Ð¸ÑÑ‚Ñ€Ð°Ñ†Ð¸Ñ</button>
     </div>
     <div id="auth-alert" class="alert"></div>
     <div id="auth-form"></div>
@@ -231,7 +231,7 @@
 
 <script src="/js/shared.js"></script>
 <script>
-const emojis = ['👨‍💻','🎨','✍️','📊','🎬','🤖','📱','🔒','🌐','📈'];
+const emojis = ['ðŸ‘¨â€ðŸ’»','ðŸŽ¨','âœï¸','ðŸ“Š','ðŸŽ¬','ðŸ¤–','ðŸ“±','ðŸ”’','ðŸŒ','ðŸ“ˆ'];
 
 async function loadCats() {
   try {
@@ -243,7 +243,7 @@ async function loadCats() {
       <a class="cat-card" href="/pages/freelancers.html?category=${encodeURIComponent(c.name)}">
         <span class="ci">${c.icon}</span>
         <div class="cn">${c.name}</div>
-        <div class="cc">${c.freelancerCount} фрийлансъри</div>
+        <div class="cc">${c.freelancerCount} Ñ„Ñ€Ð¸Ð¹Ð»Ð°Ð½ÑÑŠÑ€Ð¸</div>
       </a>`).join('');
   } catch(e) {
     document.getElementById('cats-grid').innerHTML = `<p style="color:var(--g500)">${e.message}</p>`;
@@ -256,7 +256,7 @@ async function loadFLs() {
     const list = Array.isArray(rawFL) ? rawFL : (rawFL?.$values || rawFL?.value || []);
     document.getElementById('stat-fl').textContent = list.length + '+';
     document.getElementById('fl-grid').innerHTML = list.slice(0,6).map((f,i) => {
-      const stars = '★'.repeat(Math.round(f.averageRating||0))+'☆'.repeat(5-Math.round(f.averageRating||0));
+      const stars = 'â˜…'.repeat(Math.round(f.averageRating||0))+'â˜†'.repeat(5-Math.round(f.averageRating||0));
       const av = f.avatar ? `<img src="http://localhost:5000${f.avatar}" alt=""/>` : emojis[i%emojis.length];
       return `
       <a class="fl-card" href="/pages/freelancer-detail.html?id=${f.userId}">
@@ -264,15 +264,15 @@ async function loadFLs() {
           <div class="fl-av">${av}</div>
           <div>
             <div class="fl-name">${f.fullName}</div>
-            <div class="fl-title">${f.title||'Фрийлансър'}</div>
-            ${f.isVerified?'<span class="badge badge-green" style="font-size:.7rem">✓ Верифициран</span>':''}
+            <div class="fl-title">${f.title||'Ð¤Ñ€Ð¸Ð¹Ð»Ð°Ð½ÑÑŠÑ€'}</div>
+            ${f.isVerified?'<span class="badge badge-green" style="font-size:.7rem">âœ“ Ð’ÐµÑ€Ð¸Ñ„Ð¸Ñ†Ð¸Ñ€Ð°Ð½</span>':''}
           </div>
         </div>
-        <div style="color:var(--orange);font-size:.82rem">${stars} <span style="color:var(--g500)">${f.averageRating>0?f.averageRating.toFixed(1):'Нов'} (${f.reviewCount})</span></div>
+        <div style="color:var(--orange);font-size:.82rem">${stars} <span style="color:var(--g500)">${f.averageRating>0?f.averageRating.toFixed(1):'ÐÐ¾Ð²'} (${f.reviewCount})</span></div>
         <div class="fl-skills">${(f.skills||[]).slice(0,3).map(s=>`<span class="sp">${s}</span>`).join('')}</div>
         <div class="fl-bottom">
-          <div class="fl-price">${f.hourlyRate} €<span>/час</span></div>
-          <span class="btn btn-primary btn-sm">Виж профил</span>
+          <div class="fl-price">${f.hourlyRate} â‚¬<span>/Ñ‡Ð°Ñ</span></div>
+          <span class="btn btn-primary btn-sm">Ð’Ð¸Ð¶ Ð¿Ñ€Ð¾Ñ„Ð¸Ð»</span>
         </div>
       </a>`;
     }).join('');
@@ -306,31 +306,31 @@ function qs(term) {
 function requireAuth() {
   if (!Auth.loggedIn()) { switchAuthTab('register'); openModal('auth-modal'); return; }
   if (Auth.isClient()) window.location.href = '/pages/projects.html';
-  else alert('Само клиенти могат да публикуват проекти.');
+  else alert('Ð¡Ð°Ð¼Ð¾ ÐºÐ»Ð¸ÐµÐ½Ñ‚Ð¸ Ð¼Ð¾Ð³Ð°Ñ‚ Ð´Ð° Ð¿ÑƒÐ±Ð»Ð¸ÐºÑƒÐ²Ð°Ñ‚ Ð¿Ñ€Ð¾ÐµÐºÑ‚Ð¸.');
 }
 
-// ── Auth modal ──────────────────────────────────────────────
+// â”€â”€ Auth modal â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function switchAuthTab(tab) {
   const isLogin = tab === 'login';
   document.getElementById('tab-login').style.cssText    = `flex:1;border:none;padding:10px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.88rem;cursor:pointer;background:${isLogin?'var(--blue)':'transparent'};color:${isLogin?'#fff':'var(--g500)'}`;
   document.getElementById('tab-register').style.cssText = `flex:1;border:none;padding:10px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.88rem;cursor:pointer;background:${!isLogin?'var(--blue)':'transparent'};color:${!isLogin?'#fff':'var(--g500)'}`;
   hideAlert('auth-alert');
   document.getElementById('auth-form').innerHTML = isLogin ? `
-    <div class="form-group"><label>Имейл</label><input id="a-email" type="email" placeholder="email@example.com"/></div>
-    <div class="form-group"><label>Парола</label><input id="a-pass" type="password" placeholder="••••••"/></div>
-    <button class="btn btn-primary btn-full" style="padding:13px" onclick="doLogin()">Вход</button>
-    <p style="text-align:center;margin-top:12px;font-size:.8rem;color:var(--g500)">Демо: <b>alex@skillo.bg</b> / <b>Demo1234!</b></p>
+    <div class="form-group"><label>Ð˜Ð¼ÐµÐ¹Ð»</label><input id="a-email" type="email" placeholder="email@example.com"/></div>
+    <div class="form-group"><label>ÐŸÐ°Ñ€Ð¾Ð»Ð°</label><input id="a-pass" type="password" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢"/></div>
+    <button class="btn btn-primary btn-full" style="padding:13px" onclick="doLogin()">Ð’Ñ…Ð¾Ð´</button>
+    <p style="text-align:center;margin-top:12px;font-size:.8rem;color:var(--g500)">Ð”ÐµÐ¼Ð¾: <b>alex@skillo.bg</b> / <b>Demo1234!</b></p>
   ` : `
-    <div class="form-group"><label>Пълно име</label><input id="a-name" placeholder="Иван Иванов"/></div>
-    <div class="form-group"><label>Имейл</label><input id="a-email" type="email" placeholder="email@example.com"/></div>
-    <div class="form-group"><label>Аз съм…</label>
+    <div class="form-group"><label>ÐŸÑŠÐ»Ð½Ð¾ Ð¸Ð¼Ðµ</label><input id="a-name" placeholder="Ð˜Ð²Ð°Ð½ Ð˜Ð²Ð°Ð½Ð¾Ð²"/></div>
+    <div class="form-group"><label>Ð˜Ð¼ÐµÐ¹Ð»</label><input id="a-email" type="email" placeholder="email@example.com"/></div>
+    <div class="form-group"><label>ÐÐ· ÑÑŠÐ¼â€¦</label>
       <select id="a-role">
-        <option value="Client">Клиент – търся фрийлансъри</option>
-        <option value="Freelancer">Фрийлансър – предлагам услуги</option>
+        <option value="Client">ÐšÐ»Ð¸ÐµÐ½Ñ‚ â€“ Ñ‚ÑŠÑ€ÑÑ Ñ„Ñ€Ð¸Ð¹Ð»Ð°Ð½ÑÑŠÑ€Ð¸</option>
+        <option value="Freelancer">Ð¤Ñ€Ð¸Ð¹Ð»Ð°Ð½ÑÑŠÑ€ â€“ Ð¿Ñ€ÐµÐ´Ð»Ð°Ð³Ð°Ð¼ ÑƒÑÐ»ÑƒÐ³Ð¸</option>
       </select>
     </div>
-    <div class="form-group"><label>Парола (мин. 6 символа)</label><input id="a-pass" type="password" placeholder="••••••••"/></div>
-    <button class="btn btn-orange btn-full" style="padding:13px" onclick="doRegister()">Създай акаунт безплатно</button>
+    <div class="form-group"><label>ÐŸÐ°Ñ€Ð¾Ð»Ð° (Ð¼Ð¸Ð½. 6 ÑÐ¸Ð¼Ð²Ð¾Ð»Ð°)</label><input id="a-pass" type="password" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"/></div>
+    <button class="btn btn-orange btn-full" style="padding:13px" onclick="doRegister()">Ð¡ÑŠÐ·Ð´Ð°Ð¹ Ð°ÐºÐ°ÑƒÐ½Ñ‚ Ð±ÐµÐ·Ð¿Ð»Ð°Ñ‚Ð½Ð¾</button>
   `;
 }
 
@@ -343,7 +343,7 @@ async function doLogin() {
     })});
     Auth.save(data);
     closeModal('auth-modal');
-    // ── Пренасочване към Home страницата ──
+    // â”€â”€ ÐŸÑ€ÐµÐ½Ð°ÑÐ¾Ñ‡Ð²Ð°Ð½Ðµ ÐºÑŠÐ¼ Home ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ð°Ñ‚Ð° â”€â”€
     window.location.href = '/index.html';
   } catch(e) { showAlert('auth-alert', e.message); }
 }
@@ -359,7 +359,7 @@ async function doRegister() {
     })});
     Auth.save(data);
     closeModal('auth-modal');
-    // ── Пренасочване към Home страницата ──
+    // â”€â”€ ÐŸÑ€ÐµÐ½Ð°ÑÐ¾Ñ‡Ð²Ð°Ð½Ðµ ÐºÑŠÐ¼ Home ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ð°Ñ‚Ð° â”€â”€
     window.location.href = '/index.html';
   } catch(e) { showAlert('auth-alert', e.message); }
 }
@@ -376,3 +376,4 @@ loadStats();
 </script>
 </body>
 </html>
+

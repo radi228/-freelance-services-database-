@@ -1,4 +1,4 @@
-const API = 'http://localhost:5000/api';
+﻿const API = 'http://localhost:5000/api';
 
 const Auth = {
   token:       () => localStorage.getItem('sk_token'),
@@ -29,11 +29,11 @@ async function apiFetch(path, opts = {}) {
   try {
     res = await fetch(`${API}${path}`, { ...opts, headers: { ...headers, ...opts.headers } });
   } catch {
-    throw new Error('Не може да се свърже със сървъра. Увери се че dotnet run върви.');
+    throw new Error('ÐÐµ Ð¼Ð¾Ð¶Ðµ Ð´Ð° ÑÐµ ÑÐ²ÑŠÑ€Ð¶Ðµ ÑÑŠÑ ÑÑŠÑ€Ð²ÑŠÑ€Ð°. Ð£Ð²ÐµÑ€Ð¸ ÑÐµ Ñ‡Ðµ dotnet run Ð²ÑŠÑ€Ð²Ð¸.');
   }
   if (res.status === 204) return null;
   const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(data.message || `Грешка ${res.status}`);
+  if (!res.ok) throw new Error(data.message || `Ð“Ñ€ÐµÑˆÐºÐ° ${res.status}`);
   return data;
 }
 
@@ -56,33 +56,33 @@ function buildNav() {
 
   if (navLinks) {
     if (!u) {
-      // Гост — без Табло, Профил, Услуги
+      // Ð“Ð¾ÑÑ‚ â€” Ð±ÐµÐ· Ð¢Ð°Ð±Ð»Ð¾, ÐŸÑ€Ð¾Ñ„Ð¸Ð», Ð£ÑÐ»ÑƒÐ³Ð¸
       navLinks.innerHTML =
-        a('/index.html','Начало') +
-        a('/pages/freelancers.html','Фрийлансъри') +
-        a('/pages/projects.html','Проекти') +
-        a('/pages/how-it-works.html','Как работи');
+        a('/index.html','ÐÐ°Ñ‡Ð°Ð»Ð¾') +
+        a('/pages/freelancers.html','Ð¤Ñ€Ð¸Ð¹Ð»Ð°Ð½ÑÑŠÑ€Ð¸') +
+        a('/pages/projects.html','ÐŸÑ€Ð¾ÐµÐºÑ‚Ð¸') +
+        a('/pages/how-it-works.html','ÐšÐ°Ðº Ñ€Ð°Ð±Ð¾Ñ‚Ð¸');
     } else if (u.role === 'Freelancer') {
       navLinks.innerHTML =
-        a('/index.html','Начало') +
-        a('/pages/projects.html','Проекти') +
-        a('/pages/my-bids.html','Мои оферти') +
-        a('/pages/dashboard.html','Табло') +
-        a('/pages/profile.html','Профил') +
-        a('/pages/services.html','Услуги');
+        a('/index.html','ÐÐ°Ñ‡Ð°Ð»Ð¾') +
+        a('/pages/projects.html','ÐŸÑ€Ð¾ÐµÐºÑ‚Ð¸') +
+        a('/pages/my-bids.html','ÐœÐ¾Ð¸ Ð¾Ñ„ÐµÑ€Ñ‚Ð¸') +
+        a('/pages/dashboard.html','Ð¢Ð°Ð±Ð»Ð¾') +
+        a('/pages/profile.html','ÐŸÑ€Ð¾Ñ„Ð¸Ð»') +
+        a('/pages/services.html','Ð£ÑÐ»ÑƒÐ³Ð¸');
     } else if (u.role === 'Client') {
       navLinks.innerHTML =
-        a('/index.html','Начало') +
-        a('/pages/freelancers.html','Фрийлансъри') +
-        a('/pages/browse-services.html','Оферти') +
-        a('/pages/projects.html','Проекти') +
-        a('/pages/dashboard.html','Табло');
+        a('/index.html','ÐÐ°Ñ‡Ð°Ð»Ð¾') +
+        a('/pages/freelancers.html','Ð¤Ñ€Ð¸Ð¹Ð»Ð°Ð½ÑÑŠÑ€Ð¸') +
+        a('/pages/browse-services.html','ÐžÑ„ÐµÑ€Ñ‚Ð¸') +
+        a('/pages/projects.html','ÐŸÑ€Ð¾ÐµÐºÑ‚Ð¸') +
+        a('/pages/dashboard.html','Ð¢Ð°Ð±Ð»Ð¾');
     } else if (Auth.isAdmin()) {
       navLinks.innerHTML =
-        a('/index.html','Начало') +
-        a('/pages/freelancers.html','Фрийлансъри') +
-        a('/pages/projects.html','Проекти') +
-        a('/pages/admin.html','⚙ Администрация');
+        a('/index.html','ÐÐ°Ñ‡Ð°Ð»Ð¾') +
+        a('/pages/freelancers.html','Ð¤Ñ€Ð¸Ð¹Ð»Ð°Ð½ÑÑŠÑ€Ð¸') +
+        a('/pages/projects.html','ÐŸÑ€Ð¾ÐµÐºÑ‚Ð¸') +
+        a('/pages/admin.html','âš™ ÐÐ´Ð¼Ð¸Ð½Ð¸ÑÑ‚Ñ€Ð°Ñ†Ð¸Ñ');
     }
   }
 
@@ -148,7 +148,7 @@ function initSkillsInput(wrapperId, inputId, hiddenId) {
     skills.forEach(s => {
       const tag = document.createElement('span');
       tag.className = 'skill-tag';
-      tag.innerHTML = `${s}<button type="button" onclick="removeSkillTag('${wrapperId}','${hiddenId}','${s.replace(/'/g,"\\'")}')">×</button>`;
+      tag.innerHTML = `${s}<button type="button" onclick="removeSkillTag('${wrapperId}','${hiddenId}','${s.replace(/'/g,"\\'")}')">Ã—</button>`;
       wrapper.insertBefore(tag, input);
     });
     if (hidden) hidden.value = skills.join(',');
@@ -184,3 +184,4 @@ window.addEventListener('scroll', () => {
 });
 
 document.addEventListener('DOMContentLoaded', buildNav);
+

@@ -490,6 +490,7 @@ async function deleteService(id) {
 }
 
 // â”€â”€ ADMINS (SuperAdmin only) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// Loads admin list with correct API response format
 async function loadAdmins() {
   if (!isSuperAdmin) return;
   const el = document.getElementById('admins-list');
@@ -576,5 +577,6 @@ loadDashboard();
 </script>
 </body>
 </html>
+
 
 

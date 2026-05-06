@@ -309,7 +309,7 @@ async function loadDashboard() {
 }
 
 // â”€â”€ USERS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-// Uses camelCase field names from API
+// Uses camelCase fields + Array.isArray checks
 async function loadUsers() {
   const search = document.getElementById('u-search').value.trim();
   const role   = document.getElementById('u-role').value;
@@ -576,4 +576,5 @@ loadDashboard();
 </script>
 </body>
 </html>
+
 

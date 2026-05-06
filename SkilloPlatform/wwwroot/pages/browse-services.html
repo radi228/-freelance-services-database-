@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="bg">
 <head>
   <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Оферти от фрийлансъри – Skillo</title>
+  <title>ÐžÑ„ÐµÑ€Ñ‚Ð¸ Ð¾Ñ‚ Ñ„Ñ€Ð¸Ð¹Ð»Ð°Ð½ÑÑŠÑ€Ð¸ â€“ Skillo</title>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="/css/main.css"/>
   <style>
@@ -31,46 +31,46 @@
 </head>
 <body>
 <nav id="main-nav">
-  <a href="/index.html" class="logo"><div class="logo-icon">🚀</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
+  <a href="/index.html" class="logo"><div class="logo-icon">ðŸš€</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
   <ul class="nav-links"></ul>
   <div class="nav-cta">
-    <a href="#" id="nav-login-btn" class="btn btn-outline btn-sm" onclick="window.location='/index.html#login';return false">Вход</a>
-    <a href="#" id="nav-register-btn" class="btn btn-orange btn-sm" onclick="window.location='/index.html#register';return false">Регистрация</a>
+    <a href="#" id="nav-login-btn" class="btn btn-outline btn-sm" onclick="window.location='/index.html#login';return false">Ð’Ñ…Ð¾Ð´</a>
+    <a href="#" id="nav-register-btn" class="btn btn-orange btn-sm" onclick="window.location='/index.html#register';return false">Ð ÐµÐ³Ð¸ÑÑ‚Ñ€Ð°Ñ†Ð¸Ñ</a>
     <div id="nav-user" style="display:none;align-items:center;gap:8px">
       <div id="nav-user-avatar" style="width:34px;height:34px;border-radius:50%;background:var(--g100);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--blue);border:2px solid var(--blue);overflow:hidden;cursor:pointer"></div>
       <span id="nav-user-name" style="font-size:.88rem;font-weight:600;color:var(--blue)"></span>
-      <a href="/pages/chat.html" id="nav-chat-btn" class="btn btn-ghost btn-sm" style="display:none" title="Съобщения">💬</a>
-      <a href="/pages/dashboard.html" class="btn btn-ghost btn-sm">Табло</a>
-      <a id="nav-admin-link" href="/pages/admin.html" class="btn btn-ghost btn-sm" style="display:none">⚙ Админ</a>
-      <button onclick="logout()" class="btn btn-ghost btn-sm">Изход</button>
+      <a href="/pages/chat.html" id="nav-chat-btn" class="btn btn-ghost btn-sm" style="display:none" title="Ð¡ÑŠÐ¾Ð±Ñ‰ÐµÐ½Ð¸Ñ">ðŸ’¬</a>
+      <a href="/pages/dashboard.html" class="btn btn-ghost btn-sm">Ð¢Ð°Ð±Ð»Ð¾</a>
+      <a id="nav-admin-link" href="/pages/admin.html" class="btn btn-ghost btn-sm" style="display:none">âš™ ÐÐ´Ð¼Ð¸Ð½</a>
+      <button onclick="logout()" class="btn btn-ghost btn-sm">Ð˜Ð·Ñ…Ð¾Ð´</button>
     </div>
   </div>
 </nav>
 
 <div class="page-hero">
-  <h1>🛍 Оферти от фрийлансъри</h1>
-  <p>Готови предложения с фиксирани цени — избери и поръчай директно</p>
+  <h1>ðŸ› ÐžÑ„ÐµÑ€Ñ‚Ð¸ Ð¾Ñ‚ Ñ„Ñ€Ð¸Ð¹Ð»Ð°Ð½ÑÑŠÑ€Ð¸</h1>
+  <p>Ð“Ð¾Ñ‚Ð¾Ð²Ð¸ Ð¿Ñ€ÐµÐ´Ð»Ð¾Ð¶ÐµÐ½Ð¸Ñ Ñ Ñ„Ð¸ÐºÑÐ¸Ñ€Ð°Ð½Ð¸ Ñ†ÐµÐ½Ð¸ â€” Ð¸Ð·Ð±ÐµÑ€Ð¸ Ð¸ Ð¿Ð¾Ñ€ÑŠÑ‡Ð°Ð¹ Ð´Ð¸Ñ€ÐµÐºÑ‚Ð½Ð¾</p>
 </div>
 
 <div class="page-wrap" style="padding-top:36px">
   <div class="filters">
     <div class="filter-group" style="flex:2;min-width:200px">
-      <label>Търси услуга</label>
-      <input id="f-search" type="text" placeholder="напр. лого, уебсайт, SEO…" oninput="load()"/>
+      <label>Ð¢ÑŠÑ€ÑÐ¸ ÑƒÑÐ»ÑƒÐ³Ð°</label>
+      <input id="f-search" type="text" placeholder="Ð½Ð°Ð¿Ñ€. Ð»Ð¾Ð³Ð¾, ÑƒÐµÐ±ÑÐ°Ð¹Ñ‚, SEOâ€¦" oninput="load()"/>
     </div>
     <div class="filter-group">
-      <label>Категория</label>
-      <select id="f-cat" onchange="load()"><option value="">Всички</option></select>
+      <label>ÐšÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸Ñ</label>
+      <select id="f-cat" onchange="load()"><option value="">Ð’ÑÐ¸Ñ‡ÐºÐ¸</option></select>
     </div>
     <div class="filter-group">
-      <label>Сортирай по</label>
+      <label>Ð¡Ð¾Ñ€Ñ‚Ð¸Ñ€Ð°Ð¹ Ð¿Ð¾</label>
       <select id="f-sort" onchange="load()">
-        <option value="newest">Най-нови</option>
-        <option value="price-asc">Цена: ниска → висока</option>
-        <option value="price-desc">Цена: висока → ниска</option>
+        <option value="newest">ÐÐ°Ð¹-Ð½Ð¾Ð²Ð¸</option>
+        <option value="price-asc">Ð¦ÐµÐ½Ð°: Ð½Ð¸ÑÐºÐ° â†’ Ð²Ð¸ÑÐ¾ÐºÐ°</option>
+        <option value="price-desc">Ð¦ÐµÐ½Ð°: Ð²Ð¸ÑÐ¾ÐºÐ° â†’ Ð½Ð¸ÑÐºÐ°</option>
       </select>
     </div>
-    <button class="btn btn-ghost btn-sm" onclick="clearF()">✕ Изчисти</button>
+    <button class="btn btn-ghost btn-sm" onclick="clearF()">âœ• Ð˜Ð·Ñ‡Ð¸ÑÑ‚Ð¸</button>
   </div>
 
   <div id="results-bar" style="color:var(--g500);font-size:.88rem;margin-bottom:16px"></div>
@@ -83,7 +83,7 @@
 <!-- SERVICE DETAIL MODAL -->
 <div class="modal-overlay" id="svc-detail-modal">
   <div class="modal modal-lg">
-    <button class="modal-close" onclick="closeModal('svc-detail-modal')">✕</button>
+    <button class="modal-close" onclick="closeModal('svc-detail-modal')">âœ•</button>
     <div id="svc-detail-body"></div>
   </div>
 </div>
@@ -91,33 +91,33 @@
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
-      <a href="/index.html" class="logo" style="color:#fff"><div class="logo-icon">🚀</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
-      <p>Платформата за фрийланс услуги, свързваща бизнеси с проверени специалисти.</p>
+      <a href="/index.html" class="logo" style="color:#fff"><div class="logo-icon">ðŸš€</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
+      <p>ÐŸÐ»Ð°Ñ‚Ñ„Ð¾Ñ€Ð¼Ð°Ñ‚Ð° Ð·Ð° Ñ„Ñ€Ð¸Ð¹Ð»Ð°Ð½Ñ ÑƒÑÐ»ÑƒÐ³Ð¸, ÑÐ²ÑŠÑ€Ð·Ð²Ð°Ñ‰Ð° Ð±Ð¸Ð·Ð½ÐµÑÐ¸ Ñ Ð¿Ñ€Ð¾Ð²ÐµÑ€ÐµÐ½Ð¸ ÑÐ¿ÐµÑ†Ð¸Ð°Ð»Ð¸ÑÑ‚Ð¸.</p>
     </div>
-    <div class="footer-col"><h4>Платформа</h4><ul>
-      <li><a href="/pages/freelancers.html">Фрийлансъри</a></li>
-      <li><a href="/pages/projects.html">Проекти</a></li>
-      <li><a href="/pages/how-it-works.html">Как работи</a></li>
+    <div class="footer-col"><h4>ÐŸÐ»Ð°Ñ‚Ñ„Ð¾Ñ€Ð¼Ð°</h4><ul>
+      <li><a href="/pages/freelancers.html">Ð¤Ñ€Ð¸Ð¹Ð»Ð°Ð½ÑÑŠÑ€Ð¸</a></li>
+      <li><a href="/pages/projects.html">ÐŸÑ€Ð¾ÐµÐºÑ‚Ð¸</a></li>
+      <li><a href="/pages/how-it-works.html">ÐšÐ°Ðº Ñ€Ð°Ð±Ð¾Ñ‚Ð¸</a></li>
     </ul></div>
-    <div class="footer-col"><h4>Компания</h4><ul>
-      <li><a href="/pages/about.html">За нас</a></li>
-      <li><a href="/pages/contact.html">Контакти</a></li>
-      <li><a href="/pages/privacy.html">Поверителност</a></li>
+    <div class="footer-col"><h4>ÐšÐ¾Ð¼Ð¿Ð°Ð½Ð¸Ñ</h4><ul>
+      <li><a href="/pages/about.html">Ð—Ð° Ð½Ð°Ñ</a></li>
+      <li><a href="/pages/contact.html">ÐšÐ¾Ð½Ñ‚Ð°ÐºÑ‚Ð¸</a></li>
+      <li><a href="/pages/privacy.html">ÐŸÐ¾Ð²ÐµÑ€Ð¸Ñ‚ÐµÐ»Ð½Ð¾ÑÑ‚</a></li>
     </ul></div>
-    <div class="footer-col"><h4>Правни</h4><ul>
-      <li><a href="/pages/terms.html">Условия за ползване</a></li>
-      <li><a href="/pages/privacy.html">Поверителност</a></li>
+    <div class="footer-col"><h4>ÐŸÑ€Ð°Ð²Ð½Ð¸</h4><ul>
+      <li><a href="/pages/terms.html">Ð£ÑÐ»Ð¾Ð²Ð¸Ñ Ð·Ð° Ð¿Ð¾Ð»Ð·Ð²Ð°Ð½Ðµ</a></li>
+      <li><a href="/pages/privacy.html">ÐŸÐ¾Ð²ÐµÑ€Ð¸Ñ‚ÐµÐ»Ð½Ð¾ÑÑ‚</a></li>
     </ul></div>
   </div>
-  <div class="footer-bottom"><p>© 2025 Skillo. Всички права запазени.</p></div>
+  <div class="footer-bottom"><p>Â© 2025 Skillo. Ð’ÑÐ¸Ñ‡ÐºÐ¸ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ð¿Ð°Ð·ÐµÐ½Ð¸.</p></div>
 </footer>
 
 <script src="/js/shared.js"></script>
 <script>
-const emojis = ['👨‍💻','🎨','✍️','📊','🎬','🤖','📱','🔒','🌐','📈'];
+const emojis = ['ðŸ‘¨â€ðŸ’»','ðŸŽ¨','âœï¸','ðŸ“Š','ðŸŽ¬','ðŸ¤–','ðŸ“±','ðŸ”’','ðŸŒ','ðŸ“ˆ'];
 const serviceMap = {};
-const ptypeLabel = { fixed:'Фиксирана', hourly:'На час', monthly:'На месец' };
-const ptypeSuffix = { fixed:'еднократно', hourly:'/час', monthly:'/месец' };
+const ptypeLabel = { fixed:'Ð¤Ð¸ÐºÑÐ¸Ñ€Ð°Ð½Ð°', hourly:'ÐÐ° Ñ‡Ð°Ñ', monthly:'ÐÐ° Ð¼ÐµÑÐµÑ†' };
+const ptypeSuffix = { fixed:'ÐµÐ´Ð½Ð¾ÐºÑ€Ð°Ñ‚Ð½Ð¾', hourly:'/Ñ‡Ð°Ñ', monthly:'/Ð¼ÐµÑÐµÑ†' };
 
 async function initCats() {
   const cats = await apiFetch('/categories').catch(() => []);
@@ -146,10 +146,10 @@ async function load() {
     if (sort === 'price-asc')  list.sort((a,b) => a.price - b.price);
     if (sort === 'price-desc') list.sort((a,b) => b.price - a.price);
 
-    document.getElementById('results-bar').textContent = `${list.length} оферти намерени`;
+    document.getElementById('results-bar').textContent = `${list.length} Ð¾Ñ„ÐµÑ€Ñ‚Ð¸ Ð½Ð°Ð¼ÐµÑ€ÐµÐ½Ð¸`;
 
     if (!list.length) {
-      grid.innerHTML = '<div class="empty" style="grid-column:1/-1"><div class="icon">🔍</div><p>Няма намерени оферти. Опитай с различни филтри.</p></div>';
+      grid.innerHTML = '<div class="empty" style="grid-column:1/-1"><div class="icon">ðŸ”</div><p>ÐÑÐ¼Ð° Ð½Ð°Ð¼ÐµÑ€ÐµÐ½Ð¸ Ð¾Ñ„ÐµÑ€Ñ‚Ð¸. ÐžÐ¿Ð¸Ñ‚Ð°Ð¹ Ñ Ñ€Ð°Ð·Ð»Ð¸Ñ‡Ð½Ð¸ Ñ„Ð¸Ð»Ñ‚Ñ€Ð¸.</p></div>';
       return;
     }
 
@@ -164,28 +164,28 @@ async function load() {
           <div class="prov-av">${av}</div>
           <div>
             <div class="prov-name">${s.freelancerName}</div>
-            <div class="prov-cat">${s.category || 'Фрийлансър'}</div>
+            <div class="prov-cat">${s.category || 'Ð¤Ñ€Ð¸Ð¹Ð»Ð°Ð½ÑÑŠÑ€'}</div>
           </div>
           <a href="/pages/freelancer-detail.html?id=${s.userId}" target="_blank"
-             class="btn btn-ghost btn-sm" style="margin-left:auto">Профил</a>
+             class="btn btn-ghost btn-sm" style="margin-left:auto">ÐŸÑ€Ð¾Ñ„Ð¸Ð»</a>
         </div>
         <div class="svc-title">${s.title}</div>
-        <div class="svc-desc">${(s.description||'').substring(0,120)}${(s.description||'').length>120?'…':''}</div>
+        <div class="svc-desc">${(s.description||'').substring(0,120)}${(s.description||'').length>120?'â€¦':''}</div>
         <div class="svc-meta-row">
-          <div class="svc-meta-item">⏱ ${s.deliveryDays} дни</div>
-          <div class="svc-meta-item">🔄 ${s.revisions} корекции</div>
-          <span class="ptype-badge badge-blue">${ptypeLabel[s.priceType]||'Фиксирана'}</span>
+          <div class="svc-meta-item">â± ${s.deliveryDays} Ð´Ð½Ð¸</div>
+          <div class="svc-meta-item">ðŸ”„ ${s.revisions} ÐºÐ¾Ñ€ÐµÐºÑ†Ð¸Ð¸</div>
+          <span class="ptype-badge badge-blue">${ptypeLabel[s.priceType]||'Ð¤Ð¸ÐºÑÐ¸Ñ€Ð°Ð½Ð°'}</span>
         </div>
         <div class="svc-footer">
-          <div class="svc-price">${s.price} € <span>${ptypeSuffix[s.priceType]||''}</span></div>
+          <div class="svc-price">${s.price} â‚¬ <span>${ptypeSuffix[s.priceType]||''}</span></div>
           <button class="btn btn-orange btn-sm" onclick="viewDetail(${s.id})">
-            Виж детайли
+            Ð’Ð¸Ð¶ Ð´ÐµÑ‚Ð°Ð¹Ð»Ð¸
           </button>
         </div>
       </div>`;
     }).join('');
   } catch(e) {
-    grid.innerHTML = `<div class="empty" style="grid-column:1/-1"><div class="icon">⚠️</div><p>${e.message}</p></div>`;
+    grid.innerHTML = `<div class="empty" style="grid-column:1/-1"><div class="icon">âš ï¸</div><p>${e.message}</p></div>`;
   }
 }
 
@@ -200,28 +200,28 @@ function viewDetail(id) {
       <div class="prov-av" style="width:48px;height:48px;font-size:1.3rem">${av}</div>
       <div>
         <div style="font-weight:700">${s.freelancerName}</div>
-        <div style="color:var(--g500);font-size:.82rem">${s.category||'Фрийлансър'}</div>
+        <div style="color:var(--g500);font-size:.82rem">${s.category||'Ð¤Ñ€Ð¸Ð¹Ð»Ð°Ð½ÑÑŠÑ€'}</div>
       </div>
-      <a href="/pages/freelancer-detail.html?id=${s.userId}" target="_blank" class="btn btn-outline btn-sm" style="margin-left:auto">Виж профил</a>
+      <a href="/pages/freelancer-detail.html?id=${s.userId}" target="_blank" class="btn btn-outline btn-sm" style="margin-left:auto">Ð’Ð¸Ð¶ Ð¿Ñ€Ð¾Ñ„Ð¸Ð»</a>
     </div>
     <h2 style="font-family:Sora,sans-serif;font-weight:800;font-size:1.3rem;margin-bottom:12px">${s.title}</h2>
     <p style="color:var(--g700);line-height:1.7;margin-bottom:20px">${s.description||''}</p>
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:20px">
       <div style="background:var(--g100);border-radius:var(--r);padding:14px;text-align:center">
-        <div style="font-family:Sora,sans-serif;font-weight:800;font-size:1.2rem;color:var(--blue)">${s.price} €</div>
-        <div style="font-size:.74rem;color:var(--g500)">${ptypeSuffix[s.priceType]||'цена'}</div>
+        <div style="font-family:Sora,sans-serif;font-weight:800;font-size:1.2rem;color:var(--blue)">${s.price} â‚¬</div>
+        <div style="font-size:.74rem;color:var(--g500)">${ptypeSuffix[s.priceType]||'Ñ†ÐµÐ½Ð°'}</div>
       </div>
       <div style="background:var(--g100);border-radius:var(--r);padding:14px;text-align:center">
         <div style="font-family:Sora,sans-serif;font-weight:800;font-size:1.2rem;color:var(--blue)">${s.deliveryDays}</div>
-        <div style="font-size:.74rem;color:var(--g500)">дни срок</div>
+        <div style="font-size:.74rem;color:var(--g500)">Ð´Ð½Ð¸ ÑÑ€Ð¾Ðº</div>
       </div>
       <div style="background:var(--g100);border-radius:var(--r);padding:14px;text-align:center">
         <div style="font-family:Sora,sans-serif;font-weight:800;font-size:1.2rem;color:var(--blue)">${s.revisions}</div>
-        <div style="font-size:.74rem;color:var(--g500)">корекции</div>
+        <div style="font-size:.74rem;color:var(--g500)">ÐºÐ¾Ñ€ÐµÐºÑ†Ð¸Ð¸</div>
       </div>
     </div>
     <button class="btn btn-orange btn-full" style="padding:14px;font-size:1rem" onclick="contactFreelancer(${s.userId})">
-      💬 Свържи се с фрийлансъра
+      ðŸ’¬ Ð¡Ð²ÑŠÑ€Ð¶Ð¸ ÑÐµ Ñ Ñ„Ñ€Ð¸Ð¹Ð»Ð°Ð½ÑÑŠÑ€Ð°
     </button>
   `;
   openModal('svc-detail-modal');
@@ -238,3 +238,4 @@ initCats().then(load);
 </script>
 </body>
 </html>
+

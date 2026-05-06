@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="bg">
 <head>
   <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Профил – Skillo</title>
+  <title>ÐŸÑ€Ð¾Ñ„Ð¸Ð» â€“ Skillo</title>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="/css/main.css"/>
   <style>
@@ -45,24 +45,24 @@
 </head>
 <body>
 <nav id="main-nav">
-  <a href="/index.html" class="logo"><div class="logo-icon">🚀</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
+  <a href="/index.html" class="logo"><div class="logo-icon">ðŸš€</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
   <ul class="nav-links"></ul>
   <div class="nav-cta">
-    <a href="#" id="nav-login-btn" class="btn btn-outline btn-sm" onclick="window.location='/index.html#login';return false">Вход</a>
-    <a href="#" id="nav-register-btn" class="btn btn-orange btn-sm" onclick="window.location='/index.html#register';return false">Регистрация</a>
+    <a href="#" id="nav-login-btn" class="btn btn-outline btn-sm" onclick="window.location='/index.html#login';return false">Ð’Ñ…Ð¾Ð´</a>
+    <a href="#" id="nav-register-btn" class="btn btn-orange btn-sm" onclick="window.location='/index.html#register';return false">Ð ÐµÐ³Ð¸ÑÑ‚Ñ€Ð°Ñ†Ð¸Ñ</a>
     <div id="nav-user" style="display:none;align-items:center;gap:8px">
       <div id="nav-user-avatar" style="width:34px;height:34px;border-radius:50%;background:var(--g100);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--blue);border:2px solid var(--blue);overflow:hidden;cursor:pointer"></div>
       <span id="nav-user-name" style="font-size:.88rem;font-weight:600;color:var(--blue)"></span>
-      <a href="/pages/chat.html" id="nav-chat-btn" class="btn btn-ghost btn-sm" style="display:none" title="Съобщения">💬</a>
-      <a href="/pages/dashboard.html" class="btn btn-ghost btn-sm">Табло</a>
-      <a id="nav-admin-link" href="/pages/admin.html" class="btn btn-ghost btn-sm" style="display:none">⚙ Админ</a>
-      <button onclick="logout()" class="btn btn-ghost btn-sm">Изход</button>
+      <a href="/pages/chat.html" id="nav-chat-btn" class="btn btn-ghost btn-sm" style="display:none" title="Ð¡ÑŠÐ¾Ð±Ñ‰ÐµÐ½Ð¸Ñ">ðŸ’¬</a>
+      <a href="/pages/dashboard.html" class="btn btn-ghost btn-sm">Ð¢Ð°Ð±Ð»Ð¾</a>
+      <a id="nav-admin-link" href="/pages/admin.html" class="btn btn-ghost btn-sm" style="display:none">âš™ ÐÐ´Ð¼Ð¸Ð½</a>
+      <button onclick="logout()" class="btn btn-ghost btn-sm">Ð˜Ð·Ñ…Ð¾Ð´</button>
     </div>
   </div>
 </nav>
 
 <div style="padding-top:68px">
-  <div id="loading" class="loading" style="padding:80px"><div class="spinner"></div><p>Зарежда се…</p></div>
+  <div id="loading" class="loading" style="padding:80px"><div class="spinner"></div><p>Ð—Ð°Ñ€ÐµÐ¶Ð´Ð° ÑÐµâ€¦</p></div>
   <div id="profile-wrap" style="display:none">
     <div class="page-hero" id="profile-hero">
       <div style="position:relative;z-index:1">
@@ -79,19 +79,19 @@
           <div class="p-name" id="p-name"></div>
           <div class="p-title" id="p-title"></div>
           <div class="p-stats">
-            <div class="p-stat"><div class="num" id="p-rating">—</div><div class="lbl">Рейтинг</div></div>
-            <div class="p-stat"><div class="num" id="p-reviews">0</div><div class="lbl">Отзиви</div></div>
-            <div class="p-stat"><div class="num" id="p-rate">—</div><div class="lbl">€/час</div></div>
+            <div class="p-stat"><div class="num" id="p-rating">â€”</div><div class="lbl">Ð ÐµÐ¹Ñ‚Ð¸Ð½Ð³</div></div>
+            <div class="p-stat"><div class="num" id="p-reviews">0</div><div class="lbl">ÐžÑ‚Ð·Ð¸Ð²Ð¸</div></div>
+            <div class="p-stat"><div class="num" id="p-rate">â€”</div><div class="lbl">â‚¬/Ñ‡Ð°Ñ</div></div>
           </div>
           <div id="p-infos"></div>
-          <button class="btn btn-orange btn-full" style="margin-top:18px;padding:13px" id="contact-btn">💬 Изпрати съобщение</button>
+          <button class="btn btn-orange btn-full" style="margin-top:18px;padding:13px" id="contact-btn">ðŸ’¬ Ð˜Ð·Ð¿Ñ€Ð°Ñ‚Ð¸ ÑÑŠÐ¾Ð±Ñ‰ÐµÐ½Ð¸Ðµ</button>
         </div>
         <div class="profile-card" id="skills-box" style="text-align:left">
-          <h3 style="font-family:Sora,sans-serif;font-weight:700;margin-bottom:14px">Умения</h3>
+          <h3 style="font-family:Sora,sans-serif;font-weight:700;margin-bottom:14px">Ð£Ð¼ÐµÐ½Ð¸Ñ</h3>
           <div id="p-skills" style="display:flex;flex-wrap:wrap;gap:7px"></div>
         </div>
         <div class="profile-card" id="langs-box" style="text-align:left;display:none">
-          <h3 style="font-family:Sora,sans-serif;font-weight:700;margin-bottom:14px">Езици</h3>
+          <h3 style="font-family:Sora,sans-serif;font-weight:700;margin-bottom:14px">Ð•Ð·Ð¸Ñ†Ð¸</h3>
           <div id="p-langs" style="display:flex;flex-wrap:wrap;gap:7px"></div>
         </div>
       </div>
@@ -99,24 +99,24 @@
       <!-- MAIN -->
       <div class="main-col">
         <div class="section-box" id="bio-box" style="display:none">
-          <h3>За мен</h3>
+          <h3>Ð—Ð° Ð¼ÐµÐ½</h3>
           <p id="p-bio" style="color:var(--g700);line-height:1.7;font-size:.93rem"></p>
         </div>
         <div class="section-box" id="services-box" style="display:none">
-          <h3>Услуги и оферти</h3>
+          <h3>Ð£ÑÐ»ÑƒÐ³Ð¸ Ð¸ Ð¾Ñ„ÐµÑ€Ñ‚Ð¸</h3>
           <div class="svc-grid" id="p-services"></div>
         </div>
         <div class="section-box" id="exp-box" style="display:none">
-          <h3>Трудов опит</h3>
+          <h3>Ð¢Ñ€ÑƒÐ´Ð¾Ð² Ð¾Ð¿Ð¸Ñ‚</h3>
           <div id="p-exp"></div>
         </div>
         <div class="section-box" id="cert-box" style="display:none">
-          <h3>Сертификати</h3>
+          <h3>Ð¡ÐµÑ€Ñ‚Ð¸Ñ„Ð¸ÐºÐ°Ñ‚Ð¸</h3>
           <div id="p-certs"></div>
         </div>
         <div class="section-box" id="reviews-box">
-          <h3>Отзиви</h3>
-          <div id="p-reviews-list"><p style="color:var(--g500)">Все още няма отзиви.</p></div>
+          <h3>ÐžÑ‚Ð·Ð¸Ð²Ð¸</h3>
+          <div id="p-reviews-list"><p style="color:var(--g500)">Ð’ÑÐµ Ð¾Ñ‰Ðµ Ð½ÑÐ¼Ð° Ð¾Ñ‚Ð·Ð¸Ð²Ð¸.</p></div>
         </div>
       </div>
     </div>
@@ -128,7 +128,7 @@
 const userId = new URLSearchParams(location.search).get('id');
 
 async function load() {
-  if (!userId) { document.getElementById('loading').innerHTML = '<div class="empty"><div class="icon">❌</div><p>Невалиден профил.</p></div>'; return; }
+  if (!userId) { document.getElementById('loading').innerHTML = '<div class="empty"><div class="icon">âŒ</div><p>ÐÐµÐ²Ð°Ð»Ð¸Ð´ÐµÐ½ Ð¿Ñ€Ð¾Ñ„Ð¸Ð».</p></div>'; return; }
   try {
     const raw = await apiFetch(`/freelancers/${userId}`);
     // ASP.NET returns nested object with profile + arrays
@@ -136,7 +136,7 @@ async function load() {
     const workExps = raw.workExperiences || raw.workExperience || [];
     const certs    = raw.certificates || [];
     const services = raw.services || [];
-    document.title = `${f.fullName} – Skillo`;
+    document.title = `${f.fullName} â€“ Skillo`;
 
     document.getElementById('loading').style.display = 'none';
     document.getElementById('profile-wrap').style.display = 'block';
@@ -145,9 +145,9 @@ async function load() {
     document.getElementById('hero-name').textContent = f.fullName;
     document.getElementById('hero-title').textContent = f.title;
     document.getElementById('hero-badges').innerHTML =
-      (f.isVerified ? '<span class="badge badge-green">✓ Верифициран</span>' : '') +
+      (f.isVerified ? '<span class="badge badge-green">âœ“ Ð’ÐµÑ€Ð¸Ñ„Ð¸Ñ†Ð¸Ñ€Ð°Ð½</span>' : '') +
       `<span class="badge badge-blue">${f.experienceLevel}</span>` +
-      (f.isAvailable ? '<span class="badge badge-orange">🟢 Свободен</span>' : '<span class="badge badge-gray">🔴 Зает</span>');
+      (f.isAvailable ? '<span class="badge badge-orange">ðŸŸ¢ Ð¡Ð²Ð¾Ð±Ð¾Ð´ÐµÐ½</span>' : '<span class="badge badge-gray">ðŸ”´ Ð—Ð°ÐµÑ‚</span>');
 
     // Avatar
     const avEl = document.getElementById('p-avatar');
@@ -155,16 +155,16 @@ async function load() {
 
     document.getElementById('p-name').textContent = f.fullName;
     document.getElementById('p-title').textContent = f.title;
-    document.getElementById('p-rating').textContent = f.averageRating > 0 ? f.averageRating.toFixed(1) + '★' : '—';
+    document.getElementById('p-rating').textContent = f.averageRating > 0 ? f.averageRating.toFixed(1) + 'â˜…' : 'â€”';
     document.getElementById('p-reviews').textContent = f.reviewCount;
     document.getElementById('p-rate').textContent = f.hourlyRate;
 
     // Info rows
     const infos = [];
-    if (f.location) infos.push(`<div class="info-row"><span>📍</span>${f.location}</div>`);
-    if (f.website)  infos.push(`<div class="info-row"><span>🌐</span><a href="${f.website}" target="_blank" style="color:var(--blue)">${f.website}</a></div>`);
-    if (f.linkedin) infos.push(`<div class="info-row"><span>💼</span><a href="${f.linkedin}" target="_blank" style="color:var(--blue)">LinkedIn</a></div>`);
-    if (f.github)   infos.push(`<div class="info-row"><span>🐙</span><a href="${f.github}" target="_blank" style="color:var(--blue)">GitHub</a></div>`);
+    if (f.location) infos.push(`<div class="info-row"><span>ðŸ“</span>${f.location}</div>`);
+    if (f.website)  infos.push(`<div class="info-row"><span>ðŸŒ</span><a href="${f.website}" target="_blank" style="color:var(--blue)">${f.website}</a></div>`);
+    if (f.linkedin) infos.push(`<div class="info-row"><span>ðŸ’¼</span><a href="${f.linkedin}" target="_blank" style="color:var(--blue)">LinkedIn</a></div>`);
+    if (f.github)   infos.push(`<div class="info-row"><span>ðŸ™</span><a href="${f.github}" target="_blank" style="color:var(--blue)">GitHub</a></div>`);
     document.getElementById('p-infos').innerHTML = infos.join('');
 
     // Skills
@@ -192,10 +192,10 @@ async function load() {
           <div class="svc-title">${s.title}</div>
           <div class="svc-desc">${s.description || ''}</div>
           <div class="svc-footer">
-            <div class="svc-price">${s.priceType === 'hourly' ? s.price + ' €/час' : 'от ' + s.price + ' лв'}</div>
-            <div class="svc-meta">⏱ ${s.deliveryDays} дни</div>
+            <div class="svc-price">${s.priceType === 'hourly' ? s.price + ' â‚¬/Ñ‡Ð°Ñ' : 'Ð¾Ñ‚ ' + s.price + ' Ð»Ð²'}</div>
+            <div class="svc-meta">â± ${s.deliveryDays} Ð´Ð½Ð¸</div>
           </div>
-          <div class="svc-meta" style="margin-top:6px">🔄 ${s.revisions} корекции</div>
+          <div class="svc-meta" style="margin-top:6px">ðŸ”„ ${s.revisions} ÐºÐ¾Ñ€ÐµÐºÑ†Ð¸Ð¸</div>
         </div>`).join('');
     }
 
@@ -206,7 +206,7 @@ async function load() {
         <div class="exp-item">
           <div class="exp-company">${e.company}</div>
           <div class="exp-pos">${e.position}</div>
-          <div class="exp-date">${e.startDate} – ${e.isCurrent ? 'Настоящем' : (e.endDate || '—')}</div>
+          <div class="exp-date">${e.startDate} â€“ ${e.isCurrent ? 'ÐÐ°ÑÑ‚Ð¾ÑÑ‰ÐµÐ¼' : (e.endDate || 'â€”')}</div>
           ${e.description ? `<div class="exp-desc">${e.description}</div>` : ''}
         </div>`).join('');
     }
@@ -216,11 +216,11 @@ async function load() {
       document.getElementById('cert-box').style.display = 'block';
       document.getElementById('p-certs').innerHTML = certs.map(c => `
         <div class="cert-item">
-          <div class="cert-icon">🎓</div>
+          <div class="cert-icon">ðŸŽ“</div>
           <div>
             <div class="cert-name">${c.name}</div>
-            <div class="cert-issuer">${c.issuer} · ${c.issueDate}</div>
-            ${c.credential ? `<a href="${c.credential}" target="_blank" style="color:var(--blue);font-size:.78rem">Виж сертификат →</a>` : ''}
+            <div class="cert-issuer">${c.issuer} Â· ${c.issueDate}</div>
+            ${c.credential ? `<a href="${c.credential}" target="_blank" style="color:var(--blue);font-size:.78rem">Ð’Ð¸Ð¶ ÑÐµÑ€Ñ‚Ð¸Ñ„Ð¸ÐºÐ°Ñ‚ â†’</a>` : ''}
           </div>
         </div>`).join('');
     }
@@ -234,7 +234,7 @@ async function load() {
             <div style="width:34px;height:34px;border-radius:50%;background:var(--g100);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--blue);font-size:.85rem">${r.reviewerName[0]}</div>
             <div>
               <div style="font-weight:700;font-size:.9rem">${r.reviewerName}</div>
-              <div style="color:var(--orange);font-size:.82rem">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</div>
+              <div style="color:var(--orange);font-size:.82rem">${'â˜…'.repeat(r.rating)}${'â˜†'.repeat(5-r.rating)}</div>
             </div>
             <div style="margin-left:auto;color:var(--g500);font-size:.78rem">${r.createdAt?.slice(0,10)}</div>
           </div>
@@ -243,10 +243,11 @@ async function load() {
     }
 
     // Contact button
-    document.getElementById('contact-btn').onclick = async () => {
+    // Redirects guests to login before opening chat
+document.getElementById('contact-btn').onclick = async () => {
       const u = Auth.user();
       if (!u) { window.location.href = '/index.html'; return; }
-      if (u.id === f.userId) { alert('Не може да пишеш на себе си.'); return; }
+      if (u.id === f.userId) { alert('ÐÐµ Ð¼Ð¾Ð¶Ðµ Ð´Ð° Ð¿Ð¸ÑˆÐµÑˆ Ð½Ð° ÑÐµÐ±Ðµ ÑÐ¸.'); return; }
       try {
         const data = await apiFetch('/chat/conversations', {
           method: 'POST',
@@ -257,7 +258,7 @@ async function load() {
     };
 
   } catch(e) {
-    document.getElementById('loading').innerHTML = `<div class="empty"><div class="icon">⚠️</div><p>${e.message}</p></div>`;
+    document.getElementById('loading').innerHTML = `<div class="empty"><div class="icon">âš ï¸</div><p>${e.message}</p></div>`;
   }
 }
 
@@ -265,3 +266,4 @@ load();
 </script>
 </body>
 </html>
+

@@ -11,5 +11,3 @@ ENV ASPNETCORE_URLS=http://+:8080
 ENV ASPNETCORE_ENVIRONMENT=Production
 EXPOSE 8080
 CMD ["dotnet", "/app/SkilloPlatform.dll"]
-
- 

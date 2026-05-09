@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="bg">
 <head>
   <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Моите услуги – Skillo</title>
+  <title>ÐœÐ¾Ð¸Ñ‚Ðµ ÑƒÑÐ»ÑƒÐ³Ð¸ â€“ Skillo</title>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="/css/main.css"/>
   <style>
@@ -27,26 +27,26 @@
 </head>
 <body>
 <nav id="main-nav">
-  <a href="/index.html" class="logo"><div class="logo-icon">🚀</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
+  <a href="/index.html" class="logo"><div class="logo-icon">ðŸš€</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
   <ul class="nav-links"></ul>
   <div class="nav-cta">
-    <a href="#" id="nav-login-btn" class="btn btn-outline btn-sm" onclick="window.location='/index.html#login';return false">Вход</a>
-    <a href="#" id="nav-register-btn" class="btn btn-orange btn-sm" onclick="window.location='/index.html#register';return false">Регистрация</a>
+    <a href="#" id="nav-login-btn" class="btn btn-outline btn-sm" onclick="window.location='/index.html#login';return false">Ð’Ñ…Ð¾Ð´</a>
+    <a href="#" id="nav-register-btn" class="btn btn-orange btn-sm" onclick="window.location='/index.html#register';return false">Ð ÐµÐ³Ð¸ÑÑ‚Ñ€Ð°Ñ†Ð¸Ñ</a>
     <div id="nav-user" style="display:none;align-items:center;gap:8px">
       <div id="nav-user-avatar" style="width:34px;height:34px;border-radius:50%;background:var(--g100);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--blue);border:2px solid var(--blue);overflow:hidden;cursor:pointer"></div>
       <span id="nav-user-name" style="font-size:.88rem;font-weight:600;color:var(--blue)"></span>
-      <a href="/pages/chat.html" id="nav-chat-btn" class="btn btn-ghost btn-sm" style="display:none" title="Съобщения">💬</a>
-      <a href="/pages/dashboard.html" class="btn btn-ghost btn-sm">Табло</a>
-      <a id="nav-admin-link" href="/pages/admin.html" class="btn btn-ghost btn-sm" style="display:none">⚙ Админ</a>
-      <button onclick="logout()" class="btn btn-ghost btn-sm">Изход</button>
+      <a href="/pages/chat.html" id="nav-chat-btn" class="btn btn-ghost btn-sm" style="display:none" title="Ð¡ÑŠÐ¾Ð±Ñ‰ÐµÐ½Ð¸Ñ">ðŸ’¬</a>
+      <a href="/pages/dashboard.html" class="btn btn-ghost btn-sm">Ð¢Ð°Ð±Ð»Ð¾</a>
+      <a id="nav-admin-link" href="/pages/admin.html" class="btn btn-ghost btn-sm" style="display:none">âš™ ÐÐ´Ð¼Ð¸Ð½</a>
+      <button onclick="logout()" class="btn btn-ghost btn-sm">Ð˜Ð·Ñ…Ð¾Ð´</button>
     </div>
   </div>
 </nav>
 
 <div style="padding-top:68px">
   <div class="page-hero">
-    <h1>🛠 Моите услуги</h1>
-    <p>Управлявай офертите, които предлагаш на клиентите</p>
+    <h1>ðŸ›  ÐœÐ¾Ð¸Ñ‚Ðµ ÑƒÑÐ»ÑƒÐ³Ð¸</h1>
+    <p>Ð£Ð¿Ñ€Ð°Ð²Ð»ÑÐ²Ð°Ð¹ Ð¾Ñ„ÐµÑ€Ñ‚Ð¸Ñ‚Ðµ, ÐºÐ¾Ð¸Ñ‚Ð¾ Ð¿Ñ€ÐµÐ´Ð»Ð°Ð³Ð°Ñˆ Ð½Ð° ÐºÐ»Ð¸ÐµÐ½Ñ‚Ð¸Ñ‚Ðµ</p>
   </div>
 
   <div class="page-wrap" style="padding-top:36px">
@@ -54,7 +54,7 @@
       <div>
         <div id="svc-count" style="color:var(--g500);font-size:.9rem"></div>
       </div>
-      <button class="btn btn-orange" style="padding:11px 24px" onclick="openAdd()">+ Добави услуга</button>
+      <button class="btn btn-orange" style="padding:11px 24px" onclick="openAdd()">+ Ð”Ð¾Ð±Ð°Ð²Ð¸ ÑƒÑÐ»ÑƒÐ³Ð°</button>
     </div>
 
     <div id="alert-global" class="alert"></div>
@@ -67,57 +67,57 @@
 <!-- ADD / EDIT MODAL -->
 <div class="modal-overlay" id="svc-modal">
   <div class="modal modal-lg">
-    <button class="modal-close" onclick="closeModal('svc-modal')">✕</button>
-    <h2 id="svc-modal-title">Добави услуга</h2>
-    <p class="modal-sub">Опиши точно какво предлагаш, за да привлечеш правилните клиенти</p>
+    <button class="modal-close" onclick="closeModal('svc-modal')">âœ•</button>
+    <h2 id="svc-modal-title">Ð”Ð¾Ð±Ð°Ð²Ð¸ ÑƒÑÐ»ÑƒÐ³Ð°</h2>
+    <p class="modal-sub">ÐžÐ¿Ð¸ÑˆÐ¸ Ñ‚Ð¾Ñ‡Ð½Ð¾ ÐºÐ°ÐºÐ²Ð¾ Ð¿Ñ€ÐµÐ´Ð»Ð°Ð³Ð°Ñˆ, Ð·Ð° Ð´Ð° Ð¿Ñ€Ð¸Ð²Ð»ÐµÑ‡ÐµÑˆ Ð¿Ñ€Ð°Ð²Ð¸Ð»Ð½Ð¸Ñ‚Ðµ ÐºÐ»Ð¸ÐµÐ½Ñ‚Ð¸</p>
     <div id="svc-alert" class="alert"></div>
     <input type="hidden" id="svc-edit-id"/>
 
     <div class="form-group">
-      <label>Заглавие на услугата *</label>
-      <input id="svc-title" placeholder="напр. Разработка на Landing Page с React"/>
+      <label>Ð—Ð°Ð³Ð»Ð°Ð²Ð¸Ðµ Ð½Ð° ÑƒÑÐ»ÑƒÐ³Ð°Ñ‚Ð° *</label>
+      <input id="svc-title" placeholder="Ð½Ð°Ð¿Ñ€. Ð Ð°Ð·Ñ€Ð°Ð±Ð¾Ñ‚ÐºÐ° Ð½Ð° Landing Page Ñ React"/>
     </div>
     <div class="form-group">
-      <label>Описание *</label>
-      <textarea id="svc-desc" rows="4" placeholder="Какво включва услугата, какво получава клиентът…"></textarea>
+      <label>ÐžÐ¿Ð¸ÑÐ°Ð½Ð¸Ðµ *</label>
+      <textarea id="svc-desc" rows="4" placeholder="ÐšÐ°ÐºÐ²Ð¾ Ð²ÐºÐ»ÑŽÑ‡Ð²Ð° ÑƒÑÐ»ÑƒÐ³Ð°Ñ‚Ð°, ÐºÐ°ÐºÐ²Ð¾ Ð¿Ð¾Ð»ÑƒÑ‡Ð°Ð²Ð° ÐºÐ»Ð¸ÐµÐ½Ñ‚ÑŠÑ‚â€¦"></textarea>
     </div>
     <div class="form-row">
       <div class="form-group">
-        <label>Категория *</label>
-        <select id="svc-cat"><option value="">Избери…</option></select>
+        <label>ÐšÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸Ñ *</label>
+        <select id="svc-cat"><option value="">Ð˜Ð·Ð±ÐµÑ€Ð¸â€¦</option></select>
       </div>
       <div class="form-group">
-        <label>Тип ценообразуване</label>
+        <label>Ð¢Ð¸Ð¿ Ñ†ÐµÐ½Ð¾Ð¾Ð±Ñ€Ð°Ð·ÑƒÐ²Ð°Ð½Ðµ</label>
         <select id="svc-ptype" onchange="updatePriceLabel()">
-          <option value="fixed">Фиксирана цена</option>
-          <option value="hourly">На час</option>
-          <option value="monthly">На месец</option>
+          <option value="fixed">Ð¤Ð¸ÐºÑÐ¸Ñ€Ð°Ð½Ð° Ñ†ÐµÐ½Ð°</option>
+          <option value="hourly">ÐÐ° Ñ‡Ð°Ñ</option>
+          <option value="monthly">ÐÐ° Ð¼ÐµÑÐµÑ†</option>
         </select>
       </div>
     </div>
     <div class="form-row">
       <div class="form-group">
-        <label id="price-label">Цена (лв) *</label>
+        <label id="price-label">Ð¦ÐµÐ½Ð° (Ð»Ð²) *</label>
         <input id="svc-price" type="number" placeholder="500"/>
       </div>
       <div class="form-group">
-        <label>Срок на изпълнение (дни) *</label>
+        <label>Ð¡Ñ€Ð¾Ðº Ð½Ð° Ð¸Ð·Ð¿ÑŠÐ»Ð½ÐµÐ½Ð¸Ðµ (Ð´Ð½Ð¸) *</label>
         <input id="svc-delivery" type="number" placeholder="7"/>
       </div>
     </div>
     <div class="form-row">
       <div class="form-group">
-        <label>Брой безплатни корекции</label>
+        <label>Ð‘Ñ€Ð¾Ð¹ Ð±ÐµÐ·Ð¿Ð»Ð°Ñ‚Ð½Ð¸ ÐºÐ¾Ñ€ÐµÐºÑ†Ð¸Ð¸</label>
         <input id="svc-revisions" type="number" placeholder="2" min="0"/>
       </div>
       <div class="form-group" style="display:flex;align-items:center;gap:10px;padding-top:28px">
         <input type="checkbox" id="svc-active" checked/>
-        <label style="margin:0;font-size:.9rem;font-weight:600">Активна (видима за клиенти)</label>
+        <label style="margin:0;font-size:.9rem;font-weight:600">ÐÐºÑ‚Ð¸Ð²Ð½Ð° (Ð²Ð¸Ð´Ð¸Ð¼Ð° Ð·Ð° ÐºÐ»Ð¸ÐµÐ½Ñ‚Ð¸)</label>
       </div>
     </div>
     <div style="display:flex;gap:10px;margin-top:6px">
-      <button class="btn btn-orange btn-full" style="padding:13px" onclick="saveSvc()">💾 Запази услугата</button>
-      <button class="btn btn-ghost" style="padding:13px 20px" onclick="closeModal('svc-modal')">Откажи</button>
+      <button class="btn btn-orange btn-full" style="padding:13px" onclick="saveSvc()">ðŸ’¾ Ð—Ð°Ð¿Ð°Ð·Ð¸ ÑƒÑÐ»ÑƒÐ³Ð°Ñ‚Ð°</button>
+      <button class="btn btn-ghost" style="padding:13px 20px" onclick="closeModal('svc-modal')">ÐžÑ‚ÐºÐ°Ð¶Ð¸</button>
     </div>
   </div>
 </div>
@@ -125,12 +125,12 @@
 <!-- DELETE CONFIRM MODAL -->
 <div class="modal-overlay" id="del-modal">
   <div class="modal" style="text-align:center;max-width:400px">
-    <div style="font-size:3rem;margin-bottom:16px">🗑️</div>
-    <h2>Изтрий услугата?</h2>
-    <p style="color:var(--g500);margin:10px 0 24px">Тази операция е необратима.</p>
+    <div style="font-size:3rem;margin-bottom:16px">ðŸ—‘ï¸</div>
+    <h2>Ð˜Ð·Ñ‚Ñ€Ð¸Ð¹ ÑƒÑÐ»ÑƒÐ³Ð°Ñ‚Ð°?</h2>
+    <p style="color:var(--g500);margin:10px 0 24px">Ð¢Ð°Ð·Ð¸ Ð¾Ð¿ÐµÑ€Ð°Ñ†Ð¸Ñ Ðµ Ð½ÐµÐ¾Ð±Ñ€Ð°Ñ‚Ð¸Ð¼Ð°.</p>
     <div style="display:flex;gap:10px;justify-content:center">
-      <button class="btn btn-danger" style="padding:11px 28px" id="del-confirm-btn">Да, изтрий</button>
-      <button class="btn btn-ghost" style="padding:11px 20px" onclick="closeModal('del-modal')">Откажи</button>
+      <button class="btn btn-danger" style="padding:11px 28px" id="del-confirm-btn">Ð”Ð°, Ð¸Ð·Ñ‚Ñ€Ð¸Ð¹</button>
+      <button class="btn btn-ghost" style="padding:11px 20px" onclick="closeModal('del-modal')">ÐžÑ‚ÐºÐ°Ð¶Ð¸</button>
     </div>
   </div>
 </div>
@@ -138,25 +138,25 @@
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
-      <a href="/index.html" class="logo" style="color:#fff"><div class="logo-icon">🚀</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
-      <p>Платформата за фрийланс услуги, свързваща бизнеси с проверени специалисти.</p>
+      <a href="/index.html" class="logo" style="color:#fff"><div class="logo-icon">ðŸš€</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
+      <p>ÐŸÐ»Ð°Ñ‚Ñ„Ð¾Ñ€Ð¼Ð°Ñ‚Ð° Ð·Ð° Ñ„Ñ€Ð¸Ð¹Ð»Ð°Ð½Ñ ÑƒÑÐ»ÑƒÐ³Ð¸, ÑÐ²ÑŠÑ€Ð·Ð²Ð°Ñ‰Ð° Ð±Ð¸Ð·Ð½ÐµÑÐ¸ Ñ Ð¿Ñ€Ð¾Ð²ÐµÑ€ÐµÐ½Ð¸ ÑÐ¿ÐµÑ†Ð¸Ð°Ð»Ð¸ÑÑ‚Ð¸.</p>
     </div>
-    <div class="footer-col"><h4>Платформа</h4><ul>
-      <li><a href="/pages/freelancers.html">Фрийлансъри</a></li>
-      <li><a href="/pages/projects.html">Проекти</a></li>
-      <li><a href="/pages/how-it-works.html">Как работи</a></li>
+    <div class="footer-col"><h4>ÐŸÐ»Ð°Ñ‚Ñ„Ð¾Ñ€Ð¼Ð°</h4><ul>
+      <li><a href="/pages/freelancers.html">Ð¤Ñ€Ð¸Ð¹Ð»Ð°Ð½ÑÑŠÑ€Ð¸</a></li>
+      <li><a href="/pages/projects.html">ÐŸÑ€Ð¾ÐµÐºÑ‚Ð¸</a></li>
+      <li><a href="/pages/how-it-works.html">ÐšÐ°Ðº Ñ€Ð°Ð±Ð¾Ñ‚Ð¸</a></li>
     </ul></div>
-    <div class="footer-col"><h4>Компания</h4><ul>
-      <li><a href="/pages/about.html">За нас</a></li>
-      <li><a href="/pages/contact.html">Контакти</a></li>
-      <li><a href="/pages/privacy.html">Поверителност</a></li>
+    <div class="footer-col"><h4>ÐšÐ¾Ð¼Ð¿Ð°Ð½Ð¸Ñ</h4><ul>
+      <li><a href="/pages/about.html">Ð—Ð° Ð½Ð°Ñ</a></li>
+      <li><a href="/pages/contact.html">ÐšÐ¾Ð½Ñ‚Ð°ÐºÑ‚Ð¸</a></li>
+      <li><a href="/pages/privacy.html">ÐŸÐ¾Ð²ÐµÑ€Ð¸Ñ‚ÐµÐ»Ð½Ð¾ÑÑ‚</a></li>
     </ul></div>
-    <div class="footer-col"><h4>Правни</h4><ul>
-      <li><a href="/pages/terms.html">Условия за ползване</a></li>
-      <li><a href="/pages/privacy.html">Поверителност</a></li>
+    <div class="footer-col"><h4>ÐŸÑ€Ð°Ð²Ð½Ð¸</h4><ul>
+      <li><a href="/pages/terms.html">Ð£ÑÐ»Ð¾Ð²Ð¸Ñ Ð·Ð° Ð¿Ð¾Ð»Ð·Ð²Ð°Ð½Ðµ</a></li>
+      <li><a href="/pages/privacy.html">ÐŸÐ¾Ð²ÐµÑ€Ð¸Ñ‚ÐµÐ»Ð½Ð¾ÑÑ‚</a></li>
     </ul></div>
   </div>
-  <div class="footer-bottom"><p>© 2025 Skillo. Всички права запазени.</p></div>
+  <div class="footer-bottom"><p>Â© 2025 Skillo. Ð’ÑÐ¸Ñ‡ÐºÐ¸ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ð¿Ð°Ð·ÐµÐ½Ð¸.</p></div>
 </footer>
 
 <script src="/js/shared.js"></script>
@@ -164,8 +164,8 @@
 const u = Auth.user();
 if (!u || u.role !== 'Freelancer') window.location.href = '/index.html';
 
-const priceTypeLabels = { fixed:'Цена (лв)', hourly:'Цена на час (лв)', monthly:'Цена на месец (лв)' };
-const priceTypeBadge  = { fixed:'Фиксирана', hourly:'На час', monthly:'На месец' };
+const priceTypeLabels = { fixed:'Ð¦ÐµÐ½Ð° (Ð»Ð²)', hourly:'Ð¦ÐµÐ½Ð° Ð½Ð° Ñ‡Ð°Ñ (Ð»Ð²)', monthly:'Ð¦ÐµÐ½Ð° Ð½Ð° Ð¼ÐµÑÐµÑ† (Ð»Ð²)' };
+const priceTypeBadge  = { fixed:'Ð¤Ð¸ÐºÑÐ¸Ñ€Ð°Ð½Ð°', hourly:'ÐÐ° Ñ‡Ð°Ñ', monthly:'ÐÐ° Ð¼ÐµÑÐµÑ†' };
 
 function updatePriceLabel() {
   const t = document.getElementById('svc-ptype').value;
@@ -186,58 +186,58 @@ async function load() {
     const active   = list.filter(s => s.isActive);
     const inactive = list.filter(s => !s.isActive);
     document.getElementById('svc-count').textContent =
-      `${active.length} активни · ${inactive.length} неактивни`;
+      `${active.length} Ð°ÐºÑ‚Ð¸Ð²Ð½Ð¸ Â· ${inactive.length} Ð½ÐµÐ°ÐºÑ‚Ð¸Ð²Ð½Ð¸`;
 
     if (!list.length) {
       grid.innerHTML = `
         <div class="empty-cta" style="grid-column:1/-1">
-          <div class="icon">🛠</div>
-          <h3>Нямаш добавени услуги</h3>
-          <p>Добави своята първа услуга и клиентите ще могат да я видят в профила ти.</p>
-          <button class="btn btn-orange" style="padding:12px 28px" onclick="openAdd()">+ Добави услуга</button>
+          <div class="icon">ðŸ› </div>
+          <h3>ÐÑÐ¼Ð°Ñˆ Ð´Ð¾Ð±Ð°Ð²ÐµÐ½Ð¸ ÑƒÑÐ»ÑƒÐ³Ð¸</h3>
+          <p>Ð”Ð¾Ð±Ð°Ð²Ð¸ ÑÐ²Ð¾ÑÑ‚Ð° Ð¿ÑŠÑ€Ð²Ð° ÑƒÑÐ»ÑƒÐ³Ð° Ð¸ ÐºÐ»Ð¸ÐµÐ½Ñ‚Ð¸Ñ‚Ðµ Ñ‰Ðµ Ð¼Ð¾Ð³Ð°Ñ‚ Ð´Ð° Ñ Ð²Ð¸Ð´ÑÑ‚ Ð² Ð¿Ñ€Ð¾Ñ„Ð¸Ð»Ð° Ñ‚Ð¸.</p>
+          <button class="btn btn-orange" style="padding:12px 28px" onclick="openAdd()">+ Ð”Ð¾Ð±Ð°Ð²Ð¸ ÑƒÑÐ»ÑƒÐ³Ð°</button>
         </div>`;
       return;
     }
 
     grid.innerHTML = list.map(s => {
-      const ptLabel = priceTypeBadge[s.priceType] || 'Фиксирана';
+      const ptLabel = priceTypeBadge[s.priceType] || 'Ð¤Ð¸ÐºÑÐ¸Ñ€Ð°Ð½Ð°';
       const priceStr = s.priceType === 'fixed'
-        ? `${s.price} € <span>еднократно</span>`
+        ? `${s.price} â‚¬ <span>ÐµÐ´Ð½Ð¾ÐºÑ€Ð°Ñ‚Ð½Ð¾</span>`
         : s.priceType === 'hourly'
-        ? `${s.price} € <span>/час</span>`
-        : `${s.price} € <span>/месец</span>`;
+        ? `${s.price} â‚¬ <span>/Ñ‡Ð°Ñ</span>`
+        : `${s.price} â‚¬ <span>/Ð¼ÐµÑÐµÑ†</span>`;
       return `
         <div class="svc-card ${s.isActive ? '' : 'inactive'}">
           <div class="svc-badge">
             <span class="badge ${s.isActive ? 'badge-green' : 'badge-gray'}">
-              ${s.isActive ? '🟢 Активна' : '⚫ Неактивна'}
+              ${s.isActive ? 'ðŸŸ¢ ÐÐºÑ‚Ð¸Ð²Ð½Ð°' : 'âš« ÐÐµÐ°ÐºÑ‚Ð¸Ð²Ð½Ð°'}
             </span>
           </div>
-          <div class="svc-cat">${s.category || 'Без категория'}</div>
+          <div class="svc-cat">${s.category || 'Ð‘ÐµÐ· ÐºÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸Ñ'}</div>
           <div class="svc-title">${s.title}</div>
-          <div class="svc-desc">${s.description || '<em style="color:var(--g500)">Няма описание</em>'}</div>
+          <div class="svc-desc">${s.description || '<em style="color:var(--g500)">ÐÑÐ¼Ð° Ð¾Ð¿Ð¸ÑÐ°Ð½Ð¸Ðµ</em>'}</div>
           <div class="svc-meta">
-            <div class="svc-meta-item">⏱ <strong>${s.deliveryDays}</strong> дни</div>
-            <div class="svc-meta-item">🔄 <strong>${s.revisions}</strong> корекции</div>
-            <div class="svc-meta-item">💰 <strong>${ptLabel}</strong></div>
+            <div class="svc-meta-item">â± <strong>${s.deliveryDays}</strong> Ð´Ð½Ð¸</div>
+            <div class="svc-meta-item">ðŸ”„ <strong>${s.revisions}</strong> ÐºÐ¾Ñ€ÐµÐºÑ†Ð¸Ð¸</div>
+            <div class="svc-meta-item">ðŸ’° <strong>${ptLabel}</strong></div>
           </div>
           <div class="svc-price-big">${priceStr}</div>
           <div class="svc-actions">
-            <button class="btn btn-primary btn-sm" onclick="openEdit(${s.id})">✏ Редактирай</button>
+            <button class="btn btn-primary btn-sm" onclick="openEdit(${s.id})">âœ Ð ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð°Ð¹</button>
             <button class="btn btn-ghost btn-sm" onclick="toggleActive(${s.id}, ${s.isActive})">
-              ${s.isActive ? '🔴 Деактивирай' : '🟢 Активирай'}
+              ${s.isActive ? 'ðŸ”´ Ð”ÐµÐ°ÐºÑ‚Ð¸Ð²Ð¸Ñ€Ð°Ð¹' : 'ðŸŸ¢ ÐÐºÑ‚Ð¸Ð²Ð¸Ñ€Ð°Ð¹'}
             </button>
-            <button class="btn btn-danger btn-sm" onclick="confirmDelete(${s.id})">🗑</button>
+            <button class="btn btn-danger btn-sm" onclick="confirmDelete(${s.id})">ðŸ—‘</button>
           </div>
         </div>`;
     }).join('');
   } catch(e) {
-    grid.innerHTML = `<div class="empty" style="grid-column:1/-1"><div class="icon">⚠️</div><p>${e.message}</p></div>`;
+    grid.innerHTML = `<div class="empty" style="grid-column:1/-1"><div class="icon">âš ï¸</div><p>${e.message}</p></div>`;
   }
 }
 
 function openAdd() {
-  document.getElementById('svc-modal-title').textContent = 'Добави услуга';
+  document.getElementById('svc-modal-title').textContent = 'Ð”Ð¾Ð±Ð°Ð²Ð¸ ÑƒÑÐ»ÑƒÐ³Ð°';
   document.getElementById('svc-edit-id').value = '';
   ['svc-title','svc-desc','svc-price','svc-delivery','svc-revisions'].forEach(id => {
     document.getElementById(id).value = '';
@@ -256,7 +256,7 @@ async function openEdit(id) {
     const list = await apiFetch('/services/mine');
     const s = list.find(x => x.id === id);
     if (!s) return;
-    document.getElementById('svc-modal-title').textContent = 'Редактирай услуга';
+    document.getElementById('svc-modal-title').textContent = 'Ð ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð°Ð¹ ÑƒÑÐ»ÑƒÐ³Ð°';
     document.getElementById('svc-edit-id').value   = id;
     document.getElementById('svc-title').value     = s.title;
     document.getElementById('svc-desc').value      = s.description;
@@ -276,9 +276,9 @@ async function saveSvc() {
   const title    = document.getElementById('svc-title').value.trim();
   const price    = parseFloat(document.getElementById('svc-price').value);
   const delivery = parseInt(document.getElementById('svc-delivery').value);
-  if (!title)         return showAlert('svc-alert', 'Заглавието е задължително.');
-  if (isNaN(price))   return showAlert('svc-alert', 'Въведи валидна цена.');
-  if (!delivery || delivery < 1) return showAlert('svc-alert', 'Въведи валиден срок (дни).');
+  if (!title)         return showAlert('svc-alert', 'Ð—Ð°Ð³Ð»Ð°Ð²Ð¸ÐµÑ‚Ð¾ Ðµ Ð·Ð°Ð´ÑŠÐ»Ð¶Ð¸Ñ‚ÐµÐ»Ð½Ð¾.');
+  if (isNaN(price))   return showAlert('svc-alert', 'Ð’ÑŠÐ²ÐµÐ´Ð¸ Ð²Ð°Ð»Ð¸Ð´Ð½Ð° Ñ†ÐµÐ½Ð°.');
+  if (!delivery || delivery < 1) return showAlert('svc-alert', 'Ð’ÑŠÐ²ÐµÐ´Ð¸ Ð²Ð°Ð»Ð¸Ð´ÐµÐ½ ÑÑ€Ð¾Ðº (Ð´Ð½Ð¸).');
 
   const body = {
     title,
@@ -299,7 +299,7 @@ async function saveSvc() {
       await apiFetch('/services', { method:'POST', body: JSON.stringify(body) });
     }
     closeModal('svc-modal');
-    showAlert('alert-global', editId ? '✅ Услугата е обновена!' : '✅ Услугата е добавена!', 'success');
+    showAlert('alert-global', editId ? 'âœ… Ð£ÑÐ»ÑƒÐ³Ð°Ñ‚Ð° Ðµ Ð¾Ð±Ð½Ð¾Ð²ÐµÐ½Ð°!' : 'âœ… Ð£ÑÐ»ÑƒÐ³Ð°Ñ‚Ð° Ðµ Ð´Ð¾Ð±Ð°Ð²ÐµÐ½Ð°!', 'success');
     load();
   } catch(e) { showAlert('svc-alert', e.message); }
 }
@@ -327,7 +327,7 @@ async function deleteSvc(id) {
   try {
     await apiFetch(`/services/${id}`, { method:'DELETE' });
     closeModal('del-modal');
-    showAlert('alert-global', '🗑 Услугата е изтрита.', 'success');
+    showAlert('alert-global', 'ðŸ—‘ Ð£ÑÐ»ÑƒÐ³Ð°Ñ‚Ð° Ðµ Ð¸Ð·Ñ‚Ñ€Ð¸Ñ‚Ð°.', 'success');
     load();
   } catch(e) { alert(e.message); }
 }
@@ -337,3 +337,4 @@ load();
 </script>
 </body>
 </html>
+

@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="bg">
 <head>
   <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Мои оферти – Skillo</title>
+  <title>ÐœÐ¾Ð¸ Ð¾Ñ„ÐµÑ€Ñ‚Ð¸ â€“ Skillo</title>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="/css/main.css"/>
   <style>
@@ -23,35 +23,35 @@
 </head>
 <body>
 <nav id="main-nav">
-  <a href="/index.html" class="logo"><div class="logo-icon">🚀</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
+  <a href="/index.html" class="logo"><div class="logo-icon">ðŸš€</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
   <ul class="nav-links"></ul>
   <div class="nav-cta">
-    <a href="#" id="nav-login-btn" class="btn btn-outline btn-sm" onclick="window.location='/index.html#login';return false">Вход</a>
-    <a href="#" id="nav-register-btn" class="btn btn-orange btn-sm" onclick="window.location='/index.html#register';return false">Регистрация</a>
+    <a href="#" id="nav-login-btn" class="btn btn-outline btn-sm" onclick="window.location='/index.html#login';return false">Ð’Ñ…Ð¾Ð´</a>
+    <a href="#" id="nav-register-btn" class="btn btn-orange btn-sm" onclick="window.location='/index.html#register';return false">Ð ÐµÐ³Ð¸ÑÑ‚Ñ€Ð°Ñ†Ð¸Ñ</a>
     <div id="nav-user" style="display:none;align-items:center;gap:8px">
       <div id="nav-user-avatar" style="width:34px;height:34px;border-radius:50%;background:var(--g100);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--blue);border:2px solid var(--blue);overflow:hidden;cursor:pointer"></div>
       <span id="nav-user-name" style="font-size:.88rem;font-weight:600;color:var(--blue)"></span>
-      <a href="/pages/chat.html" id="nav-chat-btn" class="btn btn-ghost btn-sm" style="display:none" title="Съобщения">💬</a>
-      <a href="/pages/dashboard.html" class="btn btn-ghost btn-sm">Табло</a>
-      <a id="nav-admin-link" href="/pages/admin.html" class="btn btn-ghost btn-sm" style="display:none">⚙ Админ</a>
-      <button onclick="logout()" class="btn btn-ghost btn-sm">Изход</button>
+      <a href="/pages/chat.html" id="nav-chat-btn" class="btn btn-ghost btn-sm" style="display:none" title="Ð¡ÑŠÐ¾Ð±Ñ‰ÐµÐ½Ð¸Ñ">ðŸ’¬</a>
+      <a href="/pages/dashboard.html" class="btn btn-ghost btn-sm">Ð¢Ð°Ð±Ð»Ð¾</a>
+      <a id="nav-admin-link" href="/pages/admin.html" class="btn btn-ghost btn-sm" style="display:none">âš™ ÐÐ´Ð¼Ð¸Ð½</a>
+      <button onclick="logout()" class="btn btn-ghost btn-sm">Ð˜Ð·Ñ…Ð¾Ð´</button>
     </div>
   </div>
 </nav>
 
 <div class="page-hero">
-  <h1>📨 Мои оферти</h1>
-  <p>Управлявай и редактирай подадените от теб оферти</p>
+  <h1>ðŸ“¨ ÐœÐ¾Ð¸ Ð¾Ñ„ÐµÑ€Ñ‚Ð¸</h1>
+  <p>Ð£Ð¿Ñ€Ð°Ð²Ð»ÑÐ²Ð°Ð¹ Ð¸ Ñ€ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð°Ð¹ Ð¿Ð¾Ð´Ð°Ð´ÐµÐ½Ð¸Ñ‚Ðµ Ð¾Ñ‚ Ñ‚ÐµÐ± Ð¾Ñ„ÐµÑ€Ñ‚Ð¸</p>
 </div>
 
 <div class="page-wrap" style="padding-top:36px">
   <div id="global-alert" class="alert" style="margin-bottom:16px"></div>
 
   <div class="filter-tabs">
-    <button class="filter-tab active" onclick="setFilter('all',this)">Всички</button>
-    <button class="filter-tab" onclick="setFilter('Pending',this)">⏳ Чакащи</button>
-    <button class="filter-tab" onclick="setFilter('Accepted',this)">✅ Приети</button>
-    <button class="filter-tab" onclick="setFilter('Rejected',this)">❌ Отказани</button>
+    <button class="filter-tab active" onclick="setFilter('all',this)">Ð’ÑÐ¸Ñ‡ÐºÐ¸</button>
+    <button class="filter-tab" onclick="setFilter('Pending',this)">â³ Ð§Ð°ÐºÐ°Ñ‰Ð¸</button>
+    <button class="filter-tab" onclick="setFilter('Accepted',this)">âœ… ÐŸÑ€Ð¸ÐµÑ‚Ð¸</button>
+    <button class="filter-tab" onclick="setFilter('Rejected',this)">âŒ ÐžÑ‚ÐºÐ°Ð·Ð°Ð½Ð¸</button>
   </div>
 
   <div id="bids-list">
@@ -62,28 +62,28 @@
 <!-- EDIT BID MODAL -->
 <div class="modal-overlay" id="edit-bid-modal">
   <div class="modal">
-    <button class="modal-close" onclick="closeModal('edit-bid-modal')">✕</button>
-    <h2>Редактирай оферта</h2>
+    <button class="modal-close" onclick="closeModal('edit-bid-modal')">âœ•</button>
+    <h2>Ð ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð°Ð¹ Ð¾Ñ„ÐµÑ€Ñ‚Ð°</h2>
     <p class="modal-sub" id="edit-bid-proj-title" style="color:var(--blue);font-weight:600"></p>
     <div id="edit-bid-alert" class="alert"></div>
     <input type="hidden" id="edit-bid-id"/>
     <div class="form-row">
       <div class="form-group">
-        <label>Сума (лв) *</label>
+        <label>Ð¡ÑƒÐ¼Ð° (Ð»Ð²) *</label>
         <input id="edit-amount" type="number" min="1"/>
       </div>
       <div class="form-group">
-        <label>Срок (дни) *</label>
+        <label>Ð¡Ñ€Ð¾Ðº (Ð´Ð½Ð¸) *</label>
         <input id="edit-days" type="number" min="1"/>
       </div>
     </div>
     <div class="form-group">
-      <label>Мотивационно писмо</label>
-      <textarea id="edit-letter" rows="5" placeholder="Опиши защо си подходящ за проекта…"></textarea>
+      <label>ÐœÐ¾Ñ‚Ð¸Ð²Ð°Ñ†Ð¸Ð¾Ð½Ð½Ð¾ Ð¿Ð¸ÑÐ¼Ð¾</label>
+      <textarea id="edit-letter" rows="5" placeholder="ÐžÐ¿Ð¸ÑˆÐ¸ Ð·Ð°Ñ‰Ð¾ ÑÐ¸ Ð¿Ð¾Ð´Ñ…Ð¾Ð´ÑÑ‰ Ð·Ð° Ð¿Ñ€Ð¾ÐµÐºÑ‚Ð°â€¦"></textarea>
     </div>
     <div style="display:flex;gap:10px">
-      <button class="btn btn-primary btn-full" style="padding:13px" onclick="saveEditedBid()">💾 Запази промените</button>
-      <button class="btn btn-ghost" style="padding:13px 18px" onclick="closeModal('edit-bid-modal')">Откажи</button>
+      <button class="btn btn-primary btn-full" style="padding:13px" onclick="saveEditedBid()">ðŸ’¾ Ð—Ð°Ð¿Ð°Ð·Ð¸ Ð¿Ñ€Ð¾Ð¼ÐµÐ½Ð¸Ñ‚Ðµ</button>
+      <button class="btn btn-ghost" style="padding:13px 18px" onclick="closeModal('edit-bid-modal')">ÐžÑ‚ÐºÐ°Ð¶Ð¸</button>
     </div>
   </div>
 </div>
@@ -103,7 +103,7 @@ async function load() {
     allBids = await apiFetch('/bids/mine');
     render();
   } catch(e) {
-    el.innerHTML = `<div class="empty"><div class="icon">⚠️</div><p>${e.message}</p></div>`;
+    el.innerHTML = `<div class="empty"><div class="icon">âš ï¸</div><p>${e.message}</p></div>`;
   }
 }
 
@@ -119,15 +119,15 @@ function render() {
   let list = currentFilter === 'all' ? allBids : allBids.filter(b => b.status === currentFilter);
 
   if (!list.length) {
-    el.innerHTML = `<div class="empty"><div class="icon">📭</div>
-      <p>${currentFilter === 'all' ? 'Нямаш подадени оферти.' : 'Няма оферти в тази категория.'}</p>
-      <a href="/pages/projects.html" class="btn btn-primary" style="margin-top:14px">Разгледай проекти</a>
+    el.innerHTML = `<div class="empty"><div class="icon">ðŸ“­</div>
+      <p>${currentFilter === 'all' ? 'ÐÑÐ¼Ð°Ñˆ Ð¿Ð¾Ð´Ð°Ð´ÐµÐ½Ð¸ Ð¾Ñ„ÐµÑ€Ñ‚Ð¸.' : 'ÐÑÐ¼Ð° Ð¾Ñ„ÐµÑ€Ñ‚Ð¸ Ð² Ñ‚Ð°Ð·Ð¸ ÐºÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸Ñ.'}</p>
+      <a href="/pages/projects.html" class="btn btn-primary" style="margin-top:14px">Ð Ð°Ð·Ð³Ð»ÐµÐ´Ð°Ð¹ Ð¿Ñ€Ð¾ÐµÐºÑ‚Ð¸</a>
     </div>`;
     return;
   }
 
   const statusClass = { Pending:'', Accepted:'accepted', Rejected:'rejected' };
-  const statusLabel = { Pending:'⏳ Чака отговор', Accepted:'✅ Приета', Rejected:'❌ Отказана' };
+  const statusLabel = { Pending:'â³ Ð§Ð°ÐºÐ° Ð¾Ñ‚Ð³Ð¾Ð²Ð¾Ñ€', Accepted:'âœ… ÐŸÑ€Ð¸ÐµÑ‚Ð°', Rejected:'âŒ ÐžÑ‚ÐºÐ°Ð·Ð°Ð½Ð°' };
   const statusBadge = { Pending:'badge-orange', Accepted:'badge-green', Rejected:'badge-red' };
 
   el.innerHTML = list.map(b => `
@@ -135,23 +135,23 @@ function render() {
       <div class="bid-header">
         <div>
           <div class="bid-proj">${b.projectTitle}</div>
-          <div style="color:var(--g500);font-size:.8rem;margin-top:3px">Подадена: ${b.createdAt?.slice(0,10)}</div>
+          <div style="color:var(--g500);font-size:.8rem;margin-top:3px">ÐŸÐ¾Ð´Ð°Ð´ÐµÐ½Ð°: ${b.createdAt?.slice(0,10)}</div>
         </div>
         <span class="badge ${statusBadge[b.status]||'badge-gray'}">${statusLabel[b.status]||b.status}</span>
       </div>
       <div class="bid-meta">
-        <span>💰 <strong>${b.amount} €</strong></span>
-        <span>⏱ <strong>${b.deliveryDays} дни</strong> срок</span>
+        <span>ðŸ’° <strong>${b.amount} â‚¬</strong></span>
+        <span>â± <strong>${b.deliveryDays} Ð´Ð½Ð¸</strong> ÑÑ€Ð¾Ðº</span>
       </div>
       ${b.coverLetter ? `<div class="bid-letter">"${b.coverLetter}"</div>` : ''}
       <div class="bid-actions">
         ${b.status === 'Pending' ? `
           <button class="btn btn-primary btn-sm" onclick="openEdit(${b.id},'${b.projectTitle.replace(/'/g,"\\'")}',${b.amount},${b.deliveryDays},'${(b.coverLetter||'').replace(/'/g,"\\'").replace(/\n/g,' ')}')">
-            ✏ Редактирай
+            âœ Ð ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð°Ð¹
           </button>
-          <button class="btn btn-danger btn-sm" onclick="deleteBid(${b.id})">🗑 Оттегли</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteBid(${b.id})">ðŸ—‘ ÐžÑ‚Ñ‚ÐµÐ³Ð»Ð¸</button>
         ` : ''}
-        <a href="/pages/projects.html" class="btn btn-ghost btn-sm">📋 Виж проекта</a>
+        <a href="/pages/projects.html" class="btn btn-ghost btn-sm">ðŸ“‹ Ð’Ð¸Ð¶ Ð¿Ñ€Ð¾ÐµÐºÑ‚Ð°</a>
       </div>
     </div>`).join('');
 }
@@ -173,22 +173,22 @@ async function saveEditedBid() {
   const days    = parseInt(document.getElementById('edit-days').value);
   const letter  = document.getElementById('edit-letter').value.trim();
 
-  if (!amount || amount < 1) return showAlert('edit-bid-alert','Въведи валидна сума.');
-  if (!days || days < 1)    return showAlert('edit-bid-alert','Въведи валиден срок.');
+  if (!amount || amount < 1) return showAlert('edit-bid-alert','Ð’ÑŠÐ²ÐµÐ´Ð¸ Ð²Ð°Ð»Ð¸Ð´Ð½Ð° ÑÑƒÐ¼Ð°.');
+  if (!days || days < 1)    return showAlert('edit-bid-alert','Ð’ÑŠÐ²ÐµÐ´Ð¸ Ð²Ð°Ð»Ð¸Ð´ÐµÐ½ ÑÑ€Ð¾Ðº.');
 
   try {
     await apiFetch(`/bids/${id}`, { method:'PUT', body: JSON.stringify({ amount, deliveryDays: days, coverLetter: letter }) });
     closeModal('edit-bid-modal');
-    showAlert('global-alert','✅ Офертата е обновена!','success');
+    showAlert('global-alert','âœ… ÐžÑ„ÐµÑ€Ñ‚Ð°Ñ‚Ð° Ðµ Ð¾Ð±Ð½Ð¾Ð²ÐµÐ½Ð°!','success');
     await load();
   } catch(e) { showAlert('edit-bid-alert', e.message); }
 }
 
 async function deleteBid(id) {
-  if (!confirm('Сигурен ли си, че искаш да оттеглиш тази оферта?')) return;
+  if (!confirm('Ð¡Ð¸Ð³ÑƒÑ€ÐµÐ½ Ð»Ð¸ ÑÐ¸, Ñ‡Ðµ Ð¸ÑÐºÐ°Ñˆ Ð´Ð° Ð¾Ñ‚Ñ‚ÐµÐ³Ð»Ð¸Ñˆ Ñ‚Ð°Ð·Ð¸ Ð¾Ñ„ÐµÑ€Ñ‚Ð°?')) return;
   try {
     await apiFetch(`/bids/${id}`, { method:'DELETE' });
-    showAlert('global-alert','🗑 Офертата е оттеглена.','success');
+    showAlert('global-alert','ðŸ—‘ ÐžÑ„ÐµÑ€Ñ‚Ð°Ñ‚Ð° Ðµ Ð¾Ñ‚Ñ‚ÐµÐ³Ð»ÐµÐ½Ð°.','success');
     await load();
   } catch(e) { showAlert('global-alert', e.message); }
 }
@@ -197,3 +197,4 @@ load();
 </script>
 </body>
 </html>
+

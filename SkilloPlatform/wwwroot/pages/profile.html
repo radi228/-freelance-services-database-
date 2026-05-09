@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="bg">
 <head>
   <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Моят профил – Skillo</title>
+  <title>ÐœÐ¾ÑÑ‚ Ð¿Ñ€Ð¾Ñ„Ð¸Ð» â€“ Skillo</title>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="/css/main.css"/>
   <style>
@@ -26,36 +26,36 @@
 </head>
 <body>
 <nav id="main-nav">
-  <a href="/index.html" class="logo"><div class="logo-icon">🚀</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
+  <a href="/index.html" class="logo"><div class="logo-icon">ðŸš€</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
   <ul class="nav-links"></ul>
   <div class="nav-cta">
-    <a href="#" id="nav-login-btn" class="btn btn-outline btn-sm" onclick="window.location='/index.html#login';return false">Вход</a>
-    <a href="#" id="nav-register-btn" class="btn btn-orange btn-sm" onclick="window.location='/index.html#register';return false">Регистрация</a>
+    <a href="#" id="nav-login-btn" class="btn btn-outline btn-sm" onclick="window.location='/index.html#login';return false">Ð’Ñ…Ð¾Ð´</a>
+    <a href="#" id="nav-register-btn" class="btn btn-orange btn-sm" onclick="window.location='/index.html#register';return false">Ð ÐµÐ³Ð¸ÑÑ‚Ñ€Ð°Ñ†Ð¸Ñ</a>
     <div id="nav-user" style="display:none;align-items:center;gap:8px">
       <div id="nav-user-avatar" style="width:34px;height:34px;border-radius:50%;background:var(--g100);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--blue);border:2px solid var(--blue);overflow:hidden;cursor:pointer"></div>
       <span id="nav-user-name" style="font-size:.88rem;font-weight:600;color:var(--blue)"></span>
-      <a href="/pages/chat.html" id="nav-chat-btn" class="btn btn-ghost btn-sm" style="display:none" title="Съобщения">💬</a>
-      <a href="/pages/dashboard.html" class="btn btn-ghost btn-sm">Табло</a>
-      <a id="nav-admin-link" href="/pages/admin.html" class="btn btn-ghost btn-sm" style="display:none">⚙ Админ</a>
-      <button onclick="logout()" class="btn btn-ghost btn-sm">Изход</button>
+      <a href="/pages/chat.html" id="nav-chat-btn" class="btn btn-ghost btn-sm" style="display:none" title="Ð¡ÑŠÐ¾Ð±Ñ‰ÐµÐ½Ð¸Ñ">ðŸ’¬</a>
+      <a href="/pages/dashboard.html" class="btn btn-ghost btn-sm">Ð¢Ð°Ð±Ð»Ð¾</a>
+      <a id="nav-admin-link" href="/pages/admin.html" class="btn btn-ghost btn-sm" style="display:none">âš™ ÐÐ´Ð¼Ð¸Ð½</a>
+      <button onclick="logout()" class="btn btn-ghost btn-sm">Ð˜Ð·Ñ…Ð¾Ð´</button>
     </div>
   </div>
 </nav>
 
 <div style="padding-top:68px">
-  <div class="page-hero"><h1>👤 Моят профил</h1><p>Попълни профила си, за да привлечеш повече клиенти</p></div>
+  <div class="page-hero"><h1>ðŸ‘¤ ÐœÐ¾ÑÑ‚ Ð¿Ñ€Ð¾Ñ„Ð¸Ð»</h1><p>ÐŸÐ¾Ð¿ÑŠÐ»Ð½Ð¸ Ð¿Ñ€Ð¾Ñ„Ð¸Ð»Ð° ÑÐ¸, Ð·Ð° Ð´Ð° Ð¿Ñ€Ð¸Ð²Ð»ÐµÑ‡ÐµÑˆ Ð¿Ð¾Ð²ÐµÑ‡Ðµ ÐºÐ»Ð¸ÐµÐ½Ñ‚Ð¸</p></div>
   <div class="prof-layout">
     <!-- NAV -->
     <div class="prof-nav">
-      <button class="pnav-item active" onclick="switchPanel('basic')">📝 Основна информация</button>
-      <button class="pnav-item" onclick="switchPanel('avatar')">📷 Профилна снимка</button>
-      <button class="pnav-item" onclick="switchPanel('skills')">💡 Умения & Ниво</button>
-      <button class="pnav-item" onclick="switchPanel('links')">🔗 Линкове & Контакт</button>
-      <button class="pnav-item" onclick="switchPanel('experience')">💼 Трудов опит</button>
-      <button class="pnav-item" onclick="switchPanel('certs')">🎓 Сертификати</button>
+      <button class="pnav-item active" onclick="switchPanel('basic')">ðŸ“ ÐžÑÐ½Ð¾Ð²Ð½Ð° Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ñ</button>
+      <button class="pnav-item" onclick="switchPanel('avatar')">ðŸ“· ÐŸÑ€Ð¾Ñ„Ð¸Ð»Ð½Ð° ÑÐ½Ð¸Ð¼ÐºÐ°</button>
+      <button class="pnav-item" onclick="switchPanel('skills')">ðŸ’¡ Ð£Ð¼ÐµÐ½Ð¸Ñ & ÐÐ¸Ð²Ð¾</button>
+      <button class="pnav-item" onclick="switchPanel('links')">ðŸ”— Ð›Ð¸Ð½ÐºÐ¾Ð²Ðµ & ÐšÐ¾Ð½Ñ‚Ð°ÐºÑ‚</button>
+      <button class="pnav-item" onclick="switchPanel('experience')">ðŸ’¼ Ð¢Ñ€ÑƒÐ´Ð¾Ð² Ð¾Ð¿Ð¸Ñ‚</button>
+      <button class="pnav-item" onclick="switchPanel('certs')">ðŸŽ“ Ð¡ÐµÑ€Ñ‚Ð¸Ñ„Ð¸ÐºÐ°Ñ‚Ð¸</button>
       <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--g200)">
-        <a href="/pages/services.html" class="pnav-item" style="text-decoration:none;color:var(--g700)">🛠 Моите услуги</a>
-        <a href="/pages/dashboard.html" class="pnav-item" style="text-decoration:none;color:var(--g700)">🏠 Табло</a>
+        <a href="/pages/services.html" class="pnav-item" style="text-decoration:none;color:var(--g700)">ðŸ›  ÐœÐ¾Ð¸Ñ‚Ðµ ÑƒÑÐ»ÑƒÐ³Ð¸</a>
+        <a href="/pages/dashboard.html" class="pnav-item" style="text-decoration:none;color:var(--g700)">ðŸ  Ð¢Ð°Ð±Ð»Ð¾</a>
       </div>
     </div>
 
@@ -64,35 +64,35 @@
       <!-- BASIC -->
       <div id="panel-basic" class="tab-panel active">
         <div class="section-card">
-          <h3>Основна информация</h3>
+          <h3>ÐžÑÐ½Ð¾Ð²Ð½Ð° Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ñ</h3>
           <div id="basic-alert" class="alert"></div>
-          <div class="form-group"><label>Заглавие (позиция)</label><input id="b-title" placeholder="напр. Full-Stack Developer"/></div>
-          <div class="form-group"><label>Биография</label><textarea id="b-bio" rows="5" placeholder="Разкажи за себе си, опита и специализацията ти…"></textarea></div>
+          <div class="form-group"><label>Ð—Ð°Ð³Ð»Ð°Ð²Ð¸Ðµ (Ð¿Ð¾Ð·Ð¸Ñ†Ð¸Ñ)</label><input id="b-title" placeholder="Ð½Ð°Ð¿Ñ€. Full-Stack Developer"/></div>
+          <div class="form-group"><label>Ð‘Ð¸Ð¾Ð³Ñ€Ð°Ñ„Ð¸Ñ</label><textarea id="b-bio" rows="5" placeholder="Ð Ð°Ð·ÐºÐ°Ð¶Ð¸ Ð·Ð° ÑÐµÐ±Ðµ ÑÐ¸, Ð¾Ð¿Ð¸Ñ‚Ð° Ð¸ ÑÐ¿ÐµÑ†Ð¸Ð°Ð»Ð¸Ð·Ð°Ñ†Ð¸ÑÑ‚Ð° Ñ‚Ð¸â€¦"></textarea></div>
           <div class="form-row">
-            <div class="form-group"><label>Категория</label><select id="b-cat"><option value="">Избери…</option></select></div>
-            <div class="form-group"><label>Цена (€/час)</label><input id="b-rate" type="number" placeholder="45"/></div>
+            <div class="form-group"><label>ÐšÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸Ñ</label><select id="b-cat"><option value="">Ð˜Ð·Ð±ÐµÑ€Ð¸â€¦</option></select></div>
+            <div class="form-group"><label>Ð¦ÐµÐ½Ð° (â‚¬/Ñ‡Ð°Ñ)</label><input id="b-rate" type="number" placeholder="45"/></div>
           </div>
-          <div class="form-group"><label>Местоположение</label><input id="b-location" placeholder="София, България"/></div>
+          <div class="form-group"><label>ÐœÐµÑÑ‚Ð¾Ð¿Ð¾Ð»Ð¾Ð¶ÐµÐ½Ð¸Ðµ</label><input id="b-location" placeholder="Ð¡Ð¾Ñ„Ð¸Ñ, Ð‘ÑŠÐ»Ð³Ð°Ñ€Ð¸Ñ"/></div>
           <div class="form-row">
-            <div class="form-group"><label>Налличност</label>
-              <select id="b-avail"><option value="1">🟢 Свободен за работа</option><option value="0">🔴 Зает</option></select>
+            <div class="form-group"><label>ÐÐ°Ð»Ð»Ð¸Ñ‡Ð½Ð¾ÑÑ‚</label>
+              <select id="b-avail"><option value="1">ðŸŸ¢ Ð¡Ð²Ð¾Ð±Ð¾Ð´ÐµÐ½ Ð·Ð° Ñ€Ð°Ð±Ð¾Ñ‚Ð°</option><option value="0">ðŸ”´ Ð—Ð°ÐµÑ‚</option></select>
             </div>
           </div>
-          <button class="btn btn-primary" style="padding:11px 28px" onclick="saveBasic()">💾 Запази</button>
+          <button class="btn btn-primary" style="padding:11px 28px" onclick="saveBasic()">ðŸ’¾ Ð—Ð°Ð¿Ð°Ð·Ð¸</button>
         </div>
       </div>
 
       <!-- AVATAR -->
       <div id="panel-avatar" class="tab-panel">
         <div class="section-card">
-          <h3>Профилна снимка</h3>
+          <h3>ÐŸÑ€Ð¾Ñ„Ð¸Ð»Ð½Ð° ÑÐ½Ð¸Ð¼ÐºÐ°</h3>
           <div class="avatar-upload">
-            <div class="avatar-preview" id="av-preview">👤</div>
+            <div class="avatar-preview" id="av-preview">ðŸ‘¤</div>
             <div>
-              <p style="color:var(--g500);font-size:.88rem;margin-bottom:12px">Качи снимка (JPG, PNG, макс. 5MB)</p>
+              <p style="color:var(--g500);font-size:.88rem;margin-bottom:12px">ÐšÐ°Ñ‡Ð¸ ÑÐ½Ð¸Ð¼ÐºÐ° (JPG, PNG, Ð¼Ð°ÐºÑ. 5MB)</p>
               <input type="file" id="av-input" accept="image/*" style="display:none" onchange="previewAvatar(this)"/>
-              <button class="btn btn-outline" onclick="document.getElementById('av-input').click()">📷 Избери снимка</button>
-              <button class="btn btn-primary" style="margin-left:10px" onclick="uploadAv()">⬆ Качи</button>
+              <button class="btn btn-outline" onclick="document.getElementById('av-input').click()">ðŸ“· Ð˜Ð·Ð±ÐµÑ€Ð¸ ÑÐ½Ð¸Ð¼ÐºÐ°</button>
+              <button class="btn btn-primary" style="margin-left:10px" onclick="uploadAv()">â¬† ÐšÐ°Ñ‡Ð¸</button>
             </div>
           </div>
           <div id="av-alert" class="alert"></div>
@@ -102,44 +102,44 @@
       <!-- SKILLS -->
       <div id="panel-skills" class="tab-panel">
         <div class="section-card">
-          <h3>Умения & Ниво</h3>
+          <h3>Ð£Ð¼ÐµÐ½Ð¸Ñ & ÐÐ¸Ð²Ð¾</h3>
           <div id="skills-alert" class="alert"></div>
           <div class="form-group">
-            <label>Умения (натисни Enter за добавяне)</label>
-            <div class="skills-input-wrap" id="skills-wrap"><input id="skills-inp" placeholder="React, Figma, SEO…"/></div>
+            <label>Ð£Ð¼ÐµÐ½Ð¸Ñ (Ð½Ð°Ñ‚Ð¸ÑÐ½Ð¸ Enter Ð·Ð° Ð´Ð¾Ð±Ð°Ð²ÑÐ½Ðµ)</label>
+            <div class="skills-input-wrap" id="skills-wrap"><input id="skills-inp" placeholder="React, Figma, SEOâ€¦"/></div>
             <input type="hidden" id="skills-hidden"/>
           </div>
-          <div class="form-group"><label>Ниво на опит</label>
+          <div class="form-group"><label>ÐÐ¸Ð²Ð¾ Ð½Ð° Ð¾Ð¿Ð¸Ñ‚</label>
             <select id="sk-level">
-              <option value="Junior">Junior (0–2 г.)</option>
-              <option value="Mid">Mid (2–5 г.)</option>
-              <option value="Senior">Senior (5+ г.)</option>
+              <option value="Junior">Junior (0â€“2 Ð³.)</option>
+              <option value="Mid">Mid (2â€“5 Ð³.)</option>
+              <option value="Senior">Senior (5+ Ð³.)</option>
             </select>
           </div>
-          <div class="form-group"><label>Езици (натисни Enter)</label>
-            <div class="skills-input-wrap" id="langs-wrap"><input id="langs-inp" placeholder="Български, Английски…"/></div>
+          <div class="form-group"><label>Ð•Ð·Ð¸Ñ†Ð¸ (Ð½Ð°Ñ‚Ð¸ÑÐ½Ð¸ Enter)</label>
+            <div class="skills-input-wrap" id="langs-wrap"><input id="langs-inp" placeholder="Ð‘ÑŠÐ»Ð³Ð°Ñ€ÑÐºÐ¸, ÐÐ½Ð³Ð»Ð¸Ð¹ÑÐºÐ¸â€¦"/></div>
             <input type="hidden" id="langs-hidden"/>
           </div>
-          <button class="btn btn-primary" style="padding:11px 28px" onclick="saveSkills()">💾 Запази</button>
+          <button class="btn btn-primary" style="padding:11px 28px" onclick="saveSkills()">ðŸ’¾ Ð—Ð°Ð¿Ð°Ð·Ð¸</button>
         </div>
       </div>
 
       <!-- LINKS -->
       <div id="panel-links" class="tab-panel">
         <div class="section-card">
-          <h3>Линкове & Контакт</h3>
+          <h3>Ð›Ð¸Ð½ÐºÐ¾Ð²Ðµ & ÐšÐ¾Ð½Ñ‚Ð°ÐºÑ‚</h3>
           <div id="links-alert" class="alert"></div>
-          <div class="form-group"><label>Уебсайт / Портфолио</label><input id="l-web" placeholder="https://mysite.com"/></div>
-          <div class="form-group"><label>LinkedIn</label><input id="l-li" placeholder="https://linkedin.com/in/…"/></div>
-          <div class="form-group"><label>GitHub</label><input id="l-gh" placeholder="https://github.com/…"/></div>
-          <button class="btn btn-primary" style="padding:11px 28px" onclick="saveLinks()">💾 Запази</button>
+          <div class="form-group"><label>Ð£ÐµÐ±ÑÐ°Ð¹Ñ‚ / ÐŸÐ¾Ñ€Ñ‚Ñ„Ð¾Ð»Ð¸Ð¾</label><input id="l-web" placeholder="https://mysite.com"/></div>
+          <div class="form-group"><label>LinkedIn</label><input id="l-li" placeholder="https://linkedin.com/in/â€¦"/></div>
+          <div class="form-group"><label>GitHub</label><input id="l-gh" placeholder="https://github.com/â€¦"/></div>
+          <button class="btn btn-primary" style="padding:11px 28px" onclick="saveLinks()">ðŸ’¾ Ð—Ð°Ð¿Ð°Ð·Ð¸</button>
         </div>
       </div>
 
       <!-- EXPERIENCE -->
       <div id="panel-experience" class="tab-panel">
         <div class="section-card">
-          <h3>Трудов опит <button class="btn btn-primary btn-sm" onclick="openExpModal()">+ Добави</button></h3>
+          <h3>Ð¢Ñ€ÑƒÐ´Ð¾Ð² Ð¾Ð¿Ð¸Ñ‚ <button class="btn btn-primary btn-sm" onclick="openExpModal()">+ Ð”Ð¾Ð±Ð°Ð²Ð¸</button></h3>
           <div id="exp-list"><div class="loading"><div class="spinner"></div></div></div>
         </div>
       </div>
@@ -147,7 +147,7 @@
       <!-- CERTS -->
       <div id="panel-certs" class="tab-panel">
         <div class="section-card">
-          <h3>Сертификати <button class="btn btn-primary btn-sm" onclick="openCertModal()">+ Добави</button></h3>
+          <h3>Ð¡ÐµÑ€Ñ‚Ð¸Ñ„Ð¸ÐºÐ°Ñ‚Ð¸ <button class="btn btn-primary btn-sm" onclick="openCertModal()">+ Ð”Ð¾Ð±Ð°Ð²Ð¸</button></h3>
           <div id="cert-list"><div class="loading"><div class="spinner"></div></div></div>
         </div>
       </div>
@@ -158,40 +158,40 @@
 <!-- EXP MODAL -->
 <div class="modal-overlay" id="exp-modal">
   <div class="modal">
-    <button class="modal-close" onclick="closeModal('exp-modal')">✕</button>
-    <h2 id="exp-modal-title">Добави опит</h2>
+    <button class="modal-close" onclick="closeModal('exp-modal')">âœ•</button>
+    <h2 id="exp-modal-title">Ð”Ð¾Ð±Ð°Ð²Ð¸ Ð¾Ð¿Ð¸Ñ‚</h2>
     <div id="exp-alert" class="alert"></div>
     <input type="hidden" id="exp-edit-id"/>
-    <div class="form-group"><label>Компания *</label><input id="exp-company" placeholder="SoftUni Solutions"/></div>
-    <div class="form-group"><label>Позиция *</label><input id="exp-position" placeholder="Senior Developer"/></div>
+    <div class="form-group"><label>ÐšÐ¾Ð¼Ð¿Ð°Ð½Ð¸Ñ *</label><input id="exp-company" placeholder="SoftUni Solutions"/></div>
+    <div class="form-group"><label>ÐŸÐ¾Ð·Ð¸Ñ†Ð¸Ñ *</label><input id="exp-position" placeholder="Senior Developer"/></div>
     <div class="form-row">
-      <div class="form-group"><label>Начало *</label><input id="exp-start" type="month"/></div>
-      <div class="form-group"><label>Край</label><input id="exp-end" type="month"/></div>
+      <div class="form-group"><label>ÐÐ°Ñ‡Ð°Ð»Ð¾ *</label><input id="exp-start" type="month"/></div>
+      <div class="form-group"><label>ÐšÑ€Ð°Ð¹</label><input id="exp-end" type="month"/></div>
     </div>
     <div class="form-group" style="display:flex;align-items:center;gap:10px">
       <input type="checkbox" id="exp-current" onchange="document.getElementById('exp-end').disabled=this.checked"/>
-      <label style="margin:0;font-size:.9rem">Работя тук в момента</label>
+      <label style="margin:0;font-size:.9rem">Ð Ð°Ð±Ð¾Ñ‚Ñ Ñ‚ÑƒÐº Ð² Ð¼Ð¾Ð¼ÐµÐ½Ñ‚Ð°</label>
     </div>
-    <div class="form-group"><label>Описание</label><textarea id="exp-desc" placeholder="Кратко описание на задълженията…"></textarea></div>
-    <button class="btn btn-primary btn-full" style="padding:13px" onclick="saveExp()">💾 Запази</button>
+    <div class="form-group"><label>ÐžÐ¿Ð¸ÑÐ°Ð½Ð¸Ðµ</label><textarea id="exp-desc" placeholder="ÐšÑ€Ð°Ñ‚ÐºÐ¾ Ð¾Ð¿Ð¸ÑÐ°Ð½Ð¸Ðµ Ð½Ð° Ð·Ð°Ð´ÑŠÐ»Ð¶ÐµÐ½Ð¸ÑÑ‚Ð°â€¦"></textarea></div>
+    <button class="btn btn-primary btn-full" style="padding:13px" onclick="saveExp()">ðŸ’¾ Ð—Ð°Ð¿Ð°Ð·Ð¸</button>
   </div>
 </div>
 
 <!-- CERT MODAL -->
 <div class="modal-overlay" id="cert-modal">
   <div class="modal">
-    <button class="modal-close" onclick="closeModal('cert-modal')">✕</button>
-    <h2>Добави сертификат</h2>
+    <button class="modal-close" onclick="closeModal('cert-modal')">âœ•</button>
+    <h2>Ð”Ð¾Ð±Ð°Ð²Ð¸ ÑÐµÑ€Ñ‚Ð¸Ñ„Ð¸ÐºÐ°Ñ‚</h2>
     <div id="cert-alert" class="alert"></div>
-    <div class="form-group"><label>Наименование *</label><input id="cert-name" placeholder="AWS Certified Developer"/></div>
-    <div class="form-group"><label>Издател *</label><input id="cert-issuer" placeholder="Amazon Web Services"/></div>
+    <div class="form-group"><label>ÐÐ°Ð¸Ð¼ÐµÐ½Ð¾Ð²Ð°Ð½Ð¸Ðµ *</label><input id="cert-name" placeholder="AWS Certified Developer"/></div>
+    <div class="form-group"><label>Ð˜Ð·Ð´Ð°Ñ‚ÐµÐ» *</label><input id="cert-issuer" placeholder="Amazon Web Services"/></div>
     <div class="form-row">
-      <div class="form-group"><label>Дата на издаване *</label><input id="cert-date" type="month"/></div>
-      <div class="form-group"><label>Изтича на</label><input id="cert-expiry" type="month"/></div>
+      <div class="form-group"><label>Ð”Ð°Ñ‚Ð° Ð½Ð° Ð¸Ð·Ð´Ð°Ð²Ð°Ð½Ðµ *</label><input id="cert-date" type="month"/></div>
+      <div class="form-group"><label>Ð˜Ð·Ñ‚Ð¸Ñ‡Ð° Ð½Ð°</label><input id="cert-expiry" type="month"/></div>
     </div>
-    <div class="form-group"><label>URL на сертификата</label><input id="cert-url" placeholder="https://…"/></div>
-    <div class="form-group"><label>Качи файл (PDF/JPG)</label><input type="file" id="cert-file" accept=".pdf,.jpg,.jpeg,.png"/></div>
-    <button class="btn btn-primary btn-full" style="padding:13px" onclick="saveCert()">💾 Запази</button>
+    <div class="form-group"><label>URL Ð½Ð° ÑÐµÑ€Ñ‚Ð¸Ñ„Ð¸ÐºÐ°Ñ‚Ð°</label><input id="cert-url" placeholder="https://â€¦"/></div>
+    <div class="form-group"><label>ÐšÐ°Ñ‡Ð¸ Ñ„Ð°Ð¹Ð» (PDF/JPG)</label><input type="file" id="cert-file" accept=".pdf,.jpg,.jpeg,.png"/></div>
+    <button class="btn btn-primary btn-full" style="padding:13px" onclick="saveCert()">ðŸ’¾ Ð—Ð°Ð¿Ð°Ð·Ð¸</button>
   </div>
 </div>
 
@@ -265,7 +265,7 @@ async function saveBasic() {
       languages: profile?.languages || [],
     };
     await apiFetch('/freelancers/me', { method:'PUT', body: JSON.stringify(data) });
-    showAlert('basic-alert', '✅ Запазено успешно!', 'success');
+    showAlert('basic-alert', 'âœ… Ð—Ð°Ð¿Ð°Ð·ÐµÐ½Ð¾ ÑƒÑÐ¿ÐµÑˆÐ½Ð¾!', 'success');
     loadProfile();
   } catch(e) { showAlert('basic-alert', e.message); }
 }
@@ -279,7 +279,7 @@ function previewAvatar(input) {
 
 async function uploadAv() {
   const file = document.getElementById('av-input').files[0];
-  if (!file) { showAlert('av-alert','Избери снимка първо.'); return; }
+  if (!file) { showAlert('av-alert','Ð˜Ð·Ð±ÐµÑ€Ð¸ ÑÐ½Ð¸Ð¼ÐºÐ° Ð¿ÑŠÑ€Ð²Ð¾.'); return; }
   const fd = new FormData();
   fd.append('avatar', file);
   try {
@@ -287,7 +287,7 @@ async function uploadAv() {
     const saved = Auth.user();
     saved.avatar = data.avatar;
     localStorage.setItem('sk_user', JSON.stringify(saved));
-    showAlert('av-alert','✅ Снимката е качена!','success');
+    showAlert('av-alert','âœ… Ð¡Ð½Ð¸Ð¼ÐºÐ°Ñ‚Ð° Ðµ ÐºÐ°Ñ‡ÐµÐ½Ð°!','success');
     buildNav();
   } catch(e) { showAlert('av-alert', e.message); }
 }
@@ -302,7 +302,7 @@ async function saveSkills() {
       skills, languages: langs,
       experienceLevel: document.getElementById('sk-level').value,
     })});
-    showAlert('skills-alert','✅ Запазено!','success');
+    showAlert('skills-alert','âœ… Ð—Ð°Ð¿Ð°Ð·ÐµÐ½Ð¾!','success');
     loadProfile();
   } catch(e) { showAlert('skills-alert',e.message); }
 }
@@ -316,36 +316,36 @@ async function saveLinks() {
       linkedin: document.getElementById('l-li').value.trim(),
       github: document.getElementById('l-gh').value.trim(),
     })});
-    showAlert('links-alert','✅ Запазено!','success');
+    showAlert('links-alert','âœ… Ð—Ð°Ð¿Ð°Ð·ÐµÐ½Ð¾!','success');
   } catch(e) { showAlert('links-alert',e.message); }
 }
 
-// ── EXPERIENCE ──────────────────────────────────────
+// â”€â”€ EXPERIENCE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 async function loadExp() {
   const el = document.getElementById('exp-list');
   el.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
   try {
     const list = await apiFetch('/experience');
-    if (!list.length) { el.innerHTML = '<div class="empty" style="padding:28px"><div class="icon">💼</div><p>Добави своя трудов опит.</p></div>'; return; }
+    if (!list.length) { el.innerHTML = '<div class="empty" style="padding:28px"><div class="icon">ðŸ’¼</div><p>Ð”Ð¾Ð±Ð°Ð²Ð¸ ÑÐ²Ð¾Ñ Ñ‚Ñ€ÑƒÐ´Ð¾Ð² Ð¾Ð¿Ð¸Ñ‚.</p></div>'; return; }
     el.innerHTML = list.map(e => `
       <div class="exp-item-card">
-        <div style="font-size:1.5rem">🏢</div>
+        <div style="font-size:1.5rem">ðŸ¢</div>
         <div class="exp-body">
           <div class="exp-company">${e.company}</div>
           <div class="exp-pos">${e.position}</div>
-          <div class="exp-date">${e.startDate} – ${e.isCurrent ? 'Настоящем' : (e.endDate || '—')}</div>
+          <div class="exp-date">${e.startDate} â€“ ${e.isCurrent ? 'ÐÐ°ÑÑ‚Ð¾ÑÑ‰ÐµÐ¼' : (e.endDate || 'â€”')}</div>
           ${e.description ? `<div style="font-size:.84rem;color:var(--g700);margin-top:6px;line-height:1.5">${e.description}</div>` : ''}
         </div>
         <div style="display:flex;flex-direction:column;gap:6px">
-          <button class="btn btn-ghost btn-sm" onclick="editExp(${e.id},'${e.company.replace(/'/g,"\\'")}','${e.position.replace(/'/g,"\\'")}','${e.startDate}','${e.endDate}',${e.isCurrent},'${(e.description||'').replace(/'/g,"\\'")}')">✏ Редактирай</button>
-          <button class="btn btn-danger btn-sm" onclick="deleteExp(${e.id})">🗑 Изтрий</button>
+          <button class="btn btn-ghost btn-sm" onclick="editExp(${e.id},'${e.company.replace(/'/g,"\\'")}','${e.position.replace(/'/g,"\\'")}','${e.startDate}','${e.endDate}',${e.isCurrent},'${(e.description||'').replace(/'/g,"\\'")}')">âœ Ð ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð°Ð¹</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteExp(${e.id})">ðŸ—‘ Ð˜Ð·Ñ‚Ñ€Ð¸Ð¹</button>
         </div>
       </div>`).join('');
   } catch(e) { el.innerHTML = `<p style="color:#DC2626">${e.message}</p>`; }
 }
 
 function openExpModal(id='') {
-  document.getElementById('exp-modal-title').textContent = id ? 'Редактирай опит' : 'Добави опит';
+  document.getElementById('exp-modal-title').textContent = id ? 'Ð ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð°Ð¹ Ð¾Ð¿Ð¸Ñ‚' : 'Ð”Ð¾Ð±Ð°Ð²Ð¸ Ð¾Ð¿Ð¸Ñ‚';
   document.getElementById('exp-edit-id').value = id;
   document.getElementById('exp-company').value = '';
   document.getElementById('exp-position').value = '';
@@ -359,7 +359,7 @@ function openExpModal(id='') {
 
 function editExp(id, company, position, start, end, isCurrent, desc) {
   document.getElementById('exp-edit-id').value = id;
-  document.getElementById('exp-modal-title').textContent = 'Редактирай опит';
+  document.getElementById('exp-modal-title').textContent = 'Ð ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð°Ð¹ Ð¾Ð¿Ð¸Ñ‚';
   document.getElementById('exp-company').value = company;
   document.getElementById('exp-position').value = position;
   document.getElementById('exp-start').value = start;
@@ -381,7 +381,7 @@ async function saveExp() {
     description: document.getElementById('exp-desc').value.trim(),
   };
   if (!data.company || !data.position || !data.startDate)
-    return showAlert('exp-alert','Попълни задължителните полета.');
+    return showAlert('exp-alert','ÐŸÐ¾Ð¿ÑŠÐ»Ð½Ð¸ Ð·Ð°Ð´ÑŠÐ»Ð¶Ð¸Ñ‚ÐµÐ»Ð½Ð¸Ñ‚Ðµ Ð¿Ð¾Ð»ÐµÑ‚Ð°.');
   try {
     const editId = document.getElementById('exp-edit-id').value;
     if (editId) await apiFetch(`/experience/${editId}`, { method:'PUT', body: JSON.stringify(data) });
@@ -392,29 +392,29 @@ async function saveExp() {
 }
 
 async function deleteExp(id) {
-  if (!confirm('Изтрий опита?')) return;
+  if (!confirm('Ð˜Ð·Ñ‚Ñ€Ð¸Ð¹ Ð¾Ð¿Ð¸Ñ‚Ð°?')) return;
   await apiFetch(`/experience/${id}`, { method:'DELETE' }).catch(e => alert(e.message));
   loadExp();
 }
 
-// ── CERTIFICATES ─────────────────────────────────────
+// â”€â”€ CERTIFICATES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 async function loadCerts() {
   const el = document.getElementById('cert-list');
   el.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
   try {
     const list = await apiFetch('/certificates');
-    if (!list.length) { el.innerHTML = '<div class="empty" style="padding:28px"><div class="icon">🎓</div><p>Добави своите сертификати.</p></div>'; return; }
+    if (!list.length) { el.innerHTML = '<div class="empty" style="padding:28px"><div class="icon">ðŸŽ“</div><p>Ð”Ð¾Ð±Ð°Ð²Ð¸ ÑÐ²Ð¾Ð¸Ñ‚Ðµ ÑÐµÑ€Ñ‚Ð¸Ñ„Ð¸ÐºÐ°Ñ‚Ð¸.</p></div>'; return; }
     el.innerHTML = list.map(c => `
       <div class="exp-item-card">
-        <div style="font-size:1.5rem">🏆</div>
+        <div style="font-size:1.5rem">ðŸ†</div>
         <div class="exp-body">
           <div class="exp-company">${c.name}</div>
           <div class="exp-pos">${c.issuer}</div>
-          <div class="exp-date">Издаден: ${c.issueDate}${c.expiryDate ? ' · Изтича: '+c.expiryDate : ''}</div>
-          ${c.credential ? `<a href="${c.credential}" target="_blank" style="font-size:.8rem;color:var(--blue)">Провери →</a>` : ''}
-          ${c.fileUrl ? `<a href="http://localhost:5000${c.fileUrl}" target="_blank" style="font-size:.8rem;color:var(--blue);margin-left:8px">📄 Файл</a>` : ''}
+          <div class="exp-date">Ð˜Ð·Ð´Ð°Ð´ÐµÐ½: ${c.issueDate}${c.expiryDate ? ' Â· Ð˜Ð·Ñ‚Ð¸Ñ‡Ð°: '+c.expiryDate : ''}</div>
+          ${c.credential ? `<a href="${c.credential}" target="_blank" style="font-size:.8rem;color:var(--blue)">ÐŸÑ€Ð¾Ð²ÐµÑ€Ð¸ â†’</a>` : ''}
+          ${c.fileUrl ? `<a href="http://localhost:5000${c.fileUrl}" target="_blank" style="font-size:.8rem;color:var(--blue);margin-left:8px">ðŸ“„ Ð¤Ð°Ð¹Ð»</a>` : ''}
         </div>
-        <button class="btn btn-danger btn-sm" onclick="deleteCert(${c.id})">🗑</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteCert(${c.id})">ðŸ—‘</button>
       </div>`).join('');
   } catch(e) { el.innerHTML = `<p style="color:#DC2626">${e.message}</p>`; }
 }
@@ -437,7 +437,7 @@ async function saveCert() {
   if (file) fd.append('file', file);
 
   if (!fd.get('name') || !fd.get('issuer') || !fd.get('issueDate'))
-    return showAlert('cert-alert','Попълни задължителните полета.');
+    return showAlert('cert-alert','ÐŸÐ¾Ð¿ÑŠÐ»Ð½Ð¸ Ð·Ð°Ð´ÑŠÐ»Ð¶Ð¸Ñ‚ÐµÐ»Ð½Ð¸Ñ‚Ðµ Ð¿Ð¾Ð»ÐµÑ‚Ð°.');
   try {
     const headers = {};
     if (Auth.token()) headers['Authorization'] = `Bearer ${Auth.token()}`;
@@ -450,7 +450,7 @@ async function saveCert() {
 }
 
 async function deleteCert(id) {
-  if (!confirm('Изтрий сертификата?')) return;
+  if (!confirm('Ð˜Ð·Ñ‚Ñ€Ð¸Ð¹ ÑÐµÑ€Ñ‚Ð¸Ñ„Ð¸ÐºÐ°Ñ‚Ð°?')) return;
   await apiFetch(`/certificates/${id}`, { method:'DELETE' }).catch(e => alert(e.message));
   loadCerts();
 }
@@ -459,3 +459,4 @@ loadProfile();
 </script>
 </body>
 </html>
+

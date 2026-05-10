@@ -1,5 +1,0 @@
-{
-  "provider": "dotnet",
-  "buildCommand": "dotnet publish SkilloPlatform/SkilloPlatform.csproj -c Release -o out",
-  "startCommand": "dotnet out/SkilloPlatform.dll"
-}

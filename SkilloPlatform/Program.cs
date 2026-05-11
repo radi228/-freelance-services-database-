@@ -11,9 +11,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // ── Database ──────────────────────────────────────────────────
 builder.Services.AddDbContext<SkilloDbContext>(opt =>
-    builder.Environment.IsProduction()
-        ? opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))
-        : opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+{
+    if (builder.Environment.IsProduction())
+        opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
+    else
+        opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
 
 // ── JWT Auth ──────────────────────────────────────────────────
 var jwtKey = builder.Configuration["Jwt:Key"]!;
@@ -45,74 +48,4 @@ builder.Services.AddScoped<IPaymentService, PaymentService>();
 // ── Controllers + Swagger ─────────────────────────────────────
 builder.Services.AddControllers();
 builder.Services.AddSignalR();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo
-    {
-        Title   = "Skillo API",
-        Version = "v1",
-        Description = "Пазар за фрийланс услуги — REST API"
-    });
-
-    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    {
-        Name         = "Authorization",
-        Type         = SecuritySchemeType.Http,
-        Scheme       = "bearer",
-        BearerFormat = "JWT",
-        Description  = "Въведи JWT токена: Bearer {token}",
-    });
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
-            },
-            Array.Empty<string>()
-        }
-    });
-});
-
-var app = builder.Build();
-
-// ── Migrations + Seed ─────────────────────────────────────────
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<SkilloDbContext>();
-    db.Database.Migrate();
-    SkilloDbContext.SeedData(db);
-}
-
-// ── Middleware ────────────────────────────────────────────────
-if (app.Environment.IsDevelopment())
-{
-    app.UseDeveloperExceptionPage();
-    app.UseSwagger();
-    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Skillo API v1"));
-}
-
-app.UseStaticFiles(new StaticFileOptions
-{
-    OnPrepareResponse = ctx =>
-    {
-        if (ctx.File.Name.EndsWith(".html"))
-            ctx.Context.Response.Headers["Content-Type"] = "text/html; charset=utf-8";
-        else if (ctx.File.Name.EndsWith(".js"))
-            ctx.Context.Response.Headers["Content-Type"] = "application/javascript; charset=utf-8";
-        else if (ctx.File.Name.EndsWith(".css"))
-            ctx.Context.Response.Headers["Content-Type"] = "text/css; charset=utf-8";
-    }
-});
-app.UseCors();
-app.UseAuthentication();
-app.UseAuthorization();
-app.MapControllers();
-app.MapHub<ChatHub>("/chatHub");
-
-app.MapFallbackToFile("index.html");
-
-app.Run();
-
-public partial class Program { }
+builder.Services.

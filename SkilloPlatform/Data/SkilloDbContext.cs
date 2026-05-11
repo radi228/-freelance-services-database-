@@ -78,6 +78,7 @@ public class SkilloDbContext : DbContext
 
         mb.Entity<Service>().Property(s => s.Price).HasPrecision(18, 2);
         mb.Entity<FreelancerProfile>().Property(fp => fp.HourlyRate).HasColumnType("decimal(18,2)");
+        mb.Entity<FreelancerProfile>().Property(fp => fp.HourlyRate).HasColumnType("decimal(18,2)");
         mb.Entity<Project>().Property(p => p.BudgetMin).HasPrecision(18, 2);
         mb.Entity<Project>().Property(p => p.BudgetMax).HasPrecision(18, 2);
         mb.Entity<Bid>().Property(b => b.Amount).HasPrecision(18, 2);

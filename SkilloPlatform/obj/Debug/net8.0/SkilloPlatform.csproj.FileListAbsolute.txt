@@ -1,0 +1,8 @@
+C:\Users\Radko\-freelance-services-database-\SkilloPlatform\obj\Debug\net8.0\SkilloPlatform.csproj.AssemblyReference.cache
+C:\Users\Radko\-freelance-services-database-\SkilloPlatform\obj\Debug\net8.0\SkilloPlatform.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Radko\-freelance-services-database-\SkilloPlatform\obj\Debug\net8.0\SkilloPlatform.AssemblyInfoInputs.cache
+C:\Users\Radko\-freelance-services-database-\SkilloPlatform\obj\Debug\net8.0\SkilloPlatform.AssemblyInfo.cs
+C:\Users\Radko\-freelance-services-database-\SkilloPlatform\obj\Debug\net8.0\SkilloPlatform.csproj.CoreCompileInputs.cache
+C:\Users\Radko\-freelance-services-database-\SkilloPlatform\obj\Debug\net8.0\SkilloPlatform.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Radko\-freelance-services-database-\SkilloPlatform\obj\Debug\net8.0\SkilloPlatform.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Radko\-freelance-services-database-\SkilloPlatform\obj\Debug\net8.0\SkilloPlatform.sourcelink.json

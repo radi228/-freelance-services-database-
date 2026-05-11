@@ -85,7 +85,7 @@ public class SkilloDbContext : DbContext
 
     public static void SeedData(SkilloDbContext db)
     {
-        if (db.Users.Any()) return;
+        try { if (db.Users.Any()) return; } catch { return; }
 
         var hash = BCrypt.Net.BCrypt.HashPassword("Demo1234!");
 

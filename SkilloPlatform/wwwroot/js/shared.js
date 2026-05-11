@@ -1,4 +1,4 @@
-const API = 'http://localhost:5000/api';
+const API = window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : '/api';
 
 const Auth = {
   token:       () => localStorage.getItem('sk_token'),

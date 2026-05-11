@@ -20,3 +20,8 @@ dotnet ef migrations add InitialCreate
 dotnet ef database update
 $env:ASPNETCORE_ENVIRONMENT="Development"; dotnet run
 ```
+Demo Acccounts:
+Freelancer: alex@skillo.bg|Demo1234!
+User: client@techstart.bg|Demo1234!
+Admin : admin@skillo.bg|Demo1234!
+Super Admin: superadmin@skillo.bg|Demo1234!

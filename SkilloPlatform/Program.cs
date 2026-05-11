@@ -9,16 +9,15 @@ using SkilloPlatform.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ── Database ──────────────────────────────────────────────────
 builder.Services.AddDbContext<SkilloDbContext>(opt =>
 {
+    var conn = builder.Configuration.GetConnectionString("DefaultConnection");
     if (builder.Environment.IsProduction())
-        opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
+        opt.UseSqlite(conn);
     else
-        opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+        opt.UseSqlServer(conn);
 });
 
-// ── JWT Auth ──────────────────────────────────────────────────
 var jwtKey = builder.Configuration["Jwt:Key"]!;
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(opt =>
@@ -37,15 +36,73 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddAuthorization();
 
-// ── CORS ──────────────────────────────────────────────────────
 builder.Services.AddCors(opt =>
     opt.AddDefaultPolicy(p => p.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
 
-// ── Services ──────────────────────────────────────────────────
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 
-// ── Controllers + Swagger ─────────────────────────────────────
 builder.Services.AddControllers();
 builder.Services.AddSignalR();
-builder.Services.
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Skillo API", Version = "v1" });
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT",
+    });
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
+            },
+            Array.Empty<string>()
+        }
+    });
+});
+
+var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<SkilloDbContext>();
+    db.Database.Migrate();
+    SkilloDbContext.SeedData(db);
+}
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+    app.UseSwagger();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Skillo API v1"));
+}
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    OnPrepareResponse = ctx =>
+    {
+        if (ctx.File.Name.EndsWith(".html"))
+            ctx.Context.Response.Headers["Content-Type"] = "text/html; charset=utf-8";
+        else if (ctx.File.Name.EndsWith(".js"))
+            ctx.Context.Response.Headers["Content-Type"] = "application/javascript; charset=utf-8";
+        else if (ctx.File.Name.EndsWith(".css"))
+            ctx.Context.Response.Headers["Content-Type"] = "text/css; charset=utf-8";
+    }
+});
+
+app.UseCors();
+app.UseAuthentication();
+app.UseAuthorization();
+app.MapControllers();
+app.MapHub<ChatHub>("/chatHub");
+app.MapFallbackToFile("index.html");
+
+app.Run();
+
+public partial class Program { }

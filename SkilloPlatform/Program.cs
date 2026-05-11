@@ -11,7 +11,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // ── Database ──────────────────────────────────────────────────
 builder.Services.AddDbContext<SkilloDbContext>(opt =>
-    opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    builder.Environment.IsProduction()
+        ? opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))
+        : opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // ── JWT Auth ──────────────────────────────────────────────────
 var jwtKey = builder.Configuration["Jwt:Key"]!;
@@ -43,7 +45,6 @@ builder.Services.AddScoped<IPaymentService, PaymentService>();
 // ── Controllers + Swagger ─────────────────────────────────────
 builder.Services.AddControllers();
 builder.Services.AddSignalR();
-builder.Services.AddSignalR();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -54,7 +55,6 @@ builder.Services.AddSwaggerGen(c =>
         Description = "Пазар за фрийланс услуги — REST API"
     });
 
-    // JWT в Swagger UI
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name         = "Authorization",
@@ -109,13 +109,10 @@ app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
-app.MapHub<SkilloPlatform.Controllers.ChatHub>("/chatHub");
 app.MapHub<ChatHub>("/chatHub");
 
-// Serve frontend SPA for non-API routes
 app.MapFallbackToFile("index.html");
 
 app.Run();
 
-// Needed for integration tests
 public partial class Program { }

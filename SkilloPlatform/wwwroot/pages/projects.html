@@ -1,8 +1,8 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="bg">
 <head>
   <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>ÐŸÑ€Ð¾ÐµÐºÑ‚Ð¸ â€“ Skillo</title>
+  <title>Проекти – Skillo</title>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="/css/main.css"/>
   <style>
@@ -26,43 +26,46 @@
 </head>
 <body>
 <nav id="main-nav">
-  <a href="/index.html" class="logo"><div class="logo-icon">ðŸš€</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
+  <a href="/index.html" class="logo"><div class="logo-icon">🚀</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
   <ul class="nav-links"></ul>
   <div class="nav-cta">
-    <a href="#" id="nav-login-btn" class="btn btn-outline btn-sm" onclick="window.location='/index.html#login';return false">Ð’Ñ…Ð¾Ð´</a>
-    <a href="#" id="nav-register-btn" class="btn btn-orange btn-sm" onclick="window.location='/index.html#register';return false">Ð ÐµÐ³Ð¸ÑÑ‚Ñ€Ð°Ñ†Ð¸Ñ</a>
+    <a href="#" id="nav-login-btn" class="btn btn-outline btn-sm" onclick="window.location='/index.html#login';return false">Вход</a>
+    <a href="#" id="nav-register-btn" class="btn btn-orange btn-sm" onclick="window.location='/index.html#register';return false">Регистрация</a>
     <div id="nav-user" style="display:none;align-items:center;gap:8px">
       <div id="nav-user-avatar" style="width:34px;height:34px;border-radius:50%;background:var(--g100);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--blue);border:2px solid var(--blue);overflow:hidden;cursor:pointer"></div>
       <span id="nav-user-name" style="font-size:.88rem;font-weight:600;color:var(--blue)"></span>
-      <a href="/pages/chat.html" id="nav-chat-btn" class="btn btn-ghost btn-sm" style="display:none" title="Ð¡ÑŠÐ¾Ð±Ñ‰ÐµÐ½Ð¸Ñ">ðŸ’¬</a>
-      <a href="/pages/dashboard.html" class="btn btn-ghost btn-sm">Ð¢Ð°Ð±Ð»Ð¾</a>
-      <a id="nav-admin-link" href="/pages/admin.html" class="btn btn-ghost btn-sm" style="display:none">âš™ ÐÐ´Ð¼Ð¸Ð½</a>
-      <button onclick="logout()" class="btn btn-ghost btn-sm">Ð˜Ð·Ñ…Ð¾Ð´</button>
+      <a href="/pages/chat.html" id="nav-chat-btn" style="display:none;position:relative;width:36px;height:36px;border-radius:50%;background:var(--blue);color:#fff;align-items:center;justify-content:center;font-size:1rem;text-decoration:none;flex-shrink:0" title="Съобщения">
+        <span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);line-height:1">💬</span>
+        <span id="chat-badge" style="display:none;position:absolute;top:-5px;right:-5px;background:#e53e3e;color:#fff;border-radius:50%;min-width:18px;height:18px;font-size:.6rem;font-weight:800;align-items:center;justify-content:center;border:2px solid #fff;padding:0 2px">0</span>
+      </a>
+      <a href="/pages/dashboard.html" class="btn btn-ghost btn-sm">Табло</a>
+      <a id="nav-admin-link" href="/pages/admin.html" class="btn btn-ghost btn-sm" style="display:none">⚙ Админ</a>
+      <button onclick="logout()" class="btn btn-ghost btn-sm">Изход</button>
     </div>
   </div>
 </nav>
 
 <div class="page-hero">
-  <h1>ðŸ“‹ ÐÐºÑ‚Ð¸Ð²Ð½Ð¸ Ð¿Ñ€Ð¾ÐµÐºÑ‚Ð¸</h1>
-  <p>ÐÐ°Ð¼ÐµÑ€Ð¸ Ð¿Ñ€Ð¾ÐµÐºÑ‚ Ð·Ð° Ñ‚Ð²Ð¾Ð¸Ñ‚Ðµ ÑƒÐ¼ÐµÐ½Ð¸Ñ Ð¸ ÐºÐ°Ð½Ð´Ð¸Ð´Ð°Ñ‚ÑÑ‚Ð²Ð°Ð¹ ÑÐµÐ³Ð°</p>
+  <h1>📋 Активни проекти</h1>
+  <p>Намери проект за твоите умения и кандидатствай сега</p>
 </div>
 
 <div class="page-wrap" style="padding-top:40px">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px">
     <div id="results-info" style="color:var(--g500);font-size:.88rem"></div>
-    <button id="post-btn" class="btn btn-orange" onclick="openPostProject()" style="display:none">+ ÐŸÑƒÐ±Ð»Ð¸ÐºÑƒÐ²Ð°Ð¹ Ð¿Ñ€Ð¾ÐµÐºÑ‚</button>
+    <button id="post-btn" class="btn btn-orange" onclick="openPostProject()" style="display:none">+ Публикувай проект</button>
   </div>
 
   <div class="filters">
     <div class="filter-group" style="flex:2;min-width:200px">
-      <label>Ð¢ÑŠÑ€ÑÐ¸</label>
-      <input id="f-search" type="text" placeholder="ÐšÐ»ÑŽÑ‡Ð¾Ð²Ð° Ð´ÑƒÐ¼Ð°â€¦" oninput="load()"/>
+      <label>Търси</label>
+      <input id="f-search" type="text" placeholder="Ключова дума…" oninput="load()"/>
     </div>
     <div class="filter-group">
-      <label>ÐšÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸Ñ</label>
-      <select id="f-cat" onchange="load()"><option value="">Ð’ÑÐ¸Ñ‡ÐºÐ¸</option></select>
+      <label>Категория</label>
+      <select id="f-cat" onchange="load()"><option value="">Всички</option></select>
     </div>
-    <button class="btn btn-ghost" onclick="document.getElementById('f-search').value='';document.getElementById('f-cat').value='';load()">âœ• Ð˜Ð·Ñ‡Ð¸ÑÑ‚Ð¸</button>
+    <button class="btn btn-ghost" onclick="document.getElementById('f-search').value='';document.getElementById('f-cat').value='';load()">✕ Изчисти</button>
   </div>
 
   <div class="proj-grid" id="proj-grid">
@@ -73,71 +76,71 @@
 <!-- BID MODAL -->
 <div class="modal-overlay" id="bid-modal">
   <div class="modal">
-    <button class="modal-close" onclick="closeModal('bid-modal')">âœ•</button>
-    <h2>ÐŸÐ¾Ð´Ð°Ð¹ Ð¾Ñ„ÐµÑ€Ñ‚Ð°</h2>
+    <button class="modal-close" onclick="closeModal('bid-modal')">✕</button>
+    <h2>Подай оферта</h2>
     <p class="modal-sub" id="bid-proj-title"></p>
     <div id="bid-alert" class="alert"></div>
     <input type="hidden" id="bid-proj-id"/>
     <div class="form-row">
-      <div class="form-group"><label>Ð¡ÑƒÐ¼Ð° (Ð»Ð²)</label><input id="bid-amount" type="number" placeholder="1500"/></div>
-      <div class="form-group"><label>Ð¡Ñ€Ð¾Ðº (Ð´Ð½Ð¸)</label><input id="bid-days" type="number" placeholder="21"/></div>
+      <div class="form-group"><label>Сума (лв)</label><input id="bid-amount" type="number" placeholder="1500"/></div>
+      <div class="form-group"><label>Срок (дни)</label><input id="bid-days" type="number" placeholder="21"/></div>
     </div>
-    <div class="form-group"><label>ÐœÐ¾Ñ‚Ð¸Ð²Ð°Ñ†Ð¸Ð¾Ð½Ð½Ð¾ Ð¿Ð¸ÑÐ¼Ð¾</label><textarea id="bid-letter" placeholder="Ð—Ð°Ñ‰Ð¾ ÑÐ¸ Ð¿Ð¾Ð´Ñ…Ð¾Ð´ÑÑ‰?"></textarea></div>
-    <button class="btn btn-orange btn-full" style="padding:13px" onclick="submitBid()">Ð˜Ð·Ð¿Ñ€Ð°Ñ‚Ð¸ Ð¾Ñ„ÐµÑ€Ñ‚Ð°</button>
+    <div class="form-group"><label>Мотивационно писмо</label><textarea id="bid-letter" placeholder="Защо си подходящ?"></textarea></div>
+    <button class="btn btn-orange btn-full" style="padding:13px" onclick="submitBid()">Изпрати оферта</button>
   </div>
 </div>
 
 <!-- POST PROJECT MODAL -->
 <div class="modal-overlay" id="post-modal">
   <div class="modal modal-lg">
-    <button class="modal-close" onclick="closeModal('post-modal')">âœ•</button>
-    <h2>ÐŸÑƒÐ±Ð»Ð¸ÐºÑƒÐ²Ð°Ð¹ Ð¿Ñ€Ð¾ÐµÐºÑ‚</h2>
-    <p class="modal-sub">ÐžÐ¿Ð¸ÑˆÐ¸ Ð·Ð°Ð´Ð°Ñ‡Ð°Ñ‚Ð° Ð¸ Ð¿Ð¾Ð»ÑƒÑ‡Ð¸ Ð¾Ñ„ÐµÑ€Ñ‚Ð¸ Ð¾Ñ‚ Ñ„Ñ€Ð¸Ð¹Ð»Ð°Ð½ÑÑŠÑ€Ð¸</p>
+    <button class="modal-close" onclick="closeModal('post-modal')">✕</button>
+    <h2>Публикувай проект</h2>
+    <p class="modal-sub">Опиши задачата и получи оферти от фрийлансъри</p>
     <div id="post-alert" class="alert"></div>
-    <div class="form-group"><label>Ð—Ð°Ð³Ð»Ð°Ð²Ð¸Ðµ</label><input id="pp-title" placeholder="Ð½Ð°Ð¿Ñ€. Ð Ð°Ð·Ñ€Ð°Ð±Ð¾Ñ‚ÐºÐ° Ð½Ð° ÑƒÐµÐ±ÑÐ°Ð¹Ñ‚"/></div>
-    <div class="form-group"><label>ÐžÐ¿Ð¸ÑÐ°Ð½Ð¸Ðµ</label><textarea id="pp-desc" placeholder="ÐžÐ¿Ð¸ÑˆÐ¸ Ð¿Ð¾Ð´Ñ€Ð¾Ð±Ð½Ð¾ Ð·Ð°Ð´Ð°Ñ‡Ð°Ñ‚Ð°â€¦"></textarea></div>
+    <div class="form-group"><label>Заглавие</label><input id="pp-title" placeholder="напр. Разработка на уебсайт"/></div>
+    <div class="form-group"><label>Описание</label><textarea id="pp-desc" placeholder="Опиши подробно задачата…"></textarea></div>
     <div class="form-row">
       <div class="form-group" style="grid-column:1/-1">
-        <label>ÐšÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸Ð¸ (Ð¸Ð·Ð±ÐµÑ€Ð¸ ÐµÐ´Ð½Ð° Ð¸Ð»Ð¸ Ð¿Ð¾Ð²ÐµÑ‡Ðµ)</label>
+        <label>Категории (избери една или повече)</label>
         <div id="pp-cats-wrap" style="display:flex;flex-wrap:wrap;gap:8px;padding:10px;border:2px solid var(--g200);border-radius:var(--r);min-height:46px;"></div>
         <input type="hidden" id="pp-cat"/>
       </div>
-      <div class="form-group"><label>Ð¡Ñ€Ð¾Ðº (Ð´Ð½Ð¸)</label><input id="pp-deadline" type="number" placeholder="30"/></div>
+      <div class="form-group"><label>Срок (дни)</label><input id="pp-deadline" type="number" placeholder="30"/></div>
     </div>
     <div class="form-row">
-      <div class="form-group"><label>Ð‘ÑŽÐ´Ð¶ÐµÑ‚ Ð¾Ñ‚ (â‚¬)</label><input id="pp-bmin" type="number" placeholder="500"/></div>
-      <div class="form-group"><label>Ð‘ÑŽÐ´Ð¶ÐµÑ‚ Ð´Ð¾ (â‚¬)</label><input id="pp-bmax" type="number" placeholder="2000"/></div>
+      <div class="form-group"><label>Бюджет от (€)</label><input id="pp-bmin" type="number" placeholder="500"/></div>
+      <div class="form-group"><label>Бюджет до (€)</label><input id="pp-bmax" type="number" placeholder="2000"/></div>
     </div>
-    <div class="form-group"><label>ÐÐµÐ¾Ð±Ñ…Ð¾Ð´Ð¸Ð¼Ð¸ ÑƒÐ¼ÐµÐ½Ð¸Ñ (Ð½Ð°Ñ‚Ð¸ÑÐ½Ð¸ Enter)</label>
-      <div class="skills-input-wrap" id="pp-skills-wrap"><input id="pp-skills-input" placeholder="Reactâ€¦"/></div>
+    <div class="form-group"><label>Необходими умения (натисни Enter)</label>
+      <div class="skills-input-wrap" id="pp-skills-wrap"><input id="pp-skills-input" placeholder="React…"/></div>
       <input type="hidden" id="pp-skills-hidden"/>
     </div>
-    <button class="btn btn-orange btn-full" style="padding:13px" onclick="submitProject()">ÐŸÑƒÐ±Ð»Ð¸ÐºÑƒÐ²Ð°Ð¹</button>
+    <button class="btn btn-orange btn-full" style="padding:13px" onclick="submitProject()">Публикувай</button>
   </div>
 </div>
 
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
-      <a href="/index.html" class="logo" style="color:#fff"><div class="logo-icon">ðŸš€</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
-      <p>ÐŸÐ»Ð°Ñ‚Ñ„Ð¾Ñ€Ð¼Ð°Ñ‚Ð° Ð·Ð° Ñ„Ñ€Ð¸Ð¹Ð»Ð°Ð½Ñ ÑƒÑÐ»ÑƒÐ³Ð¸, ÑÐ²ÑŠÑ€Ð·Ð²Ð°Ñ‰Ð° Ð±Ð¸Ð·Ð½ÐµÑÐ¸ Ñ Ð¿Ñ€Ð¾Ð²ÐµÑ€ÐµÐ½Ð¸ ÑÐ¿ÐµÑ†Ð¸Ð°Ð»Ð¸ÑÑ‚Ð¸.</p>
+      <a href="/index.html" class="logo" style="color:#fff"><div class="logo-icon">🚀</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
+      <p>Платформата за фрийланс услуги, свързваща бизнеси с проверени специалисти.</p>
     </div>
-    <div class="footer-col"><h4>ÐŸÐ»Ð°Ñ‚Ñ„Ð¾Ñ€Ð¼Ð°</h4><ul>
-      <li><a href="/pages/freelancers.html">Ð¤Ñ€Ð¸Ð¹Ð»Ð°Ð½ÑÑŠÑ€Ð¸</a></li>
-      <li><a href="/pages/projects.html">ÐŸÑ€Ð¾ÐµÐºÑ‚Ð¸</a></li>
-      <li><a href="/pages/how-it-works.html">ÐšÐ°Ðº Ñ€Ð°Ð±Ð¾Ñ‚Ð¸</a></li>
+    <div class="footer-col"><h4>Платформа</h4><ul>
+      <li><a href="/pages/freelancers.html">Фрийлансъри</a></li>
+      <li><a href="/pages/projects.html">Проекти</a></li>
+      <li><a href="/pages/how-it-works.html">Как работи</a></li>
     </ul></div>
-    <div class="footer-col"><h4>ÐšÐ¾Ð¼Ð¿Ð°Ð½Ð¸Ñ</h4><ul>
-      <li><a href="/pages/about.html">Ð—Ð° Ð½Ð°Ñ</a></li>
-      <li><a href="/pages/contact.html">ÐšÐ¾Ð½Ñ‚Ð°ÐºÑ‚Ð¸</a></li>
-      <li><a href="/pages/privacy.html">ÐŸÐ¾Ð²ÐµÑ€Ð¸Ñ‚ÐµÐ»Ð½Ð¾ÑÑ‚</a></li>
+    <div class="footer-col"><h4>Компания</h4><ul>
+      <li><a href="/pages/about.html">За нас</a></li>
+      <li><a href="/pages/contact.html">Контакти</a></li>
+      <li><a href="/pages/privacy.html">Поверителност</a></li>
     </ul></div>
-    <div class="footer-col"><h4>ÐŸÑ€Ð°Ð²Ð½Ð¸</h4><ul>
-      <li><a href="/pages/terms.html">Ð£ÑÐ»Ð¾Ð²Ð¸Ñ Ð·Ð° Ð¿Ð¾Ð»Ð·Ð²Ð°Ð½Ðµ</a></li>
-      <li><a href="/pages/privacy.html">ÐŸÐ¾Ð²ÐµÑ€Ð¸Ñ‚ÐµÐ»Ð½Ð¾ÑÑ‚</a></li>
+    <div class="footer-col"><h4>Правни</h4><ul>
+      <li><a href="/pages/terms.html">Условия за ползване</a></li>
+      <li><a href="/pages/privacy.html">Поверителност</a></li>
     </ul></div>
   </div>
-  <div class="footer-bottom"><p>Â© 2025 Skillo. Ð’ÑÐ¸Ñ‡ÐºÐ¸ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ð¿Ð°Ð·ÐµÐ½Ð¸.</p></div>
+  <div class="footer-bottom"><p>© 2025 Skillo. Всички права запазени.</p></div>
 </footer>
 
 <script src="/js/shared.js"></script>
@@ -145,22 +148,32 @@
 let cats = [];
 
 async function init() {
+  // Check if specific project ID in URL
+  const urlId = new URLSearchParams(window.location.search).get('id');
+  if (urlId) {
+    // Load and scroll to that project
+    await load();
+    setTimeout(() => {
+      const card = document.querySelector(`[data-proj-id="${urlId}"]`);
+      if (card) {
+        card.style.border = '2px solid var(--blue)';
+        card.style.boxShadow = '0 0 0 4px rgba(27,95,168,.15)';
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, 500);
+    return;
+  }
   const catsRaw = await apiFetch('/categories').catch(() => []);
   cats = Array.isArray(catsRaw) ? catsRaw : (catsRaw?.$values || catsRaw?.value || []);
   const sel = document.getElementById('f-cat');
-  if (sel) cats.forEach(cat => sel.add(new Option(cat.name, cat.name)));
+  const catArr = Array.isArray(cats) ? cats : []; catArr.forEach(c => sel.add(new Option(c.name, c.name)));
 
   // Build category chips for post modal
   const wrap = document.getElementById('pp-cats-wrap');
   if (wrap) {
-    wrap.innerHTML = cats.map(cat => `
-      <span class="cat-chip" data-val="${cat.name}" 
-        onclick="toggleCat(this, '${cat.name.replace(/'/g,"\'")}')
-        " style="display:inline-flex;align-items:center;gap:5px;padding:6px 14px;
-        border:2px solid var(--g200);border-radius:20px;cursor:pointer;
-        font-size:.82rem;font-weight:600;transition:all .15s;background:#fff;color:var(--g700)">
-        ${cat.icon||'ðŸ“'} ${cat.name}
-      </span>`).join('');
+    wrap.innerHTML = cats.map(cat => {
+      return `<span class="cat-chip" data-val="${cat.name}" onclick="toggleCat(this)" style="display:inline-flex;align-items:center;gap:5px;padding:6px 14px;border:2px solid var(--g200);border-radius:20px;cursor:pointer;font-size:.82rem;font-weight:600;transition:all .15s;background:#fff;color:var(--g700)">${cat.icon||'📁'} ${cat.name}</span>`;
+    }).join('');
   }
 
   const u = Auth.user();
@@ -187,7 +200,6 @@ function toggleCat(el) {
   document.getElementById('pp-cat').value = selected2.join(',');
 }
 
-// Loads and sorts projects by freelancer category match
 async function load() {
   const search = document.getElementById('f-search').value.trim();
   const cat    = document.getElementById('f-cat').value;
@@ -200,34 +212,47 @@ async function load() {
 
   try {
     const raw = await apiFetch('/projects?' + params);
-    const list = Array.isArray(raw) ? raw : (raw?.$values || raw?.value || []);
-    const projArr = Array.isArray(list) ? list : (list?.$values || list?.value || []);
-    list = projArr;
-    document.getElementById('results-info').textContent = `${list.length} Ð°ÐºÑ‚Ð¸Ð²Ð½Ð¸ Ð¿Ñ€Ð¾ÐµÐºÑ‚Ð°`;
+    const rawList = Array.isArray(raw) ? raw : (raw?.$values || raw?.value || []);
+    let list = Array.isArray(rawList) ? rawList : (rawList?.$values || rawList?.value || []);
+
+    // Sort: matching freelancer category first
+    const u = Auth.user();
+    if (u && u.role === 'Freelancer') {
+      const profile = await apiFetch('/freelancers/me/full').catch(() => null);
+      const myCategory = profile?.category || profile?.Category || '';
+      if (myCategory) {
+        list = [...list].sort((a, b) => {
+          const aMatch = (a.category || '').toLowerCase().includes(myCategory.toLowerCase()) ? 0 : 1;
+          const bMatch = (b.category || '').toLowerCase().includes(myCategory.toLowerCase()) ? 0 : 1;
+          return aMatch - bMatch;
+        });
+      }
+    }
+    document.getElementById('results-info').textContent = `${list.length} активни проекта`;
     if (!list.length) {
-      grid.innerHTML = '<div class="empty" style="grid-column:1/-1"><div class="icon">ðŸ“­</div><p>ÐÑÐ¼Ð° Ð½Ð°Ð¼ÐµÑ€ÐµÐ½Ð¸ Ð¿Ñ€Ð¾ÐµÐºÑ‚Ð¸.</p></div>';
+      grid.innerHTML = '<div class="empty" style="grid-column:1/-1"><div class="icon">📭</div><p>Няма намерени проекти.</p></div>';
       return;
     }
     grid.innerHTML = list.map(p => `
-      <div class="proj-card">
+      <div class="proj-card" data-proj-id="${p.id}">
         <div class="proj-cat">${p.category}</div>
         <div class="proj-title">${p.title}</div>
-        <div class="proj-desc">${p.description.substring(0,150)}${p.description.length>150?'â€¦':''}</div>
+        <div class="proj-desc">${p.description.substring(0,150)}${p.description.length>150?'…':''}</div>
         <div class="proj-tags">${(p.requiredSkills||[]).map(s=>`<span class="ptag">${s}</span>`).join('')}</div>
         <div class="proj-footer">
           <div>
-            <div class="budget-lbl">Ð‘ÑŽÐ´Ð¶ÐµÑ‚</div>
-            <div class="budget">${p.budgetMin} â€“ ${p.budgetMax} â‚¬</div>
+            <div class="budget-lbl">Бюджет</div>
+            <div class="budget">${p.budgetMin} – ${p.budgetMax} €</div>
           </div>
           <div style="text-align:right">
-            <div class="budget-lbl">Ð¡Ñ€Ð¾Ðº / ÐžÑ„ÐµÑ€Ñ‚Ð¸</div>
-            <div style="font-size:.84rem;color:var(--g700)">${p.deadlineDays}Ð´ Â· ${p.bidCount} Ð¾Ñ„ÐµÑ€Ñ‚Ð¸</div>
+            <div class="budget-lbl">Срок / Оферти</div>
+            <div style="font-size:.84rem;color:var(--g700)">${p.deadlineDays}д · ${p.bidCount} оферти</div>
           </div>
         </div>
-        ${canBid() ? `<button class="btn btn-orange btn-full" style="margin-top:14px;padding:11px" onclick="openBid(${p.id},'${p.title.replace(/'/g,"\\'")}')">ÐšÐ°Ð½Ð´Ð¸Ð´Ð°Ñ‚ÑÑ‚Ð²Ð°Ð¹</button>` : ''}
+        ${canBid() ? `<button class="btn btn-orange btn-full" style="margin-top:14px;padding:11px" onclick="openBid(${p.id},'${p.title.replace(/'/g,"\\'")}')">Кандидатствай</button>` : ''}
       </div>`).join('');
   } catch(e) {
-    grid.innerHTML = `<div class="empty" style="grid-column:1/-1"><div class="icon">âš ï¸</div><p>${e.message}</p></div>`;
+    grid.innerHTML = `<div class="empty" style="grid-column:1/-1"><div class="icon">⚠️</div><p>${e.message}</p></div>`;
   }
 }
 
@@ -251,7 +276,7 @@ async function submitBid() {
       deliveryDays: parseInt(document.getElementById('bid-days').value) || 30,
     })});
     closeModal('bid-modal');
-    showAlert('bid-alert', 'ÐžÑ„ÐµÑ€Ñ‚Ð°Ñ‚Ð° Ðµ Ð¸Ð·Ð¿Ñ€Ð°Ñ‚ÐµÐ½Ð°!', 'success');
+    showAlert('bid-alert', 'Офертата е изпратена!', 'success');
     load();
   } catch(e) { showAlert('bid-alert', e.message); }
 }
@@ -289,6 +314,6 @@ async function submitProject() {
 
 init();
 </script>
+<script src="/js/i18n.js"></script>
 </body>
 </html>
-

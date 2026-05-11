@@ -1,4 +1,4 @@
-﻿const API = 'http://localhost:5000/api';
+const API = 'http://localhost:5000/api';
 
 const Auth = {
   token:       () => localStorage.getItem('sk_token'),
@@ -29,11 +29,11 @@ async function apiFetch(path, opts = {}) {
   try {
     res = await fetch(`${API}${path}`, { ...opts, headers: { ...headers, ...opts.headers } });
   } catch {
-    throw new Error('ÐÐµ Ð¼Ð¾Ð¶Ðµ Ð´Ð° ÑÐµ ÑÐ²ÑŠÑ€Ð¶Ðµ ÑÑŠÑ ÑÑŠÑ€Ð²ÑŠÑ€Ð°. Ð£Ð²ÐµÑ€Ð¸ ÑÐµ Ñ‡Ðµ dotnet run Ð²ÑŠÑ€Ð²Ð¸.');
+    throw new Error('Не може да се свърже със сървъра. Увери се че dotnet run върви.');
   }
   if (res.status === 204) return null;
   const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(data.message || `Ð“Ñ€ÐµÑˆÐºÐ° ${res.status}`);
+  if (!res.ok) throw new Error(data.message || `Грешка ${res.status}`);
   return data;
 }
 
@@ -56,33 +56,33 @@ function buildNav() {
 
   if (navLinks) {
     if (!u) {
-      // Ð“Ð¾ÑÑ‚ â€” Ð±ÐµÐ· Ð¢Ð°Ð±Ð»Ð¾, ÐŸÑ€Ð¾Ñ„Ð¸Ð», Ð£ÑÐ»ÑƒÐ³Ð¸
+      // Гост — без Табло, Профил, Услуги
       navLinks.innerHTML =
-        a('/index.html','ÐÐ°Ñ‡Ð°Ð»Ð¾') +
-        a('/pages/freelancers.html','Ð¤Ñ€Ð¸Ð¹Ð»Ð°Ð½ÑÑŠÑ€Ð¸') +
-        a('/pages/projects.html','ÐŸÑ€Ð¾ÐµÐºÑ‚Ð¸') +
-        a('/pages/how-it-works.html','ÐšÐ°Ðº Ñ€Ð°Ð±Ð¾Ñ‚Ð¸');
+        a('/index.html','Начало') +
+        a('/pages/freelancers.html','Фрийлансъри') +
+        a('/pages/projects.html','Проекти') +
+        a('/pages/how-it-works.html','Как работи');
     } else if (u.role === 'Freelancer') {
       navLinks.innerHTML =
-        a('/index.html','ÐÐ°Ñ‡Ð°Ð»Ð¾') +
-        a('/pages/projects.html','ÐŸÑ€Ð¾ÐµÐºÑ‚Ð¸') +
-        a('/pages/my-bids.html','ÐœÐ¾Ð¸ Ð¾Ñ„ÐµÑ€Ñ‚Ð¸') +
-        a('/pages/dashboard.html','Ð¢Ð°Ð±Ð»Ð¾') +
-        a('/pages/profile.html','ÐŸÑ€Ð¾Ñ„Ð¸Ð»') +
-        a('/pages/services.html','Ð£ÑÐ»ÑƒÐ³Ð¸');
+        a('/index.html','Начало') +
+        a('/pages/projects.html','Проекти') +
+        a('/pages/my-bids.html','Мои оферти') +
+        a('/pages/dashboard.html','Табло') +
+        a('/pages/services.html','Услуги') +
+        a('/pages/profile.html','Профил');
     } else if (u.role === 'Client') {
       navLinks.innerHTML =
-        a('/index.html','ÐÐ°Ñ‡Ð°Ð»Ð¾') +
-        a('/pages/freelancers.html','Ð¤Ñ€Ð¸Ð¹Ð»Ð°Ð½ÑÑŠÑ€Ð¸') +
-        a('/pages/browse-services.html','ÐžÑ„ÐµÑ€Ñ‚Ð¸') +
-        a('/pages/projects.html','ÐŸÑ€Ð¾ÐµÐºÑ‚Ð¸') +
-        a('/pages/dashboard.html','Ð¢Ð°Ð±Ð»Ð¾');
+        a('/index.html','Начало') +
+        a('/pages/freelancers.html','Фрийлансъри') +
+        a('/pages/browse-services.html','Оферти') +
+        a('/pages/projects.html','Проекти') +
+        a('/pages/dashboard.html','Табло');
     } else if (Auth.isAdmin()) {
       navLinks.innerHTML =
-        a('/index.html','ÐÐ°Ñ‡Ð°Ð»Ð¾') +
-        a('/pages/freelancers.html','Ð¤Ñ€Ð¸Ð¹Ð»Ð°Ð½ÑÑŠÑ€Ð¸') +
-        a('/pages/projects.html','ÐŸÑ€Ð¾ÐµÐºÑ‚Ð¸') +
-        a('/pages/admin.html','âš™ ÐÐ´Ð¼Ð¸Ð½Ð¸ÑÑ‚Ñ€Ð°Ñ†Ð¸Ñ');
+        a('/index.html','Начало') +
+        a('/pages/freelancers.html','Фрийлансъри') +
+        a('/pages/projects.html','Проекти') +
+        a('/pages/admin.html','⚙ Администрация');
     }
   }
 
@@ -100,7 +100,10 @@ function buildNav() {
     }
     if (adminLink) adminLink.style.display = Auth.isAdmin() ? '' : 'none';
     const chatBtn = document.getElementById('nav-chat-btn');
-    if (chatBtn) chatBtn.style.display = u ? '' : 'none';
+    if (chatBtn) {
+      chatBtn.style.display = u ? 'flex' : 'none';
+      if (u) startChatBadgePolling();
+    }
   } else {
     if (loginBtn)    loginBtn.style.display    = '';
     if (registerBtn) registerBtn.style.display = '';
@@ -148,7 +151,7 @@ function initSkillsInput(wrapperId, inputId, hiddenId) {
     skills.forEach(s => {
       const tag = document.createElement('span');
       tag.className = 'skill-tag';
-      tag.innerHTML = `${s}<button type="button" onclick="removeSkillTag('${wrapperId}','${hiddenId}','${s.replace(/'/g,"\\'")}')">Ã—</button>`;
+      tag.innerHTML = `${s}<button type="button" onclick="removeSkillTag('${wrapperId}','${hiddenId}','${s.replace(/'/g,"\\'")}')">×</button>`;
       wrapper.insertBefore(tag, input);
     });
     if (hidden) hidden.value = skills.join(',');
@@ -185,4 +188,84 @@ window.addEventListener('scroll', () => {
 
 document.addEventListener('DOMContentLoaded', buildNav);
 
+// ── Chat unread badge ──────────────────────────────────────────
+// Simple approach: track last seen updatedAt per conversation
+// Only show badge if last message was sent by the OTHER person
 
+let _badgeTimer = null;
+
+async function startChatBadgePolling() {
+  if (_badgeTimer) return; // already running
+  await updateChatBadge();
+  _badgeTimer = setInterval(updateChatBadge, 10000);
+}
+
+async function updateChatBadge() {
+  if (!Auth.loggedIn()) return;
+  const badge = document.getElementById('chat-badge');
+  if (!badge) return;
+
+  try {
+    const me = Auth.user();
+    const myId = me?.id;
+    const convs = await apiFetch('/chat/conversations');
+    const arr = Array.isArray(convs) ? convs : [];
+
+    const seenData = JSON.parse(localStorage.getItem('sk_seen_v2') || '{}');
+    let unread = 0;
+
+    for (const conv of arr) {
+      if (!conv.lastMessage) continue; // no messages yet
+      
+      const convKey = 'c' + conv.id;
+      const lastTime = new Date(conv.lastMessageAt || conv.updatedAt || 0).getTime();
+      const seenTime = seenData[convKey] || 0;
+
+      if (lastTime <= seenTime) continue; // already seen
+
+      // Need to check if last message is from someone else
+      // Use the otherUserId to determine - if conv has unread from OTHER
+      // We check via a lightweight request
+      const msgs = await apiFetch('/chat/conversations/' + conv.id + '/messages').catch(() => []);
+      const msgsArr = Array.isArray(msgs) ? msgs : [];
+      if (!msgsArr.length) continue;
+      
+      const lastMsg = msgsArr[msgsArr.length - 1];
+      if (lastMsg && lastMsg.senderId !== myId) {
+        unread++;
+      }
+    }
+
+    if (unread > 0) {
+      badge.textContent = unread > 9 ? '9+' : String(unread);
+      badge.style.display = 'flex';
+    } else {
+      badge.style.display = 'none';
+    }
+  } catch(e) {
+    // Silently fail - don't break the page
+  }
+}
+
+function markChatSeen() {
+  try {
+    const seenData = JSON.parse(localStorage.getItem('sk_seen_v2') || '{}');
+    apiFetch('/chat/conversations').then(convs => {
+      const arr = Array.isArray(convs) ? convs : [];
+      const now = Date.now();
+      arr.forEach(conv => { seenData['c' + conv.id] = now; });
+      localStorage.setItem('sk_seen_v2', JSON.stringify(seenData));
+    }).catch(() => {});
+  } catch {}
+  const badge = document.getElementById('chat-badge');
+  if (badge) badge.style.display = 'none';
+}
+
+function markConvSeen(convId) {
+  try {
+    const seenData = JSON.parse(localStorage.getItem('sk_seen_v2') || '{}');
+    seenData['c' + convId] = Date.now();
+    localStorage.setItem('sk_seen_v2', JSON.stringify(seenData));
+  } catch {}
+  updateChatBadge();
+}

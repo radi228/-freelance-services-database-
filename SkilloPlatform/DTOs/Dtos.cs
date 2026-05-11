@@ -1,8 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace SkilloPlatform.DTOs;
 
-// â”€â”€ Auth â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Auth ──────────────────────────────────────────────────────
 public record RegisterRequest(
     [Required] string FullName,
     [Required, EmailAddress] string Email,
@@ -24,7 +24,7 @@ public record AuthResponse(
     string Avatar
 );
 
-// â”€â”€ User / Profile â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── User / Profile ────────────────────────────────────────────
 public record UpdateUserRequest(
     [Required] string FullName
 );
@@ -67,7 +67,7 @@ public record FreelancerProfileResponse(
     int ReviewCount
 );
 
-// â”€â”€ Work Experience â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Work Experience ───────────────────────────────────────────
 public record WorkExperienceRequest(
     [Required] string Company,
     [Required] string Position,
@@ -77,7 +77,7 @@ public record WorkExperienceRequest(
     string? Description
 );
 
-// â”€â”€ Certificate â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Certificate ───────────────────────────────────────────────
 public record CertificateRequest(
     [Required] string Name,
     [Required] string Issuer,
@@ -86,7 +86,7 @@ public record CertificateRequest(
     string? Credential
 );
 
-// â”€â”€ Service â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Service ───────────────────────────────────────────────────
 public record ServiceRequest(
     [Required] string Title,
     string? Description,
@@ -114,7 +114,7 @@ public record ServiceResponse(
     DateTime CreatedAt
 );
 
-// â”€â”€ Project â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Project ───────────────────────────────────────────────────
 public record ProjectRequest(
     [Required] string Title,
     string? Description,
@@ -141,7 +141,7 @@ public record ProjectResponse(
     int BidCount
 );
 
-// â”€â”€ Bid â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Bid ───────────────────────────────────────────────────────
 public record BidRequest(
     [Required] int ProjectId,
     [Range(1, 10000000)] decimal Amount,
@@ -173,7 +173,7 @@ public record BidResponse(
     DateTime CreatedAt
 );
 
-// â”€â”€ Payment â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Payment ───────────────────────────────────────────────────
 public record PaymentRequest(
     [Required] int ProjectId,
     [Range(1, 10000000)] decimal Amount,
@@ -208,7 +208,7 @@ public record PayPalPaymentRequest(
     [Required] string OrderId  // from PayPal SDK
 );
 
-// â”€â”€ Review â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Review ────────────────────────────────────────────────────
 public record ReviewRequest(
     [Required] int RevieweeId,
     [Required] int ProjectId,
@@ -227,7 +227,7 @@ public record ReviewResponse(
     DateTime CreatedAt
 );
 
-// â”€â”€ Admin â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Admin ─────────────────────────────────────────────────────
 public record AdminStatsResponse(
     int TotalUsers,
     int Freelancers,
@@ -251,4 +251,4 @@ public record CreateAdminRequest(
     [Required, MinLength(6)] string Password
 );
 
-
+public record SimplePaymentRequest(int ProjectId, decimal Amount, string? Notes = null);

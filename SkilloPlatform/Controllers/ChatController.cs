@@ -1,4 +1,4 @@
-﻿using System.Security.Claims;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
@@ -50,7 +50,6 @@ public class ChatController : ControllerBase
 
     public ChatController(SkilloDbContext db, IHubContext<ChatHub> hub) { _db = db; _hub = hub; }
 
-    // Gets current authenticated user ID from JWT NameIdentifier claim
     private int UserId => int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
     [HttpGet("conversations")]
@@ -93,9 +92,9 @@ public class ChatController : ControllerBase
     [HttpPost("conversations")]
     public async Task<IActionResult> StartConversation([FromBody] StartConvRequest req)
     {
-        if (req.OtherUserId == UserId) return BadRequest(new { message="ÐÐµ Ð¼Ð¾Ð¶Ðµ Ð´Ð° Ð¿Ð¸ÑˆÐµÑˆ Ð½Ð° ÑÐµÐ±Ðµ ÑÐ¸." });
+        if (req.OtherUserId == UserId) return BadRequest(new { message="Не може да пишеш на себе си." });
         var other = await _db.Users.FindAsync(req.OtherUserId);
-        if (other is null) return NotFound(new { message="ÐŸÐ¾Ñ‚Ñ€ÐµÐ±Ð¸Ñ‚ÐµÐ»ÑÑ‚ Ð½Ðµ Ðµ Ð½Ð°Ð¼ÐµÑ€ÐµÐ½." });
+        if (other is null) return NotFound(new { message="Потребителят не е намерен." });
 
         var existing = await _db.Conversations.FirstOrDefaultAsync(c =>
             (c.ParticipantOneId==UserId && c.ParticipantTwoId==req.OtherUserId) ||
@@ -118,7 +117,7 @@ public class ChatController : ControllerBase
         var conv = await _db.Conversations.FindAsync(id);
         if (conv is null) return NotFound();
         if (conv.ParticipantOneId != UserId && conv.ParticipantTwoId != UserId) return Forbid();
-        if (string.IsNullOrWhiteSpace(req.Content)) return BadRequest(new { message="Ð¡ÑŠÐ¾Ð±Ñ‰ÐµÐ½Ð¸ÐµÑ‚Ð¾ Ðµ Ð¿Ñ€Ð°Ð·Ð½Ð¾." });
+        if (string.IsNullOrWhiteSpace(req.Content)) return BadRequest(new { message="Съобщението е празно." });
 
         var msg = new ChatMessage { ConversationId=id, SenderId=UserId, Content=req.Content.Trim(), CreatedAt=DateTime.UtcNow };
         _db.ChatMessages.Add(msg);
@@ -148,7 +147,7 @@ public class ChatController : ControllerBase
     {
         var admin = await _db.Users.Where(u => u.Role=="Admin"||u.Role=="SuperAdmin")
             .Select(u => new { u.Id, u.FullName, u.Email, u.Role }).FirstOrDefaultAsync();
-        if (admin is null) return NotFound(new { message="ÐÑÐ¼Ð° Ð°Ð´Ð¼Ð¸Ð½Ð¸ÑÑ‚Ñ€Ð°Ñ‚Ð¾Ñ€." });
+        if (admin is null) return NotFound(new { message="Няма администратор." });
         return Ok(admin);
     }
 
@@ -170,6 +169,3 @@ public class ChatController : ControllerBase
 
 public record StartConvRequest(int OtherUserId);
 public record SendMsgRequest(string Content);
-
-
-

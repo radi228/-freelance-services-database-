@@ -1,8 +1,8 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="bg">
 <head>
   <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>ÐÐ´Ð¼Ð¸Ð½Ð¸ÑÑ‚Ñ€Ð°Ñ†Ð¸Ñ â€“ Skillo</title>
+  <title>Администрация – Skillo</title>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="/css/main.css"/>
   <style>
@@ -53,18 +53,18 @@
 </head>
 <body>
 <nav id="main-nav" style="z-index:1001">
-  <a href="/index.html" class="logo"><div class="logo-icon">ðŸš€</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
+  <a href="/index.html" class="logo"><div class="logo-icon">🚀</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
   <ul class="nav-links"></ul>
   <div class="nav-cta">
     <div id="nav-user" style="display:none;align-items:center;gap:8px">
       <div id="nav-user-avatar" style="width:34px;height:34px;border-radius:50%;background:var(--g100);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--blue);border:2px solid var(--blue);overflow:hidden"></div>
       <span id="nav-user-name" style="font-size:.88rem;font-weight:600;color:var(--blue)"></span>
-      <a href="/pages/dashboard.html" class="btn btn-ghost btn-sm">Ð¢Ð°Ð±Ð»Ð¾</a>
-      <a id="nav-admin-link" href="/pages/admin.html" class="btn btn-ghost btn-sm" style="display:none">âš™ ÐÐ´Ð¼Ð¸Ð½</a>
-      <button onclick="logout()" class="btn btn-ghost btn-sm">Ð˜Ð·Ñ…Ð¾Ð´</button>
+      <a href="/pages/dashboard.html" class="btn btn-ghost btn-sm">Табло</a>
+      <a id="nav-admin-link" href="/pages/admin.html" class="btn btn-ghost btn-sm" style="display:none">⚙ Админ</a>
+      <button onclick="logout()" class="btn btn-ghost btn-sm">Изход</button>
     </div>
-    <a href="/index.html" id="nav-login-btn" class="btn btn-outline btn-sm">Ð’Ñ…Ð¾Ð´</a>
-    <a href="/index.html" id="nav-register-btn" class="btn btn-orange btn-sm">Ð ÐµÐ³Ð¸ÑÑ‚Ñ€Ð°Ñ†Ð¸Ñ</a>
+    <a href="/index.html" id="nav-login-btn" class="btn btn-outline btn-sm">Вход</a>
+    <a href="/index.html" id="nav-register-btn" class="btn btn-orange btn-sm">Регистрация</a>
   </div>
 </nav>
 
@@ -73,37 +73,37 @@
     <!-- SIDEBAR -->
     <div class="admin-side">
       <div class="admin-logo">
-        <span>âš™ ÐÐ´Ð¼Ð¸Ð½Ð¸ÑÑ‚Ñ€Ð°Ñ†Ð¸Ñ</span>
+        <span>⚙ Администрация</span>
         <small id="admin-role-label"></small>
       </div>
 
-      <div class="aside-sep">ÐžÑÐ½Ð¾Ð²Ð½Ð¾</div>
+      <div class="aside-sep">Основно</div>
       <button class="aside-item active" onclick="showPanel('dashboard')" id="btn-dashboard">
-        <span class="icon">ðŸ“Š</span>ÐžÐ±Ð·Ð¾Ñ€
+        <span class="icon">📊</span>Обзор
       </button>
       <button class="aside-item" onclick="showPanel('users')" id="btn-users">
-        <span class="icon">ðŸ‘¥</span>ÐŸÐ¾Ñ‚Ñ€ÐµÐ±Ð¸Ñ‚ÐµÐ»Ð¸
+        <span class="icon">👥</span>Потребители
       </button>
       <button class="aside-item" onclick="showPanel('freelancers')" id="btn-freelancers">
-        <span class="icon">ðŸ‘¨â€ðŸ’»</span>Ð¤Ñ€Ð¸Ð¹Ð»Ð°Ð½ÑÑŠÑ€Ð¸
+        <span class="icon">👨‍💻</span>Фрийлансъри
       </button>
       <button class="aside-item" onclick="showPanel('projects')" id="btn-projects">
-        <span class="icon">ðŸ“‹</span>ÐŸÑ€Ð¾ÐµÐºÑ‚Ð¸
+        <span class="icon">📋</span>Проекти
       </button>
       <button class="aside-item" onclick="showPanel('services')" id="btn-services">
-        <span class="icon">ðŸ› </span>Ð£ÑÐ»ÑƒÐ³Ð¸
+        <span class="icon">🛠</span>Услуги
       </button>
 
-      <div class="aside-sep super-only" id="super-sep">Ð¡ÑƒÐ¿ÐµÑ€ ÐÐ´Ð¼Ð¸Ð½</div>
+      <div class="aside-sep super-only" id="super-sep">Супер Админ</div>
       <button class="aside-item super-only" onclick="showPanel('admins')" id="btn-admins">
-        <span class="icon">ðŸ”</span>ÐÐ´Ð¼Ð¸Ð½Ð¸ÑÑ‚Ñ€Ð°Ñ‚Ð¾Ñ€Ð¸
+        <span class="icon">🔐</span>Администратори
       </button>
       <button class="aside-item super-only" onclick="showPanel('categories')" id="btn-categories">
-        <span class="icon">ðŸ—‚</span>ÐšÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸Ð¸
+        <span class="icon">🗂</span>Категории
       </button>
 
       <div style="margin-top:auto;padding:20px">
-        <a href="/index.html" class="aside-item" style="color:rgba(255,255,255,.4)"><span class="icon">ðŸŒ</span>ÐšÑŠÐ¼ ÑÐ°Ð¹Ñ‚Ð°</a>
+        <a href="/index.html" class="aside-item" style="color:rgba(255,255,255,.4)"><span class="icon">🌐</span>Към сайта</a>
       </div>
     </div>
 
@@ -114,7 +114,7 @@
       <div id="panel-dashboard" class="panel active">
         <div class="admin-header">
           <div>
-            <h2>ðŸ“Š ÐžÐ±Ð·Ð¾Ñ€</h2>
+            <h2>📊 Обзор</h2>
             <p style="color:var(--g500);font-size:.85rem" id="welcome-msg"></p>
           </div>
         </div>
@@ -123,11 +123,11 @@
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
           <div style="background:#fff;border-radius:var(--r);padding:20px;border:1px solid var(--g200)">
-            <h3 style="font-family:Sora,sans-serif;font-weight:700;margin-bottom:14px;font-size:.95rem">ðŸ“Œ ÐŸÐ¾ÑÐ»ÐµÐ´Ð½Ð¸ Ð¿Ð¾Ñ‚Ñ€ÐµÐ±Ð¸Ñ‚ÐµÐ»Ð¸</h3>
+            <h3 style="font-family:Sora,sans-serif;font-weight:700;margin-bottom:14px;font-size:.95rem">📌 Последни потребители</h3>
             <div id="recent-users"></div>
           </div>
           <div style="background:#fff;border-radius:var(--r);padding:20px;border:1px solid var(--g200)">
-            <h3 style="font-family:Sora,sans-serif;font-weight:700;margin-bottom:14px;font-size:.95rem">ðŸ“‹ ÐŸÐ¾ÑÐ»ÐµÐ´Ð½Ð¸ Ð¿Ñ€Ð¾ÐµÐºÑ‚Ð¸</h3>
+            <h3 style="font-family:Sora,sans-serif;font-weight:700;margin-bottom:14px;font-size:.95rem">📋 Последни проекти</h3>
             <div id="recent-projs"></div>
           </div>
         </div>
@@ -136,49 +136,49 @@
       <!-- USERS PANEL -->
       <div id="panel-users" class="panel">
         <div class="admin-header">
-          <h2>ðŸ‘¥ ÐŸÐ¾Ñ‚Ñ€ÐµÐ±Ð¸Ñ‚ÐµÐ»Ð¸</h2>
+          <h2>👥 Потребители</h2>
           <div style="display:flex;gap:8px">
             <div id="global-alert-users" class="alert"></div>
           </div>
         </div>
         <div class="filter-bar">
-          <input id="u-search" placeholder="Ð¢ÑŠÑ€ÑÐ¸ Ð¿Ð¾ Ð¸Ð¼Ðµ Ð¸Ð»Ð¸ Ð¸Ð¼ÐµÐ¹Ð»â€¦" oninput="loadUsers()" style="flex:1;min-width:180px"/>
+          <input id="u-search" placeholder="Търси по име или имейл…" oninput="loadUsers()" style="flex:1;min-width:180px"/>
           <select id="u-role" onchange="loadUsers()">
-            <option value="">Ð’ÑÐ¸Ñ‡ÐºÐ¸ Ñ€Ð¾Ð»Ð¸</option>
-            <option value="Client">ÐšÐ»Ð¸ÐµÐ½Ñ‚</option>
-            <option value="Freelancer">Ð¤Ñ€Ð¸Ð¹Ð»Ð°Ð½ÑÑŠÑ€</option>
+            <option value="">Всички роли</option>
+            <option value="Client">Клиент</option>
+            <option value="Freelancer">Фрийлансър</option>
           </select>
-          <button class="btn btn-ghost btn-sm" onclick="document.getElementById('u-search').value='';document.getElementById('u-role').value='';loadUsers()">âœ• Ð˜Ð·Ñ‡Ð¸ÑÑ‚Ð¸</button>
+          <button class="btn btn-ghost btn-sm" onclick="document.getElementById('u-search').value='';document.getElementById('u-role').value='';loadUsers()">✕ Изчисти</button>
         </div>
         <div id="users-list"><div class="loading"><div class="spinner"></div></div></div>
       </div>
 
       <!-- FREELANCERS PANEL -->
       <div id="panel-freelancers" class="panel">
-        <div class="admin-header"><h2>ðŸ‘¨â€ðŸ’» Ð£Ð¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ Ð½Ð° Ñ„Ñ€Ð¸Ð¹Ð»Ð°Ð½ÑÑŠÑ€Ð¸</h2></div>
+        <div class="admin-header"><h2>👨‍💻 Управление на фрийлансъри</h2></div>
         <div class="filter-bar">
-          <input id="fl-search" placeholder="Ð¢ÑŠÑ€ÑÐ¸â€¦" oninput="loadFLAdmin()" style="flex:1;min-width:180px"/>
+          <input id="fl-search" placeholder="Търси…" oninput="loadFLAdmin()" style="flex:1;min-width:180px"/>
         </div>
         <div id="fl-admin-list"><div class="loading"><div class="spinner"></div></div></div>
       </div>
 
       <!-- PROJECTS PANEL -->
       <div id="panel-projects" class="panel">
-        <div class="admin-header"><h2>ðŸ“‹ Ð’ÑÐ¸Ñ‡ÐºÐ¸ Ð¿Ñ€Ð¾ÐµÐºÑ‚Ð¸</h2></div>
+        <div class="admin-header"><h2>📋 Всички проекти</h2></div>
         <div id="admin-proj-list"><div class="loading"><div class="spinner"></div></div></div>
       </div>
 
       <!-- SERVICES PANEL -->
       <div id="panel-services" class="panel">
-        <div class="admin-header"><h2>ðŸ›  Ð’ÑÐ¸Ñ‡ÐºÐ¸ ÑƒÑÐ»ÑƒÐ³Ð¸</h2></div>
+        <div class="admin-header"><h2>🛠 Всички услуги</h2></div>
         <div id="admin-svc-list"><div class="loading"><div class="spinner"></div></div></div>
       </div>
 
       <!-- ADMINS PANEL (SuperAdmin only) -->
       <div id="panel-admins" class="panel super-only">
         <div class="admin-header">
-          <h2>ðŸ” ÐÐ´Ð¼Ð¸Ð½Ð¸ÑÑ‚Ñ€Ð°Ñ‚Ð¾Ñ€Ð¸</h2>
-          <button class="btn btn-primary" onclick="openModal('create-admin-modal')">+ ÐÐ¾Ð² Ð°Ð´Ð¼Ð¸Ð½Ð¸ÑÑ‚Ñ€Ð°Ñ‚Ð¾Ñ€</button>
+          <h2>🔐 Администратори</h2>
+          <button class="btn btn-primary" onclick="openModal('create-admin-modal')">+ Нов администратор</button>
         </div>
         <div id="admins-list"><div class="loading"><div class="spinner"></div></div></div>
       </div>
@@ -186,8 +186,8 @@
       <!-- CATEGORIES PANEL (SuperAdmin only) -->
       <div id="panel-categories" class="panel super-only">
         <div class="admin-header">
-          <h2>ðŸ—‚ ÐšÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸Ð¸</h2>
-          <button class="btn btn-primary" onclick="openModal('cat-modal')">+ ÐÐ¾Ð²Ð° ÐºÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸Ñ</button>
+          <h2>🗂 Категории</h2>
+          <button class="btn btn-primary" onclick="openModal('cat-modal')">+ Нова категория</button>
         </div>
         <div id="cats-list"><div class="loading"><div class="spinner"></div></div></div>
       </div>
@@ -199,46 +199,46 @@
 <!-- CREATE ADMIN MODAL (SuperAdmin only) -->
 <div class="modal-overlay" id="create-admin-modal">
   <div class="modal">
-    <button class="modal-close" onclick="closeModal('create-admin-modal')">âœ•</button>
-    <h2>ÐÐ¾Ð² Ð°Ð´Ð¼Ð¸Ð½Ð¸ÑÑ‚Ñ€Ð°Ñ‚Ð¾Ñ€</h2>
-    <p class="modal-sub">ÐÐ´Ð¼Ð¸Ð½Ð¸ÑÑ‚Ñ€Ð°Ñ‚Ð¾Ñ€Ð¸Ñ‚Ðµ Ð¼Ð¾Ð³Ð°Ñ‚ Ð´Ð° ÑƒÐ¿Ñ€Ð°Ð²Ð»ÑÐ²Ð°Ñ‚ Ð¿Ð¾Ñ‚Ñ€ÐµÐ±Ð¸Ñ‚ÐµÐ»Ð¸ Ð¸ ÑÑŠÐ´ÑŠÑ€Ð¶Ð°Ð½Ð¸Ðµ, Ð½Ð¾ Ð½Ðµ Ð¸ Ð´Ð° Ð¸Ð·Ñ‚Ñ€Ð¸Ð²Ð°Ñ‚ Ð°Ð´Ð¼Ð¸Ð½Ð¸ÑÑ‚Ñ€Ð°Ñ‚Ð¾Ñ€Ð¸.</p>
+    <button class="modal-close" onclick="closeModal('create-admin-modal')">✕</button>
+    <h2>Нов администратор</h2>
+    <p class="modal-sub">Администраторите могат да управляват потребители и съдържание, но не и да изтриват администратори.</p>
     <div id="ca-alert" class="alert"></div>
-    <div class="form-group"><label>ÐŸÑŠÐ»Ð½Ð¾ Ð¸Ð¼Ðµ *</label><input id="ca-name" placeholder="Ð˜Ð²Ð°Ð½ Ð˜Ð²Ð°Ð½Ð¾Ð²"/></div>
-    <div class="form-group"><label>Ð˜Ð¼ÐµÐ¹Ð» *</label><input id="ca-email" type="email" placeholder="ivan@skillo.bg"/></div>
-    <div class="form-group"><label>ÐŸÐ°Ñ€Ð¾Ð»Ð° *</label><input id="ca-pass" type="password" placeholder="Ð¼Ð¸Ð½. 6 ÑÐ¸Ð¼Ð²Ð¾Ð»Ð°"/></div>
-    <button class="btn btn-primary btn-full" style="padding:13px" onclick="createAdmin()">Ð¡ÑŠÐ·Ð´Ð°Ð¹ Ð°Ð´Ð¼Ð¸Ð½Ð¸ÑÑ‚Ñ€Ð°Ñ‚Ð¾Ñ€</button>
+    <div class="form-group"><label>Пълно име *</label><input id="ca-name" placeholder="Иван Иванов"/></div>
+    <div class="form-group"><label>Имейл *</label><input id="ca-email" type="email" placeholder="ivan@skillo.bg"/></div>
+    <div class="form-group"><label>Парола *</label><input id="ca-pass" type="password" placeholder="мин. 6 символа"/></div>
+    <button class="btn btn-primary btn-full" style="padding:13px" onclick="createAdmin()">Създай администратор</button>
   </div>
 </div>
 
 <!-- CHANGE ROLE MODAL (SuperAdmin only) -->
 <div class="modal-overlay" id="role-modal">
   <div class="modal" style="max-width:400px">
-    <button class="modal-close" onclick="closeModal('role-modal')">âœ•</button>
-    <h2>Ð¡Ð¼ÐµÐ½Ð¸ Ñ€Ð¾Ð»Ñ</h2>
+    <button class="modal-close" onclick="closeModal('role-modal')">✕</button>
+    <h2>Смени роля</h2>
     <input type="hidden" id="role-user-id"/>
     <p class="modal-sub" id="role-user-name"></p>
     <div id="role-alert" class="alert"></div>
     <div class="form-group">
-      <label>ÐÐ¾Ð²Ð° Ñ€Ð¾Ð»Ñ</label>
+      <label>Нова роля</label>
       <select id="role-select">
-        <option value="Client">ÐšÐ»Ð¸ÐµÐ½Ñ‚</option>
-        <option value="Freelancer">Ð¤Ñ€Ð¸Ð¹Ð»Ð°Ð½ÑÑŠÑ€</option>
-        <option value="Admin">ÐÐ´Ð¼Ð¸Ð½Ð¸ÑÑ‚Ñ€Ð°Ñ‚Ð¾Ñ€</option>
+        <option value="Client">Клиент</option>
+        <option value="Freelancer">Фрийлансър</option>
+        <option value="Admin">Администратор</option>
       </select>
     </div>
-    <button class="btn btn-primary btn-full" style="padding:12px" onclick="saveRole()">Ð—Ð°Ð¿Ð°Ð·Ð¸</button>
+    <button class="btn btn-primary btn-full" style="padding:12px" onclick="saveRole()">Запази</button>
   </div>
 </div>
 
 <!-- CATEGORY MODAL (SuperAdmin only) -->
 <div class="modal-overlay" id="cat-modal">
   <div class="modal" style="max-width:400px">
-    <button class="modal-close" onclick="closeModal('cat-modal')">âœ•</button>
-    <h2>ÐÐ¾Ð²Ð° ÐºÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸Ñ</h2>
+    <button class="modal-close" onclick="closeModal('cat-modal')">✕</button>
+    <h2>Нова категория</h2>
     <div id="cat-alert" class="alert"></div>
-    <div class="form-group"><label>ÐÐ°Ð·Ð²Ð°Ð½Ð¸Ðµ *</label><input id="cat-name" placeholder="Ð½Ð°Ð¿Ñ€. ÐœÑƒÐ·Ð¸ÐºÐ°"/></div>
-    <div class="form-group"><label>Ð˜ÐºÐ¾Ð½Ð° (emoji)</label><input id="cat-icon" placeholder="ðŸŽµ" maxlength="4"/></div>
-    <button class="btn btn-primary btn-full" style="padding:12px" onclick="saveCategory()">Ð”Ð¾Ð±Ð°Ð²Ð¸</button>
+    <div class="form-group"><label>Название *</label><input id="cat-name" placeholder="напр. Музика"/></div>
+    <div class="form-group"><label>Икона (emoji)</label><input id="cat-icon" placeholder="🎵" maxlength="4"/></div>
+    <button class="btn btn-primary btn-full" style="padding:12px" onclick="saveCategory()">Добави</button>
   </div>
 </div>
 
@@ -255,11 +255,11 @@ if (isSuperAdmin) {
 }
 
 document.getElementById('admin-role-label').textContent =
-  isSuperAdmin ? 'ðŸ‘‘ Ð¡ÑƒÐ¿ÐµÑ€ ÐÐ´Ð¼Ð¸Ð½Ð¸ÑÑ‚Ñ€Ð°Ñ‚Ð¾Ñ€' : 'ðŸ›¡ ÐÐ´Ð¼Ð¸Ð½Ð¸ÑÑ‚Ñ€Ð°Ñ‚Ð¾Ñ€';
+  isSuperAdmin ? '👑 Супер Администратор' : '🛡 Администратор';
 document.getElementById('welcome-msg').textContent =
-  `Ð”Ð¾Ð±Ñ€Ðµ Ð´Ð¾ÑˆÑŠÐ», ${me.name}! Ð’Ð»ÐµÐ·Ð»Ð¸ ÑÑ‚Ðµ ÐºÐ°Ñ‚Ð¾ ${isSuperAdmin ? 'Ð¡ÑƒÐ¿ÐµÑ€ ÐÐ´Ð¼Ð¸Ð½Ð¸ÑÑ‚Ñ€Ð°Ñ‚Ð¾Ñ€' : 'ÐÐ´Ð¼Ð¸Ð½Ð¸ÑÑ‚Ñ€Ð°Ñ‚Ð¾Ñ€'}.`;
+  `Добре дошъл, ${me.name}! Влезли сте като ${isSuperAdmin ? 'Супер Администратор' : 'Администратор'}.`;
 
-// â”€â”€ Panel switcher â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Panel switcher ─────────────────────────────────
 function showPanel(id) {
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.aside-item').forEach(b => b.classList.remove('active'));
@@ -269,7 +269,7 @@ function showPanel(id) {
   loaders[id]?.();
 }
 
-// â”€â”€ DASHBOARD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── DASHBOARD ──────────────────────────────────────
 async function loadDashboard() {
   try {
     const [stats, users, projs] = await Promise.all([
@@ -279,37 +279,43 @@ async function loadDashboard() {
     ]);
 
     document.getElementById('stats-row').innerHTML = `
-      <div class="stat-box"><div class="num">${stats.totalUsers || stats.users || 0}</div><div class="lbl">ÐŸÐ¾Ñ‚Ñ€ÐµÐ±Ð¸Ñ‚ÐµÐ»Ð¸</div></div>
-      <div class="stat-box"><div class="num">${stats.freelancers || 0}</div><div class="lbl">Ð¤Ñ€Ð¸Ð¹Ð»Ð°Ð½ÑÑŠÑ€Ð¸</div></div>
-      <div class="stat-box"><div class="num">${stats.clients || 0}</div><div class="lbl">ÐšÐ»Ð¸ÐµÐ½Ñ‚Ð¸</div></div>
-      <div class="stat-box success"><div class="num">${stats.openProjects || 0}</div><div class="lbl">ÐžÑ‚Ð²Ð¾Ñ€ÐµÐ½Ð¸ Ð¿Ñ€Ð¾ÐµÐºÑ‚Ð¸</div></div>
-      <div class="stat-box"><div class="num">${stats.totalBids || stats.bids || 0}</div><div class="lbl">ÐžÑ„ÐµÑ€Ñ‚Ð¸</div></div>
-      <div class="stat-box"><div class="num">${stats.totalServices || stats.services || 0}</div><div class="lbl">Ð£ÑÐ»ÑƒÐ³Ð¸</div></div>
-      <div class="stat-box"><div class="num">${stats.totalReviews || stats.reviews || 0}</div><div class="lbl">ÐžÑ‚Ð·Ð¸Ð²Ð¸</div></div>
-      ${stats.bannedUsers || stats.banned || 0 > 0 ? `<div class="stat-box danger"><div class="num">${stats.bannedUsers || stats.banned || 0}</div><div class="lbl">Ð‘Ð»Ð¾ÐºÐ¸Ñ€Ð°Ð½Ð¸</div></div>` : ''}
+      <div class="stat-box"><div class="num">${stats.totalUsers || stats.users || 0}</div><div class="lbl">Потребители</div></div>
+      <div class="stat-box"><div class="num">${stats.freelancers || 0}</div><div class="lbl">Фрийлансъри</div></div>
+      <div class="stat-box"><div class="num">${stats.clients || 0}</div><div class="lbl">Клиенти</div></div>
+      <div class="stat-box success"><div class="num">${stats.openProjects || 0}</div><div class="lbl">Отворени проекти</div></div>
+      <div class="stat-box"><div class="num">${stats.totalBids || stats.bids || 0}</div><div class="lbl">Оферти</div></div>
+      <div class="stat-box"><div class="num">${stats.totalServices || stats.services || 0}</div><div class="lbl">Услуги</div></div>
+      <div class="stat-box"><div class="num">${stats.totalReviews || stats.reviews || 0}</div><div class="lbl">Отзиви</div></div>
+      ${stats.bannedUsers || stats.banned || 0 > 0 ? `<div class="stat-box danger"><div class="num">${stats.bannedUsers || stats.banned || 0}</div><div class="lbl">Блокирани</div></div>` : ''}
     `;
 
-    document.getElementById('recent-users').innerHTML = users.slice(0,6).map(u => `
+    const usersArr = Array.isArray(users) ? users : (users?.$values || users?.value || []);
+    document.getElementById('recent-users').innerHTML = usersArr.slice(0,6).map(u => `
       <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--g100)">
-        <div style="width:32px;height:32px;border-radius:50%;background:var(--g100);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem;color:var(--blue)">${u.full_name[0]}</div>
+        <div style="width:32px;height:32px;border-radius:50%;background:var(--g100);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem;color:var(--blue)">${(u.fullName||'?')[0]}</div>
         <div style="flex:1;min-width:0">
-          <div style="font-size:.85rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${u.full_name}</div>
+          <div style="font-size:.85rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${u.fullName||u.email}</div>
           <div style="font-size:.74rem;color:var(--g500)">${u.email}</div>
         </div>
         <span class="role-badge rb-${u.role}">${u.role}</span>
       </div>`).join('');
 
-    document.getElementById('recent-projs').innerHTML = projs.slice(0,6).map(p => `
+    const projsArr = Array.isArray(projs) ? projs : (projs?.$values || projs?.value || []);
+    document.getElementById('recent-projs').innerHTML = projsArr.slice(0,6).map(p => `
       <div style="padding:8px 0;border-bottom:1px solid var(--g100)">
         <div style="font-size:.85rem;font-weight:700">${p.title}</div>
-        <div style="font-size:.74rem;color:var(--g500)">${p.clientName} Â· ${p.budgetMin}â€“${p.budgetMax} â‚¬</div>
+        <div style="font-size:.74rem;color:var(--g500)">${p.clientName} · ${p.budgetMin}–${p.budgetMax} €</div>
       </div>`).join('');
 
   } catch(e) { console.error(e); }
+  // Also load admins and categories for SuperAdmin
+  if (isSuperAdmin) {
+    loadAdmins();
+    loadCategories();
+  }
 }
 
-// â”€â”€ USERS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-// Uses camelCase fields + Array.isArray checks
+// ── USERS ──────────────────────────────────────────
 async function loadUsers() {
   const search = document.getElementById('u-search').value.trim();
   const role   = document.getElementById('u-role').value;
@@ -321,28 +327,30 @@ async function loadUsers() {
   el.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
   try {
     const users = await apiFetch('/admin/users?' + params);
-    if (!users.length) { el.innerHTML = '<div class="empty"><div class="icon">ðŸ‘¤</div><p>ÐÑÐ¼Ð° Ð½Ð°Ð¼ÐµÑ€ÐµÐ½Ð¸ Ð¿Ð¾Ñ‚Ñ€ÐµÐ±Ð¸Ñ‚ÐµÐ»Ð¸.</p></div>'; return; }
+    const userArr = Array.isArray(users) ? users : (users?.$values || users?.value || []);
+    const userList = userArr;
+    if (!userList.length) { el.innerHTML = '<div class="empty"><div class="icon">👤</div><p>Няма намерени потребители.</p></div>'; return; }
 
-    el.innerHTML = users.map(u => {
-      const banned = u.is_banned;
+    el.innerHTML = userList.map(u => {
+      const banned = u.isBanned;
       return `
       <div class="user-row ${banned ? 'opacity:0.6' : ''}">
         <div class="user-av">
-          ${u.avatar ? `<img src="http://localhost:5000${u.avatar}" alt=""/>` : u.full_name[0]}
+          ${u.avatar ? `<img src="http://localhost:5000${u.avatar}" alt=""/>` : (u.fullName?.[0] || '?')}
         </div>
         <div class="user-info-col">
-          <div class="user-name">${u.full_name} ${banned ? '<span class="badge badge-red">Ð‘Ð»Ð¾ÐºÐ¸Ñ€Ð°Ð½</span>' : ''}</div>
-          <div class="user-email">${u.email} Â· Ð ÐµÐ³Ð¸ÑÑ‚Ñ€Ð¸Ñ€Ð°Ð½: ${u.created_at?.slice(0,10)}</div>
+          <div class="user-name">${u.fullName} ${banned ? '<span class="badge badge-red">Блокиран</span>' : ''}</div>
+          <div class="user-email">${u.email} · Регистриран: ${u.createdAt?.slice(0,10)}</div>
         </div>
         <span class="role-badge rb-${u.role}">${u.role}</span>
         <div class="user-actions">
-          <button class="btn btn-ghost btn-sm" onclick="viewUserProfile(${u.id},'${u.role}')">ðŸ‘ Ð’Ð¸Ð¶</button>
+          <button class="btn btn-ghost btn-sm" onclick="viewUserProfile(${u.id},'${u.role}')">👁 Виж</button>
           ${!banned
-            ? `<button class="btn btn-danger btn-sm" onclick="banUser(${u.id}, true)">ðŸš« Ð‘Ð»Ð¾ÐºÐ¸Ñ€Ð°Ð¹</button>`
-            : `<button class="btn btn-primary btn-sm" onclick="banUser(${u.id}, false)">âœ… Ð Ð°Ð·Ð±Ð»Ð¾ÐºÐ¸Ñ€Ð°Ð¹</button>`}
+            ? `<button class="btn btn-danger btn-sm" onclick="banUser(${u.id}, true)">🚫 Блокирай</button>`
+            : `<button class="btn btn-primary btn-sm" onclick="banUser(${u.id}, false)">✅ Разблокирай</button>`}
           ${isSuperAdmin ? `
-            <button class="btn btn-ghost btn-sm" onclick="openRoleModal(${u.id},'${u.full_name.replace(/'/g,"\\'")}','${u.role}')">ðŸ”„ Ð Ð¾Ð»Ñ</button>
-            <button class="btn btn-danger btn-sm" onclick="deleteUser(${u.id},'${u.full_name.replace(/'/g,"\\'")}')">ðŸ—‘ Ð˜Ð·Ñ‚Ñ€Ð¸Ð¹</button>
+            <button class="btn btn-ghost btn-sm" onclick="openRoleModal(${u.id},'${(u.fullName||'').replace(/'/g,"\\'")}','${u.role}')">🔄 Роля</button>
+            <button class="btn btn-danger btn-sm" onclick="deleteUser(${u.id},'${(u.fullName||'').replace(/'/g,"\\'")}')">🗑 Изтрий</button>
           ` : ''}
         </div>
       </div>`;
@@ -359,7 +367,7 @@ async function banUser(id, ban) {
 }
 
 async function deleteUser(id, name) {
-  if (!confirm(`Ð¡Ð¸Ð³ÑƒÑ€ÐµÐ½ Ð»Ð¸ ÑÐ¸, Ñ‡Ðµ Ð¸ÑÐºÐ°Ñˆ Ð´Ð° Ð¸Ð·Ñ‚Ñ€Ð¸ÐµÑˆ "${name}"? Ð¢Ð°Ð·Ð¸ Ð¾Ð¿ÐµÑ€Ð°Ñ†Ð¸Ñ Ðµ Ð½ÐµÐ¾Ð±Ñ€Ð°Ñ‚Ð¸Ð¼Ð°.`)) return;
+  if (!confirm(`Сигурен ли си, че искаш да изтриеш "${name}"? Тази операция е необратима.`)) return;
   try {
     await apiFetch(`/admin/users/${id}`, { method:'DELETE' });
     loadUsers();
@@ -368,12 +376,12 @@ async function deleteUser(id, name) {
 
 function viewUserProfile(id, role) {
   if (role === 'Freelancer') window.open(`/pages/freelancer-detail.html?id=${id}`, '_blank');
-  else alert(`ÐŸÐ¾Ñ‚Ñ€ÐµÐ±Ð¸Ñ‚ÐµÐ» ID: ${id} (${role})`);
+  else alert(`Потребител ID: ${id} (${role})`);
 }
 
 function openRoleModal(id, name, currentRole) {
   document.getElementById('role-user-id').value = id;
-  document.getElementById('role-user-name').textContent = `Ð¡Ð¼ÐµÐ½Ð¸ Ñ€Ð¾Ð»ÑÑ‚Ð° Ð½Ð°: ${name}`;
+  document.getElementById('role-user-name').textContent = `Смени ролята на: ${name}`;
   document.getElementById('role-select').value = currentRole;
   hideAlert('role-alert');
   openModal('role-modal');
@@ -389,7 +397,7 @@ async function saveRole() {
   } catch(e) { showAlert('role-alert', e.message); }
 }
 
-// â”€â”€ FREELANCERS ADMIN â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── FREELANCERS ADMIN ──────────────────────────────
 async function loadFLAdmin() {
   const search = document.getElementById('fl-search').value.trim();
   const params = new URLSearchParams();
@@ -398,22 +406,22 @@ async function loadFLAdmin() {
   el.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
   try {
     const list = await apiFetch('/freelancers?' + params);
-    if (!list.length) { el.innerHTML = '<div class="empty"><p>ÐÑÐ¼Ð° Ð½Ð°Ð¼ÐµÑ€ÐµÐ½Ð¸ Ñ„Ñ€Ð¸Ð¹Ð»Ð°Ð½ÑÑŠÑ€Ð¸.</p></div>'; return; }
+    if (!list.length) { el.innerHTML = '<div class="empty"><p>Няма намерени фрийлансъри.</p></div>'; return; }
     el.innerHTML = list.map(f => `
       <div class="user-row">
         <div class="user-av">
           ${f.avatar ? `<img src="http://localhost:5000${f.avatar}" alt=""/>` : f.fullName[0]}
         </div>
         <div class="user-info-col">
-          <div class="user-name">${f.fullName} ${f.isVerified ? '<span class="badge badge-green">âœ“ Ð’ÐµÑ€Ð¸Ñ„Ð¸Ñ†Ð¸Ñ€Ð°Ð½</span>' : ''}</div>
-          <div class="user-email">${f.title || 'â€”'} Â· ${f.category || 'â€”'} Â· ${f.hourlyRate} â‚¬/Ñ‡Ð°Ñ</div>
+          <div class="user-name">${f.fullName} ${f.isVerified ? '<span class="badge badge-green">✓ Верифициран</span>' : ''}</div>
+          <div class="user-email">${f.title || '—'} · ${f.category || '—'} · ${f.hourlyRate} €/час</div>
         </div>
         <div class="user-actions">
-          <a href="/pages/freelancer-detail.html?id=${f.userId}" target="_blank" class="btn btn-ghost btn-sm">ðŸ‘ Ð’Ð¸Ð¶</a>
+          <a href="/pages/freelancer-detail.html?id=${f.userId}" target="_blank" class="btn btn-ghost btn-sm">👁 Виж</a>
           ${!f.isVerified
-            ? `<button class="btn btn-primary btn-sm" onclick="verifyFL(${f.userId}, true)">âœ“ Ð’ÐµÑ€Ð¸Ñ„Ð¸Ñ†Ð¸Ñ€Ð°Ð¹</button>`
-            : `<button class="btn btn-ghost btn-sm" onclick="verifyFL(${f.userId}, false)">âœ• ÐŸÑ€ÐµÐ¼Ð°Ñ…Ð½Ð¸</button>`}
-          ${isSuperAdmin ? `<button class="btn btn-danger btn-sm" onclick="banUser(${f.userId}, true)">ðŸš« Ð‘Ð»Ð¾ÐºÐ¸Ñ€Ð°Ð¹</button>` : ''}
+            ? `<button class="btn btn-primary btn-sm" onclick="verifyFL(${f.userId}, true)">✓ Верифицирай</button>`
+            : `<button class="btn btn-ghost btn-sm" onclick="verifyFL(${f.userId}, false)">✕ Премахни</button>`}
+          ${isSuperAdmin ? `<button class="btn btn-danger btn-sm" onclick="banUser(${f.userId}, true)">🚫 Блокирай</button>` : ''}
         </div>
       </div>`).join('');
   } catch(e) { el.innerHTML = `<div class="empty"><p>${e.message}</p></div>`; }
@@ -426,25 +434,25 @@ async function verifyFL(userId, verify) {
   } catch(e) { alert(e.message); }
 }
 
-// â”€â”€ PROJECTS ADMIN â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── PROJECTS ADMIN ─────────────────────────────────
 async function loadProjects() {
   const el = document.getElementById('admin-proj-list');
   el.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
   try {
     const raw2 = await apiFetch('/admin/projects').catch(()=>[]); const list = Array.isArray(raw2) ? raw2 : [];
-    if (!list.length) { el.innerHTML = '<div class="empty"><p>ÐÑÐ¼Ð° Ð¿Ñ€Ð¾ÐµÐºÑ‚Ð¸.</p></div>'; return; }
+    if (!list.length) { el.innerHTML = '<div class="empty"><p>Няма проекти.</p></div>'; return; }
     el.innerHTML = list.map(p => {
       const statusBadge = { Open:'badge-green', InProgress:'badge-orange', Closed:'badge-gray' }[p.status] || 'badge-gray';
-      const statusLabel = { Open:'ÐžÑ‚Ð²Ð¾Ñ€ÐµÐ½', InProgress:'Ð’ Ð¿Ñ€Ð¾Ñ†ÐµÑ', Closed:'Ð—Ð°Ñ‚Ð²Ð¾Ñ€ÐµÐ½' }[p.status] || p.status;
+      const statusLabel = { Open:'Отворен', InProgress:'В процес', Closed:'Затворен' }[p.status] || p.status;
       return `
       <div class="proj-row">
         <div style="flex:1;min-width:0">
           <div style="font-weight:700;font-size:.9rem">${p.title}</div>
-          <div style="font-size:.78rem;color:var(--g500)">${p.clientName} Â· ${p.category} Â· ${p.budgetMin}â€“${p.budgetMax} â‚¬ Â· ${p.bidCount} Ð¾Ñ„ÐµÑ€Ñ‚Ð¸</div>
+          <div style="font-size:.78rem;color:var(--g500)">${p.clientName} · ${p.category} · ${p.budgetMin}–${p.budgetMax} € · ${p.bidCount} оферти</div>
         </div>
         <span class="badge ${statusBadge}">${statusLabel}</span>
         <div style="display:flex;gap:6px">
-          <button class="btn btn-danger btn-sm" onclick="deleteProject(${p.id})">ðŸ—‘ Ð˜Ð·Ñ‚Ñ€Ð¸Ð¹</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteProject(${p.id})">🗑 Изтрий</button>
         </div>
       </div>`;
     }).join('');
@@ -452,30 +460,30 @@ async function loadProjects() {
 }
 
 async function deleteProject(id) {
-  if (!confirm('Ð˜Ð·Ñ‚Ñ€Ð¸Ð¹ Ð¿Ñ€Ð¾ÐµÐºÑ‚Ð°?')) return;
+  if (!confirm('Изтрий проекта?')) return;
   try { await apiFetch(`/admin/projects/${id}`, { method:'DELETE' }); loadProjects(); }
   catch(e) { alert(e.message); }
 }
 
-// â”€â”€ SERVICES ADMIN â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── SERVICES ADMIN ─────────────────────────────────
 async function loadServices() {
   const el = document.getElementById('admin-svc-list');
   el.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
   try {
     const raw3 = await apiFetch('/admin/services').catch(()=>[]); const list = Array.isArray(raw3) ? raw3 : [];
-    if (!list.length) { el.innerHTML = '<div class="empty"><p>ÐÑÐ¼Ð° ÑƒÑÐ»ÑƒÐ³Ð¸.</p></div>'; return; }
+    if (!list.length) { el.innerHTML = '<div class="empty"><p>Няма услуги.</p></div>'; return; }
     el.innerHTML = `
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Ð—Ð°Ð³Ð»Ð°Ð²Ð¸Ðµ</th><th>Ð¤Ñ€Ð¸Ð¹Ð»Ð°Ð½ÑÑŠÑ€</th><th>ÐšÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸Ñ</th><th>Ð¦ÐµÐ½Ð°</th><th>Ð¡Ñ‚Ð°Ñ‚ÑƒÑ</th><th>Ð”ÐµÐ¹ÑÑ‚Ð²Ð¸Ñ</th></tr></thead>
+          <thead><tr><th>Заглавие</th><th>Фрийлансър</th><th>Категория</th><th>Цена</th><th>Статус</th><th>Действия</th></tr></thead>
           <tbody>${list.map(s => `
             <tr>
               <td><strong>${s.title}</strong></td>
               <td>${s.freelancerName}</td>
-              <td>${s.category || 'â€”'}</td>
-              <td>${s.price} â‚¬</td>
-              <td><span class="badge ${s.isActive ? 'badge-green' : 'badge-gray'}">${s.isActive ? 'ÐÐºÑ‚Ð¸Ð²Ð½Ð°' : 'ÐÐµÐ°ÐºÑ‚Ð¸Ð²Ð½Ð°'}</span></td>
-              <td><button class="btn btn-danger btn-sm" onclick="deleteService(${s.id})">ðŸ—‘</button></td>
+              <td>${s.category || '—'}</td>
+              <td>${s.price} €</td>
+              <td><span class="badge ${s.isActive ? 'badge-green' : 'badge-gray'}">${s.isActive ? 'Активна' : 'Неактивна'}</span></td>
+              <td><button class="btn btn-danger btn-sm" onclick="deleteService(${s.id})">🗑</button></td>
             </tr>`).join('')}
           </tbody>
         </table>
@@ -484,33 +492,33 @@ async function loadServices() {
 }
 
 async function deleteService(id) {
-  if (!confirm('Ð˜Ð·Ñ‚Ñ€Ð¸Ð¹ ÑƒÑÐ»ÑƒÐ³Ð°Ñ‚Ð°?')) return;
+  if (!confirm('Изтрий услугата?')) return;
   try { await apiFetch(`/admin/services/${id}`, { method:'DELETE' }); loadServices(); }
   catch(e) { alert(e.message); }
 }
 
-// â”€â”€ ADMINS (SuperAdmin only) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-// Loads admin list with correct API response format
+// ── ADMINS (SuperAdmin only) ───────────────────────
 async function loadAdmins() {
   if (!isSuperAdmin) return;
   const el = document.getElementById('admins-list');
   el.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
   try {
-    const users = await apiFetch('/admin/users');
-    const admins = users.filter(u => u.role === 'Admin');
-    if (!admins.length) { el.innerHTML = '<div class="empty"><div class="icon">ðŸ”</div><p>ÐÑÐ¼Ð° Ð°Ð´Ð¼Ð¸Ð½Ð¸ÑÑ‚Ñ€Ð°Ñ‚Ð¾Ñ€Ð¸. Ð”Ð¾Ð±Ð°Ð²Ð¸ Ð¿ÑŠÑ€Ð²Ð¸Ñ.</p></div>'; return; }
-    el.innerHTML = `<p style="color:var(--g500);font-size:.85rem;margin-bottom:14px">${admins.length} Ð°Ð´Ð¼Ð¸Ð½Ð¸ÑÑ‚Ñ€Ð°Ñ‚Ð¾Ñ€${admins.length!==1?'Ð°':''}</p>` +
+    const raw = await apiFetch('/admin/users');
+    const all = Array.isArray(raw) ? raw : (raw?.$values || raw?.value || []);
+    const admins = all.filter(u => u.role === 'Admin');
+    if (!admins.length) { el.innerHTML = '<div class="empty"><div class="icon">🔐</div><p>Няма администратори. Добави първия.</p></div>'; return; }
+    el.innerHTML = `<p style="color:var(--g500);font-size:.85rem;margin-bottom:14px">${admins.length} администратор${admins.length!==1?'а':''}</p>` +
       admins.map(a => `
       <div class="user-row">
-        <div class="user-av">${a.full_name[0]}</div>
+        <div class="user-av">${(a.fullName||'?')[0]}</div>
         <div class="user-info-col">
-          <div class="user-name">${a.full_name}</div>
+          <div class="user-name">${a.fullName}</div>
           <div class="user-email">${a.email}</div>
         </div>
         <span class="role-badge rb-Admin">Admin</span>
         <div class="user-actions">
-          <button class="btn btn-ghost btn-sm" onclick="openRoleModal(${a.id},'${a.full_name.replace(/'/g,"\\'")}','Admin')">ðŸ”„ Ð Ð¾Ð»Ñ</button>
-          <button class="btn btn-danger btn-sm" onclick="deleteUser(${a.id},'${a.full_name.replace(/'/g,"\\'")}')">ðŸ—‘ Ð˜Ð·Ñ‚Ñ€Ð¸Ð¹</button>
+          <button class="btn btn-ghost btn-sm" onclick="openRoleModal(${a.id},'${(a.fullName||'').replace(/'/g,"\\'")}','Admin')">🔄 Роля</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteUser(${a.id},'${(a.fullName||'').replace(/'/g,"\\'")}')">🗑 Изтрий</button>
         </div>
       </div>`).join('');
   } catch(e) { el.innerHTML = `<div class="empty"><p>${e.message}</p></div>`; }
@@ -521,7 +529,7 @@ async function createAdmin() {
   const name  = document.getElementById('ca-name').value.trim();
   const email = document.getElementById('ca-email').value.trim();
   const pass  = document.getElementById('ca-pass').value;
-  if (!name || !email || !pass) return showAlert('ca-alert','ÐŸÐ¾Ð¿ÑŠÐ»Ð½Ð¸ Ð²ÑÐ¸Ñ‡ÐºÐ¸ Ð¿Ð¾Ð»ÐµÑ‚Ð°.');
+  if (!name || !email || !pass) return showAlert('ca-alert','Попълни всички полета.');
   try {
     await apiFetch('/admin/create-admin', { method:'POST', body: JSON.stringify({ fullName:name, email, password:pass }) });
     closeModal('create-admin-modal');
@@ -530,23 +538,25 @@ async function createAdmin() {
   } catch(e) { showAlert('ca-alert', e.message); }
 }
 
-// â”€â”€ CATEGORIES (SuperAdmin only) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── CATEGORIES (SuperAdmin only) ───────────────────
 async function loadCategories() {
   if (!isSuperAdmin) return;
   const el = document.getElementById('cats-list');
   el.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
   try {
-    const cats = await apiFetch('/categories');
+    const rawCats = await apiFetch('/categories');
+    const cats = Array.isArray(rawCats) ? rawCats : (rawCats?.$values || rawCats?.value || []);
+    if (!cats.length) { el.innerHTML = '<div class="empty"><p>Няма категории.</p></div>'; return; }
     el.innerHTML = `
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Ð˜ÐºÐ¾Ð½Ð°</th><th>ÐÐ°Ð·Ð²Ð°Ð½Ð¸Ðµ</th><th>Ð¤Ñ€Ð¸Ð¹Ð»Ð°Ð½ÑÑŠÑ€Ð¸</th><th>Ð”ÐµÐ¹ÑÑ‚Ð²Ð¸Ñ</th></tr></thead>
-          <tbody>${cats.map(c => `
+          <thead><tr><th>Икона</th><th>Название</th><th>Фрийлансъри</th><th>Действия</th></tr></thead>
+          <tbody>${cats.map(cat => `
             <tr>
-              <td style="font-size:1.4rem">${c.icon}</td>
-              <td><strong>${c.name}</strong></td>
-              <td>${c.freelancerCount}</td>
-              <td><button class="btn btn-danger btn-sm" onclick="deleteCat(${c.id})">ðŸ—‘ Ð˜Ð·Ñ‚Ñ€Ð¸Ð¹</button></td>
+              <td style="font-size:1.4rem">${cat.icon||'📁'}</td>
+              <td><strong>${cat.name}</strong></td>
+              <td>${cat.freelancerCount||0}</td>
+              <td><button class="btn btn-danger btn-sm" onclick="deleteCat(${cat.id})">🗑 Изтрий</button></td>
             </tr>`).join('')}
           </tbody>
         </table>
@@ -558,26 +568,23 @@ async function saveCategory() {
   hideAlert('cat-alert');
   const name = document.getElementById('cat-name').value.trim();
   const icon = document.getElementById('cat-icon').value.trim();
-  if (!name) return showAlert('cat-alert','Ð’ÑŠÐ²ÐµÐ´Ð¸ Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ðµ.');
+  if (!name) return showAlert('cat-alert','Въведи название.');
   try {
-    await apiFetch('/categories', { method:'POST', body: JSON.stringify({ name, icon: icon || 'ðŸ“' }) });
+    await apiFetch('/admin/categories', { method:'POST', body: JSON.stringify({ name, icon: icon || '📁' }) });
     closeModal('cat-modal');
     loadCategories();
   } catch(e) { showAlert('cat-alert', e.message); }
 }
 
 async function deleteCat(id) {
-  if (!confirm('Ð˜Ð·Ñ‚Ñ€Ð¸Ð¹ ÐºÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸ÑÑ‚Ð°?')) return;
-  try { await apiFetch(`/categories/${id}`, { method:'DELETE' }); loadCategories(); }
+  if (!confirm('Изтрий категорията?')) return;
+  try { await apiFetch(`/admin/categories/${id}`, { method:'DELETE' }); loadCategories(); }
   catch(e) { alert(e.message); }
 }
 
-// â”€â”€ Init â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Init ───────────────────────────────────────────
 loadDashboard();
 </script>
+<script src="/js/i18n.js"></script>
 </body>
 </html>
-
-
-
-

@@ -1,4 +1,4 @@
-﻿using System.Security.Claims;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,10 +8,9 @@ using SkilloPlatform.Models;
 
 namespace SkilloPlatform.Controllers;
 
-// PROJECTS CONTROLLER
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ══════════════════════════════════════════════════════════════
 //  PROJECTS
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ══════════════════════════════════════════════════════════════
 [ApiController]
 [Route("api/projects")]
 public class ProjectsController : ControllerBase
@@ -103,10 +102,9 @@ public class ProjectsController : ControllerBase
     );
 }
 
-// BIDS CONTROLLER
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ══════════════════════════════════════════════════════════════
 //  BIDS
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ══════════════════════════════════════════════════════════════
 [ApiController]
 [Route("api/bids")]
 public class BidsController : ControllerBase
@@ -151,12 +149,17 @@ public class BidsController : ControllerBase
     [Authorize(Roles = "Freelancer")]
     public async Task<IActionResult> Create(BidRequest req)
     {
+        // Check if freelancer is verified
+        var profile = await _db.FreelancerProfiles.FirstOrDefaultAsync(p => p.UserId == UserId);
+        if (profile is null || !profile.IsVerified)
+            return BadRequest(new { message = "Трябва да бъдеш верифициран от администратор, преди да можеш да подаваш оферти." });
+
         var project = await _db.Projects.FindAsync(req.ProjectId);
-        if (project is null) return NotFound(new { message = "ÐŸÑ€Ð¾ÐµÐºÑ‚ÑŠÑ‚ Ð½Ðµ Ðµ Ð½Ð°Ð¼ÐµÑ€ÐµÐ½." });
-        if (project.Status != "Open") return BadRequest(new { message = "ÐŸÑ€Ð¾ÐµÐºÑ‚ÑŠÑ‚ Ð½Ðµ Ð¿Ñ€Ð¸ÐµÐ¼Ð° Ð¾Ñ„ÐµÑ€Ñ‚Ð¸." });
+        if (project is null) return NotFound(new { message = "Проектът не е намерен." });
+        if (project.Status != "Open") return BadRequest(new { message = "Проектът не приема оферти." });
 
         if (await _db.Bids.AnyAsync(b => b.ProjectId == req.ProjectId && b.FreelancerId == UserId))
-            return Conflict(new { message = "Ð’ÐµÑ‡Ðµ ÑÐ¸ Ð¿Ð¾Ð´Ð°Ð» Ð¾Ñ„ÐµÑ€Ñ‚Ð° Ð·Ð° Ñ‚Ð¾Ð·Ð¸ Ð¿Ñ€Ð¾ÐµÐºÑ‚." });
+            return Conflict(new { message = "Вече си подал оферта за този проект." });
 
         var bid = new Bid
         {
@@ -183,13 +186,13 @@ public class BidsController : ControllerBase
         var bid = await _db.Bids.FindAsync(id);
         if (bid is null) return NotFound();
         if (bid.FreelancerId != UserId) return Forbid();
-        if (bid.Status != "Pending") return BadRequest(new { message = "ÐœÐ¾Ð¶Ðµ Ð´Ð° Ñ€ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð°Ñˆ ÑÐ°Ð¼Ð¾ Ñ‡Ð°ÐºÐ°Ñ‰Ð¸ Ð¾Ñ„ÐµÑ€Ñ‚Ð¸." });
+        if (bid.Status != "Pending") return BadRequest(new { message = "Може да редактираш само чакащи оферти." });
 
         bid.Amount       = req.Amount;
         bid.CoverLetter  = req.CoverLetter ?? bid.CoverLetter;
         bid.DeliveryDays = req.DeliveryDays;
         await _db.SaveChangesAsync();
-        return Ok(new { message = "ÐžÑ„ÐµÑ€Ñ‚Ð°Ñ‚Ð° Ðµ Ð¾Ð±Ð½Ð¾Ð²ÐµÐ½Ð°." });
+        return Ok(new { message = "Офертата е обновена." });
     }
 
     [HttpDelete("{id:int}")]
@@ -199,7 +202,7 @@ public class BidsController : ControllerBase
         var bid = await _db.Bids.FindAsync(id);
         if (bid is null) return NotFound();
         if (bid.FreelancerId != UserId) return Forbid();
-        if (bid.Status != "Pending") return BadRequest(new { message = "ÐœÐ¾Ð¶Ðµ Ð´Ð° Ð¸Ð·Ñ‚Ñ€Ð¸ÐµÑˆ ÑÐ°Ð¼Ð¾ Ñ‡Ð°ÐºÐ°Ñ‰Ð¸ Ð¾Ñ„ÐµÑ€Ñ‚Ð¸." });
+        if (bid.Status != "Pending") return BadRequest(new { message = "Може да изтриеш само чакащи оферти." });
 
         _db.Bids.Remove(bid);
         await _db.SaveChangesAsync();
@@ -211,7 +214,7 @@ public class BidsController : ControllerBase
     public async Task<IActionResult> UpdateStatus(int id, BidStatusRequest req)
     {
         if (!new[] { "Accepted", "Rejected" }.Contains(req.Status))
-            return BadRequest(new { message = "ÐÐµÐ²Ð°Ð»Ð¸Ð´ÐµÐ½ ÑÑ‚Ð°Ñ‚ÑƒÑ." });
+            return BadRequest(new { message = "Невалиден статус." });
 
         var bid = await _db.Bids.Include(b => b.Project).FirstOrDefaultAsync(b => b.Id == id);
         if (bid is null) return NotFound();
@@ -222,7 +225,7 @@ public class BidsController : ControllerBase
             bid.Project.Status = "InProgress";
 
         await _db.SaveChangesAsync();
-        return Ok(new { message = "Ð¡Ñ‚Ð°Ñ‚ÑƒÑÑŠÑ‚ Ðµ Ð¾Ð±Ð½Ð¾Ð²ÐµÐ½." });
+        return Ok(new { message = "Статусът е обновен." });
     }
 
     private static BidResponse Map(Bid b) => new(
@@ -233,9 +236,9 @@ public class BidsController : ControllerBase
     );
 }
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ══════════════════════════════════════════════════════════════
 //  REVIEWS
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ══════════════════════════════════════════════════════════════
 [ApiController]
 [Route("api/reviews")]
 public class ReviewsController : ControllerBase
@@ -267,7 +270,7 @@ public class ReviewsController : ControllerBase
                 r.ReviewerId == UserId &&
                 r.RevieweeId == req.RevieweeId &&
                 r.ProjectId  == req.ProjectId))
-            return Conflict(new { message = "Ð’ÐµÑ‡Ðµ ÑÐ¸ Ð¾ÑÑ‚Ð°Ð²Ð¸Ð» Ð¾Ñ‚Ð·Ð¸Ð²." });
+            return Conflict(new { message = "Вече си оставил отзив." });
 
         _db.Reviews.Add(new Review
         {
@@ -278,13 +281,13 @@ public class ReviewsController : ControllerBase
             Comment    = req.Comment ?? "",
         });
         await _db.SaveChangesAsync();
-        return Ok(new { message = "ÐžÑ‚Ð·Ð¸Ð²ÑŠÑ‚ Ðµ Ð´Ð¾Ð±Ð°Ð²ÐµÐ½." });
+        return Ok(new { message = "Отзивът е добавен." });
     }
 }
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ══════════════════════════════════════════════════════════════
 //  SERVICES
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ══════════════════════════════════════════════════════════════
 [ApiController]
 [Route("api/services")]
 public class ServicesController : ControllerBase
@@ -319,6 +322,10 @@ public class ServicesController : ControllerBase
     [Authorize(Roles = "Freelancer")]
     public async Task<IActionResult> Create(ServiceRequest req)
     {
+        var profile = await _db.FreelancerProfiles.FirstOrDefaultAsync(p => p.UserId == UserId);
+        if (profile is null || !profile.IsVerified)
+            return BadRequest(new { message = "Трябва да бъдеш верифициран от администратор, преди да можеш да публикуваш услуги." });
+
         var svc = new Service
         {
             UserId      = UserId,
@@ -348,7 +355,7 @@ public class ServicesController : ControllerBase
         svc.PriceType = req.PriceType ?? "fixed"; svc.DeliveryDays = req.DeliveryDays;
         svc.Revisions = req.Revisions; svc.IsActive = req.IsActive;
         await _db.SaveChangesAsync();
-        return Ok(new { message = "Ð£ÑÐ»ÑƒÐ³Ð°Ñ‚Ð° Ðµ Ð¾Ð±Ð½Ð¾Ð²ÐµÐ½Ð°." });
+        return Ok(new { message = "Услугата е обновена." });
     }
 
     [HttpDelete("{id:int}")]
@@ -369,9 +376,9 @@ public class ServicesController : ControllerBase
     );
 }
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ══════════════════════════════════════════════════════════════
 //  WORK EXPERIENCE
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ══════════════════════════════════════════════════════════════
 [ApiController]
 [Route("api/experience")]
 [Authorize]
@@ -381,24 +388,60 @@ public class ExperienceController : ControllerBase
     public ExperienceController(SkilloDbContext db) => _db = db;
     private int UserId => int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
+    private async Task<FreelancerProfile> GetOrCreateProfile()
+    {
+        var profile = await _db.FreelancerProfiles.FirstOrDefaultAsync(fp => fp.UserId == UserId);
+        if (profile is null)
+        {
+            profile = new FreelancerProfile {
+                UserId = UserId,
+                Title = "", Bio = "", Skills = "", Category = "",
+                HourlyRate = 0, ExperienceLevel = "Junior",
+                Location = "", Website = "", LinkedIn = "",
+                GitHub = "", Languages = ""
+            };
+            _db.FreelancerProfiles.Add(profile);
+            await _db.SaveChangesAsync();
+        }
+        return profile;
+    }
+
     [HttpGet]
     public async Task<IActionResult> GetMine()
     {
-        var profile = await _db.FreelancerProfiles.FirstOrDefaultAsync(fp => fp.UserId == UserId);
-        if (profile is null) return NotFound();
-        var list = await _db.WorkExperiences.Where(w => w.FreelancerProfileId == profile.Id).OrderByDescending(w => w.StartDate).ToListAsync();
+        var profile = await GetOrCreateProfile();
+        var list = await _db.WorkExperiences
+            .Where(w => w.FreelancerProfileId == profile.Id)
+            .OrderByDescending(w => w.CreatedAt)
+            .Select(w => new {
+                w.Id, w.Company, w.Position,
+                w.StartDate, w.EndDate, w.IsCurrent,
+                w.Description, w.CreatedAt
+            })
+            .ToListAsync();
         return Ok(list);
     }
 
     [HttpPost]
     public async Task<IActionResult> Create(WorkExperienceRequest req)
     {
-        var profile = await _db.FreelancerProfiles.FirstOrDefaultAsync(fp => fp.UserId == UserId);
-        if (profile is null) return NotFound();
-        var item = new WorkExperience { FreelancerProfileId = profile.Id, Company = req.Company, Position = req.Position, StartDate = req.StartDate, EndDate = req.EndDate ?? "", IsCurrent = req.IsCurrent, Description = req.Description ?? "" };
+        var profile = await GetOrCreateProfile();
+        var item = new WorkExperience {
+            FreelancerProfileId = profile.Id,
+            Company     = req.Company ?? "",
+            Position    = req.Position ?? "",
+            StartDate   = req.StartDate ?? "",
+            EndDate     = req.EndDate ?? "",
+            IsCurrent   = req.IsCurrent,
+            Description = req.Description ?? ""
+        };
         _db.WorkExperiences.Add(item);
         await _db.SaveChangesAsync();
-        return Ok(item);
+        return Ok(new {
+            item.Id, item.Company, item.Position,
+            item.StartDate, item.EndDate, item.IsCurrent,
+            item.Description, item.CreatedAt
+        });
     }
 
     [HttpPut("{id:int}")]
@@ -410,7 +453,7 @@ public class ExperienceController : ControllerBase
         item.StartDate = req.StartDate; item.EndDate = req.EndDate ?? "";
         item.IsCurrent = req.IsCurrent; item.Description = req.Description ?? "";
         await _db.SaveChangesAsync();
-        return Ok(new { message = "ÐžÐ±Ð½Ð¾Ð²ÐµÐ½Ð¾." });
+        return Ok(new { message = "Обновено." });
     }
 
     [HttpDelete("{id:int}")]
@@ -424,9 +467,9 @@ public class ExperienceController : ControllerBase
     }
 }
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ══════════════════════════════════════════════════════════════
 //  CERTIFICATES
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ══════════════════════════════════════════════════════════════
 [ApiController]
 [Route("api/certificates")]
 [Authorize]
@@ -436,19 +479,44 @@ public class CertificatesController : ControllerBase
     public CertificatesController(SkilloDbContext db) => _db = db;
     private int UserId => int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
+    private async Task<FreelancerProfile> GetOrCreateCertProfile()
+    {
+        var profile = await _db.FreelancerProfiles.FirstOrDefaultAsync(fp => fp.UserId == UserId);
+        if (profile is null)
+        {
+            profile = new FreelancerProfile {
+                UserId = UserId,
+                Title = "", Bio = "", Skills = "", Category = "",
+                HourlyRate = 0, ExperienceLevel = "Junior",
+                Location = "", Website = "", LinkedIn = "",
+                GitHub = "", Languages = ""
+            };
+            _db.FreelancerProfiles.Add(profile);
+            await _db.SaveChangesAsync();
+        }
+        return profile;
+    }
+
     [HttpGet]
     public async Task<IActionResult> GetMine()
     {
-        var profile = await _db.FreelancerProfiles.FirstOrDefaultAsync(fp => fp.UserId == UserId);
-        if (profile is null) return NotFound();
-        return Ok(await _db.Certificates.Where(c => c.FreelancerProfileId == profile.Id).OrderByDescending(c => c.IssueDate).ToListAsync());
+        var profile = await GetOrCreateCertProfile();
+        var list = await _db.Certificates
+            .Where(cert => cert.FreelancerProfileId == profile.Id)
+            .OrderByDescending(cert => cert.IssueDate)
+            .Select(cert => new {
+                cert.Id, cert.Name, cert.Issuer,
+                cert.IssueDate, cert.ExpiryDate,
+                cert.Credential, cert.FileUrl, cert.CreatedAt
+            })
+            .ToListAsync();
+        return Ok(list);
     }
 
     [HttpPost]
     public async Task<IActionResult> Create([FromForm] CertificateRequest req, IFormFile? file)
     {
-        var profile = await _db.FreelancerProfiles.FirstOrDefaultAsync(fp => fp.UserId == UserId);
-        if (profile is null) return NotFound();
+        var profile = await GetOrCreateCertProfile();
 
         string fileUrl = "";
         if (file is { Length: > 0 })
@@ -464,7 +532,11 @@ public class CertificatesController : ControllerBase
         var cert = new Certificate { FreelancerProfileId = profile.Id, Name = req.Name, Issuer = req.Issuer, IssueDate = req.IssueDate, ExpiryDate = req.ExpiryDate ?? "", Credential = req.Credential ?? "", FileUrl = fileUrl };
         _db.Certificates.Add(cert);
         await _db.SaveChangesAsync();
-        return Ok(cert);
+        return Ok(new {
+            cert.Id, cert.Name, cert.Issuer,
+            cert.IssueDate, cert.ExpiryDate,
+            cert.Credential, cert.FileUrl, cert.CreatedAt
+        });
     }
 
     [HttpDelete("{id:int}")]
@@ -479,11 +551,52 @@ public class CertificatesController : ControllerBase
 }
 
 
+// ══════════════════════════════════════════════════════════════
+//  CATEGORIES (public - no auth required)
+// ══════════════════════════════════════════════════════════════
+[ApiController]
+[Route("api/categories")]
+public class CategoriesController : ControllerBase
+{
+    private readonly SkilloDbContext _db;
+    public CategoriesController(SkilloDbContext db) { _db = db; }
+
+    // GET /api/categories
+    [HttpGet]
+    public async Task<IActionResult> GetAll() =>
+        Ok(await _db.Categories.OrderBy(c => c.Name).ToListAsync());
+}
 
 
+// ══════════════════════════════════════════════════════════════
+//  FILE UPLOAD (for chat and other uses)
+// ══════════════════════════════════════════════════════════════
+[ApiController]
+[Route("api/upload")]
+[Authorize]
+public class UploadController : ControllerBase
+{
+    [HttpPost]
+    public async Task<IActionResult> UploadFile(IFormFile file)
+    {
+        if (file is null || file.Length == 0)
+            return BadRequest(new { message = "Няма файл." });
 
+        if (file.Length > 10 * 1024 * 1024)
+            return BadRequest(new { message = "Файлът е твърде голям (макс. 10MB)." });
 
+        var allowed = new[] { ".jpg", ".jpeg", ".png", ".gif", ".webp", ".pdf", ".doc", ".docx" };
+        var ext = Path.GetExtension(file.FileName).ToLower();
+        if (!allowed.Contains(ext))
+            return BadRequest(new { message = "Неподдържан формат на файл." });
 
+        var dir = Path.Combine("wwwroot", "uploads");
+        Directory.CreateDirectory(dir);
+        var fname = $"{Guid.NewGuid():N}{ext}";
+        var path = Path.Combine(dir, fname);
+        using var stream = System.IO.File.Create(path);
+        await file.CopyToAsync(stream);
 
-
-
+        return Ok(new { url = $"/uploads/{fname}", name = file.FileName });
+    }
+}

@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SkilloPlatform.Data;
@@ -21,16 +21,15 @@ public class AuthController : ControllerBase
         _tokens = tokens;
     }
 
-    // Register endpoint
     // POST /api/auth/register
     [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterRequest req)
     {
         if (!new[] { "Client", "Freelancer" }.Contains(req.Role))
-            return BadRequest(new { message = "Ð Ð¾Ð»ÑÑ‚Ð° Ñ‚Ñ€ÑÐ±Ð²Ð° Ð´Ð° Ðµ Client Ð¸Ð»Ð¸ Freelancer." });
+            return BadRequest(new { message = "Ролята трябва да е Client или Freelancer." });
 
         if (await _db.Users.AnyAsync(u => u.Email == req.Email))
-            return Conflict(new { message = "Ð˜Ð¼ÐµÐ¹Ð»ÑŠÑ‚ Ð²ÐµÑ‡Ðµ Ðµ Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€Ð¸Ñ€Ð°Ð½." });
+            return Conflict(new { message = "Имейлът вече е регистриран." });
 
         var user = new User
         {
@@ -60,7 +59,7 @@ public class AuthController : ControllerBase
         var user = await _db.Users.SingleOrDefaultAsync(u => u.Email == req.Email);
 
         if (user is null || !BCrypt.Net.BCrypt.Verify(req.Password, user.PasswordHash))
-            return Unauthorized(new { message = "Ð“Ñ€ÐµÑˆÐµÐ½ Ð¸Ð¼ÐµÐ¹Ð» Ð¸Ð»Ð¸ Ð¿Ð°Ñ€Ð¾Ð»Ð°." });
+            return Unauthorized(new { message = "Грешен имейл или парола." });
 
         if (user.IsBanned)
             return Forbid();
@@ -69,5 +68,3 @@ public class AuthController : ControllerBase
         return Ok(new AuthResponse(token, user.Id, user.FullName, user.Email, user.Role, user.Avatar));
     }
 }
-
-

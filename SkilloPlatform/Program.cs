@@ -1,4 +1,4 @@
-﻿using SkilloPlatform.Controllers;
+using SkilloPlatform.Controllers;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -9,11 +9,11 @@ using SkilloPlatform.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// â”€â”€ Database â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Database ──────────────────────────────────────────────────
 builder.Services.AddDbContext<SkilloDbContext>(opt =>
-    opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+    opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// â”€â”€ JWT Auth â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── JWT Auth ──────────────────────────────────────────────────
 var jwtKey = builder.Configuration["Jwt:Key"]!;
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(opt =>
@@ -32,15 +32,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddAuthorization();
 
-// â”€â”€ CORS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── CORS ──────────────────────────────────────────────────────
 builder.Services.AddCors(opt =>
     opt.AddDefaultPolicy(p => p.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
 
-// â”€â”€ Services â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Services ──────────────────────────────────────────────────
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 
-// â”€â”€ Controllers + Swagger â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Controllers + Swagger ─────────────────────────────────────
 builder.Services.AddControllers();
 builder.Services.AddSignalR();
 builder.Services.AddSignalR();
@@ -51,17 +51,17 @@ builder.Services.AddSwaggerGen(c =>
     {
         Title   = "Skillo API",
         Version = "v1",
-        Description = "ÐŸÐ°Ð·Ð°Ñ€ Ð·Ð° Ñ„Ñ€Ð¸Ð¹Ð»Ð°Ð½Ñ ÑƒÑÐ»ÑƒÐ³Ð¸ â€” REST API"
+        Description = "Пазар за фрийланс услуги — REST API"
     });
 
-    // JWT Ð² Swagger UI
+    // JWT в Swagger UI
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name         = "Authorization",
         Type         = SecuritySchemeType.Http,
         Scheme       = "bearer",
         BearerFormat = "JWT",
-        Description  = "Ð’ÑŠÐ²ÐµÐ´Ð¸ JWT Ñ‚Ð¾ÐºÐµÐ½Ð°: Bearer {token}",
+        Description  = "Въведи JWT токена: Bearer {token}",
     });
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
@@ -77,7 +77,7 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-// â”€â”€ Migrations + Seed â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Migrations + Seed ─────────────────────────────────────────
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<SkilloDbContext>();
@@ -85,7 +85,7 @@ using (var scope = app.Services.CreateScope())
     SkilloDbContext.SeedData(db);
 }
 
-// â”€â”€ Middleware â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Middleware ────────────────────────────────────────────────
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
@@ -93,7 +93,18 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Skillo API v1"));
 }
 
-app.UseStaticFiles(new StaticFileOptions { OnPrepareResponse = ctx => { if (ctx.File.Name.EndsWith(".html")) ctx.Context.Response.Headers["Content-Type"] = "text/html; charset=utf-8"; } });
+app.UseStaticFiles(new StaticFileOptions
+{
+    OnPrepareResponse = ctx =>
+    {
+        if (ctx.File.Name.EndsWith(".html"))
+            ctx.Context.Response.Headers["Content-Type"] = "text/html; charset=utf-8";
+        else if (ctx.File.Name.EndsWith(".js"))
+            ctx.Context.Response.Headers["Content-Type"] = "application/javascript; charset=utf-8";
+        else if (ctx.File.Name.EndsWith(".css"))
+            ctx.Context.Response.Headers["Content-Type"] = "text/css; charset=utf-8";
+    }
+});
 app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
@@ -108,5 +119,3 @@ app.Run();
 
 // Needed for integration tests
 public partial class Program { }
-
-

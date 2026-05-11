@@ -1,8 +1,8 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="bg">
 <head>
   <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Ð§Ð°Ñ‚ â€“ Skillo</title>
+  <title>Чат – Skillo</title>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="/css/main.css"/>
   <style>
@@ -57,18 +57,21 @@
 </head>
 <body>
 <nav id="main-nav">
-  <a href="/index.html" class="logo"><div class="logo-icon">ðŸš€</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
+  <a href="/index.html" class="logo"><div class="logo-icon">🚀</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
   <ul class="nav-links"></ul>
   <div class="nav-cta">
-    <a href="#" id="nav-login-btn" class="btn btn-outline btn-sm" onclick="window.location='/index.html#login';return false">Ð’Ñ…Ð¾Ð´</a>
-    <a href="#" id="nav-register-btn" class="btn btn-orange btn-sm" onclick="window.location='/index.html#register';return false">Ð ÐµÐ³Ð¸ÑÑ‚Ñ€Ð°Ñ†Ð¸Ñ</a>
+    <a href="#" id="nav-login-btn" class="btn btn-outline btn-sm" onclick="window.location='/index.html#login';return false">Вход</a>
+    <a href="#" id="nav-register-btn" class="btn btn-orange btn-sm" onclick="window.location='/index.html#register';return false">Регистрация</a>
     <div id="nav-user" style="display:none;align-items:center;gap:8px">
       <div id="nav-user-avatar" style="width:34px;height:34px;border-radius:50%;background:var(--g100);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--blue);border:2px solid var(--blue);overflow:hidden;cursor:pointer"></div>
       <span id="nav-user-name" style="font-size:.88rem;font-weight:600;color:var(--blue)"></span>
-      <a href="/pages/chat.html" id="nav-chat-btn" class="btn btn-ghost btn-sm" style="display:none" title="Ð¡ÑŠÐ¾Ð±Ñ‰ÐµÐ½Ð¸Ñ">ðŸ’¬</a>
-      <a href="/pages/dashboard.html" class="btn btn-ghost btn-sm">Ð¢Ð°Ð±Ð»Ð¾</a>
-      <a id="nav-admin-link" href="/pages/admin.html" class="btn btn-ghost btn-sm" style="display:none">âš™ ÐÐ´Ð¼Ð¸Ð½</a>
-      <button onclick="logout()" class="btn btn-ghost btn-sm">Ð˜Ð·Ñ…Ð¾Ð´</button>
+      <a href="/pages/chat.html" id="nav-chat-btn" style="display:none;position:relative;width:36px;height:36px;border-radius:50%;background:var(--blue);color:#fff;align-items:center;justify-content:center;font-size:1rem;text-decoration:none;flex-shrink:0" title="Съобщения">
+        <span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);line-height:1">💬</span>
+        <span id="chat-badge" style="display:none;position:absolute;top:-5px;right:-5px;background:#e53e3e;color:#fff;border-radius:50%;min-width:18px;height:18px;font-size:.6rem;font-weight:800;align-items:center;justify-content:center;border:2px solid #fff;padding:0 2px">0</span>
+      </a>
+      <a href="/pages/dashboard.html" class="btn btn-ghost btn-sm">Табло</a>
+      <a id="nav-admin-link" href="/pages/admin.html" class="btn btn-ghost btn-sm" style="display:none">⚙ Админ</a>
+      <button onclick="logout()" class="btn btn-ghost btn-sm">Изход</button>
     </div>
   </div>
 </nav>
@@ -78,17 +81,17 @@
     <!-- SIDEBAR -->
     <div class="conv-sidebar">
       <div class="conv-header">
-        <h3>ðŸ’¬ Ð¡ÑŠÐ¾Ð±Ñ‰ÐµÐ½Ð¸Ñ</h3>
-        <button class="btn btn-primary btn-sm" onclick="openNewChat()">+ ÐÐ¾Ð²</button>
+        <h3>💬 Съобщения</h3>
+        <button class="btn btn-primary btn-sm" onclick="openNewChat()">+ Нов</button>
       </div>
       <div class="conv-search">
-        <input id="conv-search" type="text" placeholder="Ð¢ÑŠÑ€ÑÐ¸ Ñ€Ð°Ð·Ð³Ð¾Ð²Ð¾Ñ€â€¦" oninput="filterConvs()"/>
+        <input id="conv-search" type="text" placeholder="Търси разговор…" oninput="filterConvs()"/>
       </div>
       <!-- Support tab for admins -->
       <div id="admin-tabs" style="display:none;border-bottom:1px solid var(--g200)">
         <div style="display:flex">
-          <button id="tab-mine" class="tab-btn active" onclick="showTab('mine')" style="flex:1">ÐœÐ¾Ð¸</button>
-          <button id="tab-support" class="tab-btn" onclick="showTab('support')" style="flex:1">ðŸ›Ÿ ÐŸÐ¾Ð´Ð´Ñ€ÑŠÐ¶ÐºÐ°</button>
+          <button id="tab-mine" class="tab-btn active" onclick="showTab('mine')" style="flex:1">Мои</button>
+          <button id="tab-support" class="tab-btn" onclick="showTab('support')" style="flex:1">🛟 Поддръжка</button>
         </div>
       </div>
       <div class="conv-list" id="conv-list">
@@ -99,19 +102,21 @@
     <!-- CHAT AREA -->
     <div class="chat-main" id="chat-main">
       <div class="chat-empty" id="chat-empty">
-        <div class="icon">ðŸ’¬</div>
-        <p style="font-family:'Sora',sans-serif;font-weight:700">Ð˜Ð·Ð±ÐµÑ€Ð¸ Ñ€Ð°Ð·Ð³Ð¾Ð²Ð¾Ñ€</p>
-        <p style="font-size:.88rem">Ð¸Ð»Ð¸ Ð·Ð°Ð¿Ð¾Ñ‡Ð½Ð¸ Ð½Ð¾Ð² Ñ Ñ„Ñ€Ð¸Ð¹Ð»Ð°Ð½ÑÑŠÑ€ Ð¸Ð»Ð¸ ÐºÐ»Ð¸ÐµÐ½Ñ‚</p>
-        <button class="btn btn-primary" onclick="openNewChat()">+ ÐÐ¾Ð² Ñ€Ð°Ð·Ð³Ð¾Ð²Ð¾Ñ€</button>
+        <div class="icon">💬</div>
+        <p style="font-family:'Sora',sans-serif;font-weight:700">Избери разговор</p>
+        <p style="font-size:.88rem">или започни нов с фрийлансър или клиент</p>
+        <button class="btn btn-primary" onclick="openNewChat()">+ Нов разговор</button>
       </div>
       <div id="chat-window" style="display:none;flex-direction:column;height:100%">
         <div class="chat-top" id="chat-top"></div>
         <div class="chat-messages" id="chat-messages"></div>
         <div class="chat-input-area">
-          <textarea id="msg-input" placeholder="ÐÐ°Ð¿Ð¸ÑˆÐ¸ ÑÑŠÐ¾Ð±Ñ‰ÐµÐ½Ð¸Ðµâ€¦" rows="1"
+          <input type="file" id="chat-file-input" accept="image/*,.pdf,.doc,.docx" style="display:none" onchange="sendFile(this)"/>
+          <button onclick="document.getElementById('chat-file-input').click()" style="width:38px;height:38px;border-radius:50%;background:var(--g100);border:2px solid var(--g200);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;transition:.2s" title="Прикачи файл" onmouseover="this.style.borderColor='var(--blue)'" onmouseout="this.style.borderColor='var(--g200)'">📎</button>
+          <textarea id="msg-input" placeholder="Напиши съобщение…" rows="1"
             onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMsg()}"
             oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,120)+'px'"></textarea>
-          <button class="send-btn" onclick="sendMsg()">âž¤</button>
+          <button class="send-btn" onclick="sendMsg()">➤</button>
         </div>
       </div>
     </div>
@@ -121,23 +126,24 @@
 <!-- NEW CHAT MODAL -->
 <div class="modal-overlay" id="new-chat-modal">
   <div class="modal" style="max-width:460px">
-    <button class="modal-close" onclick="closeModal('new-chat-modal')">âœ•</button>
-    <h2>ÐÐ¾Ð² Ñ€Ð°Ð·Ð³Ð¾Ð²Ð¾Ñ€</h2>
-    <p class="modal-sub">Ð¢ÑŠÑ€ÑÐ¸ Ð¿Ð¾Ñ‚Ñ€ÐµÐ±Ð¸Ñ‚ÐµÐ» Ð¿Ð¾ Ð¸Ð¼ÐµÐ¹Ð» Ð¸Ð»Ð¸ Ð¸Ð·Ð±ÐµÑ€Ð¸ Ð¾Ñ‚ Ð¿Ñ€ÐµÐ¿Ð¾Ñ€ÑŠÐºÐ¸Ñ‚Ðµ</p>
+    <button class="modal-close" onclick="closeModal('new-chat-modal')">✕</button>
+    <h2>Нов разговор</h2>
+    <p class="modal-sub">Търси потребител по имейл или избери от препоръките</p>
     <div id="nc-alert" class="alert"></div>
     <div class="form-group">
-      <label>Ð˜Ð¼ÐµÐ¹Ð» Ð½Ð° Ð¿Ð¾Ñ‚Ñ€ÐµÐ±Ð¸Ñ‚ÐµÐ»Ñ</label>
+      <label>Имейл на потребителя</label>
       <input id="nc-email" type="email" placeholder="ivan@example.com" oninput="searchUser()"/>
     </div>
     <div id="nc-results" style="margin-top:10px"></div>
     <!-- Support button -->
     <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--g200)">
-      <button class="btn btn-ghost btn-full" onclick="startSupportChat()">ðŸ›Ÿ Ð¡Ð²ÑŠÑ€Ð¶Ð¸ ÑÐµ Ñ Ð¿Ð¾Ð´Ð´Ñ€ÑŠÐ¶ÐºÐ°</button>
+      <button class="btn btn-ghost btn-full" onclick="startSupportChat()">🛟 Свържи се с поддръжка</button>
     </div>
   </div>
 </div>
 
 <script src="/js/shared.js"></script>
+<script src="/js/i18n.js"></script>
 <script>
 const user = Auth.user();
 if (!user) window.location.href = '/index.html';
@@ -169,7 +175,7 @@ async function loadConversations() {
 function renderConvList(convs) {
   const el = document.getElementById('conv-list');
   if (!convs.length) {
-    el.innerHTML = '<div class="empty" style="padding:28px"><div class="icon">ðŸ’¬</div><p>ÐÑÐ¼Ð°Ñˆ Ñ€Ð°Ð·Ð³Ð¾Ð²Ð¾Ñ€Ð¸.</p></div>';
+    el.innerHTML = '<div class="empty" style="padding:28px"><div class="icon">💬</div><p>Нямаш разговори.</p></div>';
     return;
   }
   el.innerHTML = convs.map(c => {
@@ -181,8 +187,8 @@ function renderConvList(convs) {
     <div class="conv-item ${currentConvId===c.id?'active':''}" onclick="openConversation(${c.id})">
       <div class="conv-av">${av}</div>
       <div class="conv-info">
-        <div class="conv-name">${c.otherUserName}${c.isSupport?'<span class="support-badge">ÐŸÐ¾Ð´Ð´Ñ€ÑŠÐ¶ÐºÐ°</span>':''}</div>
-        <div class="conv-last">${c.lastMessage || 'ÐÑÐ¼Ð° ÑÑŠÐ¾Ð±Ñ‰ÐµÐ½Ð¸Ñ'}</div>
+        <div class="conv-name">${c.otherUserName}${c.isSupport?'<span class="support-badge">Поддръжка</span>':''}</div>
+        <div class="conv-last">${c.lastMessage || 'Няма съобщения'}</div>
       </div>
       <div class="conv-time">${time}</div>
     </div>`;
@@ -195,6 +201,8 @@ function filterConvs() {
 }
 
 async function openConversation(convId) {
+  // Mark this conversation as seen (removes badge)
+  if (typeof markConvSeen === 'function') markConvSeen(convId);
   currentConvId = convId;
   const conv = allConvs.find(c => c.id === convId);
   if (!conv) return;
@@ -214,11 +222,11 @@ async function openConversation(convId) {
   const av = conv.otherAvatar
     ? `<img src="http://localhost:5000${conv.otherAvatar}" alt=""/>`
     : conv.otherUserName[0];
-  const roleLabel = {Client:'ÐšÐ»Ð¸ÐµÐ½Ñ‚',Freelancer:'Ð¤Ñ€Ð¸Ð¹Ð»Ð°Ð½ÑÑŠÑ€',Admin:'ÐÐ´Ð¼Ð¸Ð½Ð¸ÑÑ‚Ñ€Ð°Ñ‚Ð¾Ñ€',SuperAdmin:'Ð¡ÑƒÐ¿ÐµÑ€ ÐÐ´Ð¼Ð¸Ð½Ð¸ÑÑ‚Ñ€Ð°Ñ‚Ð¾Ñ€'}[conv.otherRole]||conv.otherRole;
+  const roleLabel = {Client:'Клиент',Freelancer:'Фрийлансър',Admin:'Администратор',SuperAdmin:'Супер Администратор'}[conv.otherRole]||conv.otherRole;
   document.getElementById('chat-top').innerHTML = `
     <div class="chat-top-av">${av}</div>
     <div>
-      <div class="chat-top-name">${conv.otherUserName}${conv.isSupport?'<span class="support-badge">ÐŸÐ¾Ð´Ð´Ñ€ÑŠÐ¶ÐºÐ°</span>':''}</div>
+      <div class="chat-top-name">${conv.otherUserName}${conv.isSupport?'<span class="support-badge">Поддръжка</span>':''}</div>
       <div class="chat-top-role">${roleLabel}</div>
     </div>`;
 
@@ -258,7 +266,7 @@ async function pollMessages(convId) {
 
 function renderMessages(msgs) {
   const el = document.getElementById('chat-messages');
-  if (!msgs.length) { el.innerHTML = '<div style="text-align:center;padding:28px;color:var(--g500)">ÐÑÐ¼Ð° ÑÑŠÐ¾Ð±Ñ‰ÐµÐ½Ð¸Ñ. ÐšÐ°Ð¶Ð¸ Ð½ÐµÑ‰Ð¾! ðŸ‘‹</div>'; return; }
+  if (!msgs.length) { el.innerHTML = '<div style="text-align:center;padding:28px;color:var(--g500)">Няма съобщения. Кажи нещо! 👋</div>'; return; }
 
   let lastDate = '';
   el.innerHTML = msgs.map(m => {
@@ -300,6 +308,74 @@ function scrollToBottom() {
   el.scrollTop = el.scrollHeight;
 }
 
+async function sendFile(input) {
+  if (!currentConvId || !input.files[0]) return;
+  const file = input.files[0];
+  const formData = new FormData();
+  formData.append('file', file);
+
+  // Upload file first
+  try {
+    const token = localStorage.getItem('sk_token');
+    const res = await fetch('/api/upload', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + token },
+      body: formData
+    });
+    if (!res.ok) throw new Error('Грешка при качване');
+    const data = await res.json();
+    // Send message with file URL
+    const fileUrl = data.url;
+    const isImage = file.type.startsWith('image/');
+    const content = isImage
+      ? `[img:${fileUrl}]`
+      : `[file:${fileUrl}:${file.name}]`;
+    await apiFetch(`/chat/conversations/${currentConvId}/send`, {
+      method: 'POST',
+      body: JSON.stringify({ content })
+    });
+    await loadMessages(currentConvId);
+  } catch(e) {
+    alert('Грешка при качване: ' + e.message);
+  }
+  input.value = '';
+}
+
+async function sendFile(input) {
+  if (!input.files || !input.files[0]) return;
+  const file = input.files[0];
+  const maxSize = 5 * 1024 * 1024; // 5MB
+  if (file.size > maxSize) { alert('Файлът е твърде голям. Максимум 5MB.'); return; }
+
+  // For images - convert to base64 and send as message
+  if (file.type.startsWith('image/')) {
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      const base64 = e.target.result;
+      const content = `[IMG]${base64}[/IMG]`;
+      try {
+        await apiFetch(`/chat/conversations/${currentConvId}/send`, {
+          method: 'POST',
+          body: JSON.stringify({ content })
+        });
+        loadMessages(currentConvId);
+      } catch(err) { alert(err.message); }
+    };
+    reader.readAsDataURL(file);
+  } else {
+    // For other files - just send filename as message
+    const content = `📎 Файл: ${file.name} (${(file.size/1024).toFixed(1)}KB)`;
+    try {
+      await apiFetch(`/chat/conversations/${currentConvId}/send`, {
+        method: 'POST',
+        body: JSON.stringify({ content })
+      });
+      loadMessages(currentConvId);
+    } catch(err) { alert(err.message); }
+  }
+  input.value = '';
+}
+
 async function sendMsg() {
   if (!currentConvId) return;
   const input = document.getElementById('msg-input');
@@ -333,7 +409,7 @@ async function sendMsg() {
   }
 }
 
-// â”€â”€ New chat â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── New chat ──────────────────────────────────────
 function openNewChat() {
   document.getElementById('nc-email').value = '';
   document.getElementById('nc-results').innerHTML = '';
@@ -356,11 +432,11 @@ async function searchUser() {
           <div class="conv-av">${u.avatar ? `<img src="http://localhost:5000${u.avatar}" alt=""/>` : u.fullName[0]}</div>
           <div class="conv-info">
             <div class="conv-name">${u.fullName}</div>
-            <div class="conv-last">${u.email} Â· ${u.role}</div>
+            <div class="conv-last">${u.email} · ${u.role}</div>
           </div>
-          <span class="btn btn-primary btn-sm">Ð§Ð°Ñ‚</span>
+          <span class="btn btn-primary btn-sm">Чат</span>
         </div>`).join('')
-        : '<p style="color:var(--g500);font-size:.85rem">ÐÐµ Ðµ Ð½Ð°Ð¼ÐµÑ€ÐµÐ½ Ð¿Ð¾Ñ‚Ñ€ÐµÐ±Ð¸Ñ‚ÐµÐ».</p>';
+        : '<p style="color:var(--g500);font-size:.85rem">Не е намерен потребител.</p>';
     } catch {}
   }, 400);
 }
@@ -381,9 +457,9 @@ async function startSupportChat() {
   try {
     // Find admin user
     const admins = await apiFetch('/chat/find-admin');
-    if (!admins?.id) { showAlert('nc-alert', 'ÐÑÐ¼Ð° Ð´Ð¾ÑÑ‚ÑŠÐ¿ÐµÐ½ Ð°Ð´Ð¼Ð¸Ð½Ð¸ÑÑ‚Ñ€Ð°Ñ‚Ð¾Ñ€.'); return; }
+    if (!admins?.id) { showAlert('nc-alert', 'Няма достъпен администратор.'); return; }
     await startChat(admins.id, admins.fullName);
-  } catch(e) { showAlert('nc-alert', 'ÐŸÐ¾Ð´Ð´Ñ€ÑŠÐ¶ÐºÐ°Ñ‚Ð° Ð²Ñ€ÐµÐ¼ÐµÐ½Ð½Ð¾ Ð½Ðµ Ðµ Ð´Ð¾ÑÑ‚ÑŠÐ¿Ð½Ð°.'); }
+  } catch(e) { showAlert('nc-alert', 'Поддръжката временно не е достъпна.'); }
 }
 
 function showTab(tab) {
@@ -430,6 +506,3 @@ if (startUserId) {
 </script>
 </body>
 </html>
-
-
-

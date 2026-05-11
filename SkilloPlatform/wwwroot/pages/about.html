@@ -31,7 +31,10 @@
     <div id="nav-user" style="display:none;align-items:center;gap:8px">
       <div id="nav-user-avatar" style="width:34px;height:34px;border-radius:50%;background:var(--g100);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--blue);border:2px solid var(--blue);overflow:hidden;cursor:pointer"></div>
       <span id="nav-user-name" style="font-size:.88rem;font-weight:600;color:var(--blue)"></span>
-      <a href="/pages/chat.html" id="nav-chat-btn" class="btn btn-ghost btn-sm" style="display:none" title="Съобщения">💬</a>
+      <a href="/pages/chat.html" id="nav-chat-btn" style="display:none;position:relative;width:36px;height:36px;border-radius:50%;background:var(--blue);color:#fff;align-items:center;justify-content:center;font-size:1rem;text-decoration:none;flex-shrink:0" title="Съобщения">
+        <span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);line-height:1">💬</span>
+        <span id="chat-badge" style="display:none;position:absolute;top:-5px;right:-5px;background:#e53e3e;color:#fff;border-radius:50%;min-width:18px;height:18px;font-size:.6rem;font-weight:800;align-items:center;justify-content:center;border:2px solid #fff;padding:0 2px">0</span>
+      </a>
       <a href="/pages/dashboard.html" class="btn btn-ghost btn-sm">Табло</a>
       <a id="nav-admin-link" href="/pages/admin.html" class="btn btn-ghost btn-sm" style="display:none">⚙ Админ</a>
       <button onclick="logout()" class="btn btn-ghost btn-sm">Изход</button>
@@ -103,5 +106,6 @@
   <div class="footer-bottom"><p>© 2025 Skillo. Всички права запазени.</p></div>
 </footer>
 <script src="/js/shared.js"></script>
+<script src="/js/i18n.js"></script>
 </body>
 </html>

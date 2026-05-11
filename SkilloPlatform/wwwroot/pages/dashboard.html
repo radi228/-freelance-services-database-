@@ -1,8 +1,8 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="bg">
 <head>
   <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Ð¢Ð°Ð±Ð»Ð¾ â€“ Skillo</title>
+  <title>Табло – Skillo</title>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="/css/main.css"/>
   <style>
@@ -32,18 +32,21 @@
 </head>
 <body>
 <nav id="main-nav">
-  <a href="/index.html" class="logo"><div class="logo-icon">ðŸš€</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
+  <a href="/index.html" class="logo"><div class="logo-icon">🚀</div><span class="logo-text">Skill<span class="accent">o</span></span></a>
   <ul class="nav-links"></ul>
   <div class="nav-cta">
-    <a href="#" id="nav-login-btn" class="btn btn-outline btn-sm" onclick="window.location='/index.html#login';return false">Ð’Ñ…Ð¾Ð´</a>
-    <a href="#" id="nav-register-btn" class="btn btn-orange btn-sm" onclick="window.location='/index.html#register';return false">Ð ÐµÐ³Ð¸ÑÑ‚Ñ€Ð°Ñ†Ð¸Ñ</a>
+    <a href="#" id="nav-login-btn" class="btn btn-outline btn-sm" onclick="window.location='/index.html#login';return false">Вход</a>
+    <a href="#" id="nav-register-btn" class="btn btn-orange btn-sm" onclick="window.location='/index.html#register';return false">Регистрация</a>
     <div id="nav-user" style="display:none;align-items:center;gap:8px">
       <div id="nav-user-avatar" style="width:34px;height:34px;border-radius:50%;background:var(--g100);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--blue);border:2px solid var(--blue);overflow:hidden;cursor:pointer"></div>
       <span id="nav-user-name" style="font-size:.88rem;font-weight:600;color:var(--blue)"></span>
-      <a href="/pages/chat.html" id="nav-chat-btn" class="btn btn-ghost btn-sm" style="display:none" title="Ð¡ÑŠÐ¾Ð±Ñ‰ÐµÐ½Ð¸Ñ">ðŸ’¬</a>
-      <a href="/pages/dashboard.html" class="btn btn-ghost btn-sm">Ð¢Ð°Ð±Ð»Ð¾</a>
-      <a id="nav-admin-link" href="/pages/admin.html" class="btn btn-ghost btn-sm" style="display:none">âš™ ÐÐ´Ð¼Ð¸Ð½</a>
-      <button onclick="logout()" class="btn btn-ghost btn-sm">Ð˜Ð·Ñ…Ð¾Ð´</button>
+      <a href="/pages/chat.html" id="nav-chat-btn" style="display:none;position:relative;width:36px;height:36px;border-radius:50%;background:var(--blue);color:#fff;align-items:center;justify-content:center;font-size:1rem;text-decoration:none;flex-shrink:0" title="Съобщения">
+        <span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);line-height:1">💬</span>
+        <span id="chat-badge" style="display:none;position:absolute;top:-5px;right:-5px;background:#e53e3e;color:#fff;border-radius:50%;min-width:18px;height:18px;font-size:.6rem;font-weight:800;align-items:center;justify-content:center;border:2px solid #fff;padding:0 2px">0</span>
+      </a>
+      <a href="/pages/dashboard.html" class="btn btn-ghost btn-sm">Табло</a>
+      <a id="nav-admin-link" href="/pages/admin.html" class="btn btn-ghost btn-sm" style="display:none">⚙ Админ</a>
+      <button onclick="logout()" class="btn btn-ghost btn-sm">Изход</button>
     </div>
   </div>
 </nav>
@@ -53,14 +56,14 @@
     <!-- SIDEBAR -->
     <div class="side-menu">
       <div class="user-info">
-        <div class="side-av" id="side-avatar" onclick="document.getElementById('avatar-input').click()" title="Ð¡Ð¼ÐµÐ½Ð¸ ÑÐ½Ð¸Ð¼ÐºÐ°Ñ‚Ð°">ðŸ‘¤</div>
+        <div class="side-av" id="side-avatar" onclick="document.getElementById('avatar-input').click()" title="Смени снимката">👤</div>
         <input type="file" id="avatar-input" accept="image/*" style="display:none" onchange="uploadAvatar(this)"/>
-        <div class="side-name" id="side-name">â€¦</div>
+        <div class="side-name" id="side-name">…</div>
         <div class="side-role" id="side-role"></div>
       </div>
       <div id="menu-items"></div>
       <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--g200)">
-        <button onclick="logout()" class="menu-item" style="color:#DC2626"><span class="icon">ðŸšª</span>Ð˜Ð·Ñ…Ð¾Ð´</button>
+        <button onclick="logout()" class="menu-item" style="color:#DC2626"><span class="icon">🚪</span>Изход</button>
       </div>
     </div>
 
@@ -80,16 +83,16 @@ const isAdm = Auth.isAdmin();
 
 // Build sidebar menu
 const menus = isFL ? [
-  { id:'overview',  icon:'ðŸ ', label:'ÐžÐ±Ð·Ð¾Ñ€' },
-  { id:'profile',   icon:'ðŸ‘¤', label:'ÐœÐ¾ÑÑ‚ Ð¿Ñ€Ð¾Ñ„Ð¸Ð»', link:'/pages/profile.html' },
-  { id:'services',  icon:'ðŸ› ', label:'ÐœÐ¾Ð¸Ñ‚Ðµ ÑƒÑÐ»ÑƒÐ³Ð¸', link:'/pages/services.html' },
-  { id:'bids',      icon:'ðŸ“¨', label:'ÐœÐ¾Ð¸ Ð¾Ñ„ÐµÑ€Ñ‚Ð¸' },
+  { id:'overview',  icon:'🏠', label:'Обзор' },
+  { id:'profile',   icon:'👤', label:'Моят профил', link:'/pages/profile.html' },
+  { id:'services',  icon:'🛠', label:'Моите услуги', link:'/pages/services.html' },
+  { id:'bids',      icon:'📨', label:'Мои оферти' },
 ] : isCL ? [
-  { id:'overview',  icon:'ðŸ ', label:'ÐžÐ±Ð·Ð¾Ñ€' },
-  { id:'myprojects',icon:'ðŸ“‹', label:'ÐœÐ¾Ð¸ Ð¿Ñ€Ð¾ÐµÐºÑ‚Ð¸' },
+  { id:'overview',  icon:'🏠', label:'Обзор' },
+  { id:'myprojects',icon:'📋', label:'Мои проекти' },
 ] : [];
 
-if (isAdm) menus.push({ id:'admin', icon:'âš™', label:'ÐÐ´Ð¼Ð¸Ð½Ð¸ÑÑ‚Ñ€Ð°Ñ†Ð¸Ñ', link:'/pages/admin.html' });
+if (isAdm) menus.push({ id:'admin', icon:'⚙', label:'Администрация', link:'/pages/admin.html' });
 
 function buildMenu(activeId) {
   document.getElementById('menu-items').innerHTML = menus.map(m => `
@@ -109,7 +112,7 @@ function showTab(id) {
 
 // Avatar
 document.getElementById('side-name').textContent = u.name;
-document.getElementById('side-role').textContent = { Freelancer:'Ð¤Ñ€Ð¸Ð¹Ð»Ð°Ð½ÑÑŠÑ€', Client:'ÐšÐ»Ð¸ÐµÐ½Ñ‚', Admin:'ÐÐ´Ð¼Ð¸Ð½Ð¸ÑÑ‚Ñ€Ð°Ñ‚Ð¾Ñ€', SuperAdmin:'Ð¡ÑƒÐ¿ÐµÑ€ ÐÐ´Ð¼Ð¸Ð½Ð¸ÑÑ‚Ñ€Ð°Ñ‚Ð¾Ñ€' }[u.role] || u.role;
+document.getElementById('side-role').textContent = { Freelancer:'Фрийлансър', Client:'Клиент', Admin:'Администратор', SuperAdmin:'Супер Администратор' }[u.role] || u.role;
 const av = document.getElementById('side-avatar');
 if (u.avatar) av.innerHTML = `<img src="http://localhost:5000${u.avatar}" alt=""/>`;
 else av.textContent = u.name[0];
@@ -128,7 +131,7 @@ async function uploadAvatar(input) {
   } catch(e) { alert(e.message); }
 }
 
-// â”€â”€ OVERVIEW â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── OVERVIEW ──────────────────────────────────────────
 async function renderOverview() {
   const el = document.getElementById('content');
   el.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
@@ -147,85 +150,85 @@ async function renderOverview() {
       .reduce((a,b)=>a+b,0));
 
     el.innerHTML = `
-      <h2 style="font-family:Sora,sans-serif;font-weight:800;margin-bottom:24px">Ð”Ð¾Ð±Ñ€Ðµ Ð´Ð¾ÑˆÑŠÐ», ${u.name.split(' ')[0]}! ðŸ‘‹</h2>
+      <h2 style="font-family:Sora,sans-serif;font-weight:800;margin-bottom:24px">Добре дошъл, ${u.name.split(' ')[0]}! 👋</h2>
       <div class="stat-cards">
-        <div class="stat-card"><div class="stat-num">${bids.length}</div><div class="stat-lbl">ÐžÐ±Ñ‰Ð¾ Ð¾Ñ„ÐµÑ€Ñ‚Ð¸</div></div>
-        <div class="stat-card"><div class="stat-num">${pending}</div><div class="stat-lbl">Ð§Ð°ÐºÐ°Ñ‰Ð¸</div></div>
-        <div class="stat-card"><div class="stat-num">${accepted}</div><div class="stat-lbl">ÐŸÑ€Ð¸ÐµÑ‚Ð¸</div></div>
-        <div class="stat-card"><div class="stat-num">${complete}%</div><div class="stat-lbl">ÐŸÑ€Ð¾Ñ„Ð¸Ð» Ð¿Ð¾Ð¿ÑŠÐ»Ð½ÐµÐ½</div></div>
+        <div class="stat-card"><div class="stat-num">${bids.length}</div><div class="stat-lbl">Общо оферти</div></div>
+        <div class="stat-card"><div class="stat-num">${pending}</div><div class="stat-lbl">Чакащи</div></div>
+        <div class="stat-card"><div class="stat-num">${accepted}</div><div class="stat-lbl">Приети</div></div>
+        <div class="stat-card"><div class="stat-num">${complete}%</div><div class="stat-lbl">Профил попълнен</div></div>
       </div>
       ${complete < 80 ? `
         <div class="alert alert-info show" style="margin-bottom:20px">
-          ðŸ’¡ ÐŸÑ€Ð¾Ñ„Ð¸Ð»ÑŠÑ‚ Ñ‚Ð¸ Ðµ Ð¿Ð¾Ð¿ÑŠÐ»Ð½ÐµÐ½ Ð½Ð° ${complete}%. <a href="/pages/profile.html" style="color:var(--blue);font-weight:700">ÐŸÐ¾Ð¿ÑŠÐ»Ð½Ð¸ Ð³Ð¾ ÑÐµÐ³Ð° â†’</a>
+          💡 Профилът ти е попълнен на ${complete}%. <a href="/pages/profile.html" style="color:var(--blue);font-weight:700">Попълни го сега →</a>
         </div>` : ''}
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;flex-wrap:wrap">
         <a href="/pages/profile.html" class="card" style="text-decoration:none;display:flex;align-items:center;gap:14px;padding:20px">
-          <span style="font-size:2rem">ðŸ‘¤</span>
-          <div><div style="font-family:Sora,sans-serif;font-weight:700">Ð ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð°Ð¹ Ð¿Ñ€Ð¾Ñ„Ð¸Ð»</div><div style="font-size:.82rem;color:var(--g500)">Ð¡Ð½Ð¸Ð¼ÐºÐ°, ÑƒÐ¼ÐµÐ½Ð¸Ñ, Ð¾Ð¿Ð¸Ñ‚</div></div>
+          <span style="font-size:2rem">👤</span>
+          <div><div style="font-family:Sora,sans-serif;font-weight:700">Редактирай профил</div><div style="font-size:.82rem;color:var(--g500)">Снимка, умения, опит</div></div>
         </a>
         <a href="/pages/services.html" class="card" style="text-decoration:none;display:flex;align-items:center;gap:14px;padding:20px">
-          <span style="font-size:2rem">ðŸ› </span>
-          <div><div style="font-family:Sora,sans-serif;font-weight:700">Ð£Ð¿Ñ€Ð°Ð²Ð»ÑÐ²Ð°Ð¹ ÑƒÑÐ»ÑƒÐ³Ð¸</div><div style="font-size:.82rem;color:var(--g500)">Ð”Ð¾Ð±Ð°Ð²Ð¸, Ñ€ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð°Ð¹, Ð¸Ð·Ñ‚Ñ€Ð¸Ð¹</div></div>
+          <span style="font-size:2rem">🛠</span>
+          <div><div style="font-family:Sora,sans-serif;font-weight:700">Управлявай услуги</div><div style="font-size:.82rem;color:var(--g500)">Добави, редактирай, изтрий</div></div>
         </a>
         <a href="/pages/projects.html" class="card" style="text-decoration:none;display:flex;align-items:center;gap:14px;padding:20px">
-          <span style="font-size:2rem">ðŸ”</span>
-          <div><div style="font-family:Sora,sans-serif;font-weight:700">Ð Ð°Ð·Ð³Ð»ÐµÐ´Ð°Ð¹ Ð¿Ñ€Ð¾ÐµÐºÑ‚Ð¸</div><div style="font-size:.82rem;color:var(--g500)">ÐÐ°Ð¼ÐµÑ€Ð¸ Ñ€Ð°Ð±Ð¾Ñ‚Ð°</div></div>
+          <span style="font-size:2rem">🔍</span>
+          <div><div style="font-family:Sora,sans-serif;font-weight:700">Разгледай проекти</div><div style="font-size:.82rem;color:var(--g500)">Намери работа</div></div>
         </a>
         <div class="card" style="display:flex;align-items:center;gap:14px;padding:20px;cursor:pointer" onclick="showTab('bids')">
-          <span style="font-size:2rem">ðŸ“¨</span>
-          <div><div style="font-family:Sora,sans-serif;font-weight:700">ÐœÐ¾Ð¸ Ð¾Ñ„ÐµÑ€Ñ‚Ð¸</div><div style="font-size:.82rem;color:var(--g500)">${pending} Ñ‡Ð°ÐºÐ°Ñ‰Ð¸</div></div>
+          <span style="font-size:2rem">📨</span>
+          <div><div style="font-family:Sora,sans-serif;font-weight:700">Мои оферти</div><div style="font-size:.82rem;color:var(--g500)">${pending} чакащи</div></div>
         </div>
       </div>`;
   } else {
     const projects = await apiFetch('/projects?status=Open').catch(()=>[]);
     const mine = projects.filter(p => p.clientId === u.id);
     el.innerHTML = `
-      <h2 style="font-family:Sora,sans-serif;font-weight:800;margin-bottom:24px">Ð”Ð¾Ð±Ñ€Ðµ Ð´Ð¾ÑˆÑŠÐ», ${u.name.split(' ')[0]}! ðŸ‘‹</h2>
+      <h2 style="font-family:Sora,sans-serif;font-weight:800;margin-bottom:24px">Добре дошъл, ${u.name.split(' ')[0]}! 👋</h2>
       <div class="stat-cards">
-        <div class="stat-card"><div class="stat-num">${mine.length}</div><div class="stat-lbl">ÐÐºÑ‚Ð¸Ð²Ð½Ð¸ Ð¿Ñ€Ð¾ÐµÐºÑ‚Ð¸</div></div>
-        <div class="stat-card"><div class="stat-num">${mine.reduce((a,p)=>a+p.bidCount,0)}</div><div class="stat-lbl">ÐžÐ±Ñ‰Ð¾ Ð¾Ñ„ÐµÑ€Ñ‚Ð¸</div></div>
+        <div class="stat-card"><div class="stat-num">${mine.length}</div><div class="stat-lbl">Активни проекти</div></div>
+        <div class="stat-card"><div class="stat-num">${mine.reduce((a,p)=>a+p.bidCount,0)}</div><div class="stat-lbl">Общо оферти</div></div>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
         <a href="/pages/projects.html" class="card" style="text-decoration:none;display:flex;align-items:center;gap:14px;padding:20px">
-          <span style="font-size:2rem">âž•</span>
-          <div><div style="font-family:Sora,sans-serif;font-weight:700">ÐŸÑƒÐ±Ð»Ð¸ÐºÑƒÐ²Ð°Ð¹ Ð¿Ñ€Ð¾ÐµÐºÑ‚</div><div style="font-size:.82rem;color:var(--g500)">ÐÐ°Ð¼ÐµÑ€Ð¸ Ñ„Ñ€Ð¸Ð¹Ð»Ð°Ð½ÑÑŠÑ€</div></div>
+          <span style="font-size:2rem">➕</span>
+          <div><div style="font-family:Sora,sans-serif;font-weight:700">Публикувай проект</div><div style="font-size:.82rem;color:var(--g500)">Намери фрийлансър</div></div>
         </a>
         <div class="card" style="display:flex;align-items:center;gap:14px;padding:20px;cursor:pointer" onclick="showTab('myprojects')">
-          <span style="font-size:2rem">ðŸ“‹</span>
-          <div><div style="font-family:Sora,sans-serif;font-weight:700">ÐœÐ¾Ð¸ Ð¿Ñ€Ð¾ÐµÐºÑ‚Ð¸</div><div style="font-size:.82rem;color:var(--g500)">${mine.length} Ð°ÐºÑ‚Ð¸Ð²Ð½Ð¸</div></div>
+          <span style="font-size:2rem">📋</span>
+          <div><div style="font-family:Sora,sans-serif;font-weight:700">Мои проекти</div><div style="font-size:.82rem;color:var(--g500)">${mine.length} активни</div></div>
         </div>
         <a href="/pages/freelancers.html" class="card" style="text-decoration:none;display:flex;align-items:center;gap:14px;padding:20px">
-          <span style="font-size:2rem">ðŸ”</span>
-          <div><div style="font-family:Sora,sans-serif;font-weight:700">ÐÐ°Ð¼ÐµÑ€Ð¸ Ñ„Ñ€Ð¸Ð¹Ð»Ð°Ð½ÑÑŠÑ€</div><div style="font-size:.82rem;color:var(--g500)">Ð Ð°Ð·Ð³Ð»ÐµÐ´Ð°Ð¹ Ð¿Ñ€Ð¾Ñ„Ð¸Ð»Ð¸</div></div>
+          <span style="font-size:2rem">🔍</span>
+          <div><div style="font-family:Sora,sans-serif;font-weight:700">Намери фрийлансър</div><div style="font-size:.82rem;color:var(--g500)">Разгледай профили</div></div>
         </a>
       </div>`;
   }
 }
 
-// â”€â”€ BIDS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── BIDS ─────────────────────────────────────────────
 async function renderBids() {
   const el = document.getElementById('content');
   el.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
   try {
     const bids = await apiFetch('/bids/mine');
-    if (!bids.length) { el.innerHTML = '<div class="empty"><div class="icon">ðŸ“­</div><p>ÐÑÐ¼Ð°Ñˆ Ð¿Ð¾Ð´Ð°Ð´ÐµÐ½Ð¸ Ð¾Ñ„ÐµÑ€Ñ‚Ð¸ Ð²ÑÐµ Ð¾Ñ‰Ðµ.</p><a href="/pages/projects.html" class="btn btn-primary" style="margin-top:14px">Ð Ð°Ð·Ð³Ð»ÐµÐ´Ð°Ð¹ Ð¿Ñ€Ð¾ÐµÐºÑ‚Ð¸</a></div>'; return; }
-    el.innerHTML = `<h3 style="font-family:Sora,sans-serif;font-weight:800;margin-bottom:20px">ÐœÐ¾Ð¸ Ð¾Ñ„ÐµÑ€Ñ‚Ð¸ (${bids.length})</h3>` +
+    if (!bids.length) { el.innerHTML = '<div class="empty"><div class="icon">📭</div><p>Нямаш подадени оферти все още.</p><a href="/pages/projects.html" class="btn btn-primary" style="margin-top:14px">Разгледай проекти</a></div>'; return; }
+    el.innerHTML = `<h3 style="font-family:Sora,sans-serif;font-weight:800;margin-bottom:20px">Мои оферти (${bids.length})</h3>` +
       bids.map(b => {
         const badge = { Pending:'badge-orange', Accepted:'badge-green', Rejected:'badge-red' }[b.status] || 'badge-gray';
-        const label = { Pending:'â³ Ð§Ð°ÐºÐ°', Accepted:'âœ… ÐŸÑ€Ð¸ÐµÑ‚Ð°', Rejected:'âŒ ÐžÑ‚ÐºÐ°Ð·Ð°Ð½Ð°' }[b.status] || b.status;
+        const label = { Pending:'⏳ Чака', Accepted:'✅ Приета', Rejected:'❌ Отказана' }[b.status] || b.status;
         return `<div class="item-row">
           <div style="flex:1">
             <div class="item-title">${b.projectTitle}</div>
-            <div class="item-meta">${b.amount} â‚¬ Â· ${b.deliveryDays} Ð´Ð½Ð¸</div>
-            ${b.coverLetter ? `<div style="font-size:.82rem;color:var(--g500);margin-top:4px">${b.coverLetter.substring(0,100)}â€¦</div>` : ''}
+            <div class="item-meta">${b.amount} € · ${b.deliveryDays} дни</div>
+            ${b.coverLetter ? `<div style="font-size:.82rem;color:var(--g500);margin-top:4px">${b.coverLetter.substring(0,100)}…</div>` : ''}
           </div>
           <span class="badge ${badge}">${label}</span>
         </div>`;
       }).join('');
-  } catch(e) { el.innerHTML = `<div class="empty"><div class="icon">âš ï¸</div><p>${e.message}</p></div>`; }
+  } catch(e) { el.innerHTML = `<div class="empty"><div class="icon">⚠️</div><p>${e.message}</p></div>`; }
 }
 
-// â”€â”€ MY PROJECTS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── MY PROJECTS ──────────────────────────────────────
 async function renderMyProjects() {
   const el = document.getElementById('content');
   el.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
@@ -233,44 +236,42 @@ async function renderMyProjects() {
     const all = await apiFetch('/projects?status=Open');
     const mine = all.filter(p => p.clientId === u.id);
     if (!mine.length) {
-      el.innerHTML = '<div class="empty"><div class="icon">ðŸ“‹</div><p>ÐÑÐ¼Ð°Ñˆ Ð¿ÑƒÐ±Ð»Ð¸ÐºÑƒÐ²Ð°Ð½Ð¸ Ð¿Ñ€Ð¾ÐµÐºÑ‚Ð¸.</p><a href="/pages/projects.html" class="btn btn-orange" style="margin-top:14px">+ ÐŸÑƒÐ±Ð»Ð¸ÐºÑƒÐ²Ð°Ð¹ Ð¿Ñ€Ð¾ÐµÐºÑ‚</a></div>';
+      el.innerHTML = '<div class="empty"><div class="icon">📋</div><p>Нямаш публикувани проекти.</p><a href="/pages/projects.html" class="btn btn-orange" style="margin-top:14px">+ Публикувай проект</a></div>';
       return;
     }
-    el.innerHTML = `<h3 style="font-family:Sora,sans-serif;font-weight:800;margin-bottom:20px">ÐœÐ¾Ð¸ Ð¿Ñ€Ð¾ÐµÐºÑ‚Ð¸ (${mine.length})</h3>` +
+    el.innerHTML = `<h3 style="font-family:Sora,sans-serif;font-weight:800;margin-bottom:20px">Мои проекти (${mine.length})</h3>` +
       mine.map(p => `
         <div class="item-row">
           <div style="flex:1">
             <div class="item-title">${p.title}</div>
-            <div class="item-meta">${p.category} Â· ${p.budgetMin}â€“${p.budgetMax} â‚¬ Â· ${p.bidCount} Ð¾Ñ„ÐµÑ€Ñ‚Ð¸</div>
+            <div class="item-meta">${p.category} · ${p.budgetMin}–${p.budgetMax} € · ${p.bidCount} оферти</div>
           </div>
-          <button class="btn btn-ghost btn-sm" onclick="viewBids(${p.id},'${p.title.replace(/'/g,"\\'")}')">ÐžÑ„ÐµÑ€Ñ‚Ð¸</button>
-          <button class="btn btn-danger btn-sm" onclick="deleteProject(${p.id})">Ð˜Ð·Ñ‚Ñ€Ð¸Ð¹</button>
+          <button class="btn btn-ghost btn-sm" onclick="viewBids(${p.id},'${p.title.replace(/'/g,"\\'")}')">Оферти</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteProject(${p.id})">Изтрий</button>
         </div>`).join('');
   } catch(e) { el.innerHTML = `<div class="empty"><p>${e.message}</p></div>`; }
 }
 
-// Uses projectId parameter correctly
-// Uses projectId parameter correctly
 async function viewBids(projectId, title) {
   const el = document.getElementById('content');
-  el.innerHTML = `<div style="display:flex;align-items:center;gap:12px;margin-bottom:20px"><button class="btn btn-ghost btn-sm" onclick="renderMyProjects()">â† ÐÐ°Ð·Ð°Ð´</button><h3 style="font-family:Sora,sans-serif;font-weight:800">ÐžÑ„ÐµÑ€Ñ‚Ð¸: ${title}</h3></div><div class="loading"><div class="spinner"></div></div>`;
+  el.innerHTML = `<div style="display:flex;align-items:center;gap:12px;margin-bottom:20px"><button class="btn btn-ghost btn-sm" onclick="renderMyProjects()">← Назад</button><h3 style="font-family:Sora,sans-serif;font-weight:800">Оферти: ${title}</h3></div><div class="loading"><div class="spinner"></div></div>`;
   try {
     const bids = await apiFetch(`/bids/project/${projectId}`);
     const container = document.createElement('div');
-    if (!bids.length) { container.innerHTML = '<div class="empty"><div class="icon">ðŸ“­</div><p>ÐÑÐ¼Ð° Ð¾Ñ„ÐµÑ€Ñ‚Ð¸ Ð·Ð° Ñ‚Ð¾Ð·Ð¸ Ð¿Ñ€Ð¾ÐµÐºÑ‚.</p></div>'; }
+    if (!bids.length) { container.innerHTML = '<div class="empty"><div class="icon">📭</div><p>Няма оферти за този проект.</p></div>'; }
     else container.innerHTML = bids.map(b => {
       const badge = { Pending:'badge-orange', Accepted:'badge-green', Rejected:'badge-red' }[b.status];
-      const label = { Pending:'â³ Ð§Ð°ÐºÐ°', Accepted:'âœ… ÐŸÑ€Ð¸ÐµÑ‚Ð°', Rejected:'âŒ ÐžÑ‚ÐºÐ°Ð·Ð°Ð½Ð°' }[b.status];
+      const label = { Pending:'⏳ Чака', Accepted:'✅ Приета', Rejected:'❌ Отказана' }[b.status];
       return `<div class="item-row" style="flex-direction:column;align-items:flex-start;gap:10px">
         <div style="display:flex;width:100%;align-items:center;gap:12px">
-          <div style="flex:1"><div class="item-title">${b.freelancerName} â€” ${b.freelancerTitle}</div>
-          <div class="item-meta">${b.amount} â‚¬ Â· ${b.deliveryDays} Ð´Ð½Ð¸</div></div>
+          <div style="flex:1"><div class="item-title">${b.freelancerName} — ${b.freelancerTitle}</div>
+          <div class="item-meta">${b.amount} € · ${b.deliveryDays} дни</div></div>
           <span class="badge ${badge}">${label}</span>
         </div>
         ${b.coverLetter ? `<p style="font-size:.87rem;color:var(--g700);line-height:1.6">${b.coverLetter}</p>` : ''}
         ${b.status === 'Pending' ? `<div style="display:flex;gap:8px">
-          <button class="btn btn-primary btn-sm" onclick="decideBid(${b.id},'Accepted')">âœ… ÐŸÑ€Ð¸ÐµÐ¼Ð¸</button>
-          <button class="btn btn-danger btn-sm" onclick="decideBid(${b.id},'Rejected')">âŒ ÐžÑ‚ÐºÐ°Ð¶Ð¸</button>
+          <button class="btn btn-primary btn-sm" onclick="decideBid(${b.id},'Accepted',${projectId},${b.amount})">✅ Приеми</button>
+          <button class="btn btn-danger btn-sm" onclick="decideBid(${b.id},'Rejected')">❌ Откажи</button>
         </div>` : ''}
       </div>`;
     }).join('');
@@ -278,15 +279,120 @@ async function viewBids(projectId, title) {
   } catch(e) { el.innerHTML += `<p>${e.message}</p>`; }
 }
 
-async function decideBid(bidId, status) {
+async function decideBid(bidId, status, projectId, amount) {
+  if (status === 'Accepted') {
+    // Get bid data first then show payment modal
+    // bidId, projectId and amount are passed directly
+    openPaymentModal(bidId, projectId, amount);
+    return;
+  }
   try {
-    await apiFetch(`/bids/${bidId}/status`, { method:'PATCH', body: JSON.stringify(status) });
+    await apiFetch(`/bids/${bidId}/status`, { method:'PATCH', body: JSON.stringify({ status: status }) });
     renderMyProjects();
   } catch(e) { alert(e.message); }
 }
 
+let _payBidId = null;
+let _payBidData = null;
+
+function openPaymentModal(bidId, projectId, amount) {
+  _payBidId = bidId;
+  _payBidData = { projectId: projectId, amount: parseFloat(amount) };
+  // Reset to step 1
+  document.getElementById('pay-step-1').style.display = 'block';
+  document.getElementById('pay-step-stripe').style.display = 'none';
+  document.getElementById('pay-step-paypal').style.display = 'none';
+  // Show amount
+  const amtText = `Сума: ${parseFloat(amount).toFixed(2)} €`;
+  document.getElementById('pay-amount-label').textContent = amtText;
+  document.getElementById('stripe-amount-label').textContent = amtText;
+  document.getElementById('paypal-amount-label').textContent = amtText;
+  const modal = document.getElementById('payment-modal');
+  if (modal) { modal.style.display = 'flex'; }
+}
+
+function showPayForm(method) {
+  document.getElementById('pay-step-1').style.display = 'none';
+  document.getElementById('pay-step-' + method).style.display = 'block';
+}
+
+function formatCardNumber(input) {
+  let v = input.value.replace(/\D/g,'').substring(0,16);
+  input.value = v.replace(/(.{4})/g,'$1 ').trim();
+}
+
+function formatExpiry(input) {
+  let v = input.value.replace(/\D/g,'').substring(0,4);
+  if (v.length >= 2) v = v.substring(0,2) + '/' + v.substring(2);
+  input.value = v;
+}
+
+async function submitStripePayment() {
+  const num = document.getElementById('card-number').value.replace(/\s/g,'');
+  const exp = document.getElementById('card-expiry').value;
+  const cvv = document.getElementById('card-cvv').value;
+  const name = document.getElementById('card-name').value.trim();
+  const errEl = document.getElementById('stripe-error');
+  errEl.style.display = 'none';
+
+  if (num.length < 16) { errEl.textContent = 'Невалиден номер на карта.'; errEl.style.display='block'; return; }
+  if (!/^\d{2}\/\d{2}$/.test(exp)) { errEl.textContent = 'Невалидна дата (MM/YY).'; errEl.style.display='block'; return; }
+  if (cvv.length < 3) { errEl.textContent = 'Невалиден CVV.'; errEl.style.display='block'; return; }
+  if (!name) { errEl.textContent = 'Въведи името на картодържателя.'; errEl.style.display='block'; return; }
+
+  // Validate expiry date
+  const [mm, yy] = exp.split('/');
+  const expDate = new Date(2000 + parseInt(yy), parseInt(mm) - 1);
+  if (expDate < new Date()) { errEl.textContent = 'Картата е изтекла.'; errEl.style.display='block'; return; }
+
+  const btn = document.getElementById('stripe-pay-btn');
+  btn.textContent = '⏳ Обработва се...';
+  btn.disabled = true;
+
+  // Simulate processing delay
+  await new Promise(r => setTimeout(r, 1500));
+  await confirmPayment('stripe');
+}
+
+async function submitPayPalPayment() {
+  const email = document.getElementById('paypal-email').value.trim();
+  const pass = document.getElementById('paypal-pass').value;
+  const errEl = document.getElementById('paypal-error');
+  errEl.style.display = 'none';
+
+  if (!email || !email.includes('@')) { errEl.textContent = 'Въведи валиден PayPal имейл.'; errEl.style.display='block'; return; }
+  if (pass.length < 6) { errEl.textContent = 'Паролата трябва да е минимум 6 символа.'; errEl.style.display='block'; return; }
+
+  await new Promise(r => setTimeout(r, 1500));
+  await confirmPayment('paypal');
+}
+
+async function confirmPayment(method) {
+  if (!_payBidId) return;
+  try {
+    // First accept the bid
+    await apiFetch(`/bids/${_payBidId}/status`, { method:'PATCH', body: JSON.stringify({ status: 'Accepted' }) });
+
+    // Then process payment using stored bid data
+    if (_payBidData && _payBidData.projectId && _payBidData.amount) {
+      const payBody = {
+        projectId: parseInt(_payBidData.projectId),
+        amount: parseFloat(_payBidData.amount),
+        notes: 'Плащане за приета оферта'
+      };
+      await apiFetch(`/payments/${method}`, { method:'POST', body: JSON.stringify(payBody) });
+    }
+
+    document.getElementById('payment-modal').style.display = 'none';
+    _payBidId = null;
+    _payBidData = null;
+    renderMyProjects();
+    alert('✅ Офертата е приета и плащането е обработено!');
+  } catch(e) { alert(e.message); }
+}
+
 async function deleteProject(id) {
-  if (!confirm('Ð¡Ð¸Ð³ÑƒÑ€ÐµÐ½ Ð»Ð¸ ÑÐ¸, Ñ‡Ðµ Ð¸ÑÐºÐ°Ñˆ Ð´Ð° Ð¸Ð·Ñ‚Ñ€Ð¸ÐµÑˆ Ð¿Ñ€Ð¾ÐµÐºÑ‚Ð°?')) return;
+  if (!confirm('Сигурен ли си, че искаш да изтриеш проекта?')) return;
   try {
     await apiFetch(`/projects/${id}`, { method:'DELETE' });
     renderMyProjects();
@@ -296,20 +402,94 @@ async function deleteProject(id) {
 buildMenu('overview');
 renderOverview();
 </script>
+<script src="/js/i18n.js"></script>
+
+<!-- Payment Modal -->
+<div id="payment-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9999;align-items:center;justify-content:center;padding:16px">
+  <div style="background:#fff;border-radius:20px;padding:0;max-width:480px;width:100%;box-shadow:0 24px 80px rgba(0,0,0,.25);overflow:hidden">
+    
+    <!-- Method selector tabs -->
+    <div id="pay-step-1">
+      <div style="background:linear-gradient(135deg,#1b5fa8,#2d82d8);padding:24px 28px;color:#fff">
+        <div style="font-size:1.3rem;font-weight:800;font-family:Sora,sans-serif;margin-bottom:4px">💳 Плащане</div>
+        <div style="opacity:.85;font-size:.9rem" id="pay-amount-label">Сума: —</div>
+      </div>
+      <div style="padding:24px 28px">
+        <p style="color:var(--g600);margin-bottom:16px;font-size:.9rem">Избери метод на плащане:</p>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <button onclick="showPayForm('stripe')" style="display:flex;align-items:center;gap:14px;background:#f8f8ff;border:2px solid #635bff;border-radius:12px;padding:14px 18px;cursor:pointer;font-size:.95rem;font-weight:600;color:#635bff;transition:.2s" onmouseover="this.style.background='#635bff';this.style.color='#fff'" onmouseout="this.style.background='#f8f8ff';this.style.color='#635bff'">
+            <span style="font-size:1.4rem">💳</span> Кредитна / Дебитна карта (Stripe)
+          </button>
+          <button onclick="showPayForm('paypal')" style="display:flex;align-items:center;gap:14px;background:#f0f6ff;border:2px solid #003087;border-radius:12px;padding:14px 18px;cursor:pointer;font-size:.95rem;font-weight:600;color:#003087;transition:.2s" onmouseover="this.style.background='#003087';this.style.color='#fff'" onmouseout="this.style.background='#f0f6ff';this.style.color='#003087'">
+            <span style="font-size:1.4rem">🅿</span> PayPal
+          </button>
+          <button onclick="confirmPayment('simulated')" style="display:flex;align-items:center;gap:14px;background:#f5f5f5;border:2px solid #ccc;border-radius:12px;padding:14px 18px;cursor:pointer;font-size:.95rem;font-weight:600;color:#666;transition:.2s" onmouseover="this.style.background='#eee'" onmouseout="this.style.background='#f5f5f5'">
+            <span style="font-size:1.4rem">🧪</span> Тестово плащане
+          </button>
+        </div>
+        <button onclick="document.getElementById('payment-modal').style.display='none'" style="width:100%;background:none;border:none;color:var(--g500);padding:14px;cursor:pointer;font-size:.88rem;margin-top:8px">Откажи</button>
+      </div>
+    </div>
+
+    <!-- Stripe card form -->
+    <div id="pay-step-stripe" style="display:none">
+      <div style="background:linear-gradient(135deg,#635bff,#8b5cf6);padding:24px 28px;color:#fff">
+        <div style="font-size:1.2rem;font-weight:800;font-family:Sora,sans-serif">💳 Stripe плащане</div>
+        <div style="opacity:.85;font-size:.88rem;margin-top:4px" id="stripe-amount-label"></div>
+      </div>
+      <div style="padding:24px 28px">
+        <div style="margin-bottom:16px">
+          <label style="font-size:.82rem;font-weight:700;color:var(--g600);display:block;margin-bottom:6px">Номер на картата</label>
+          <input id="card-number" type="text" maxlength="19" placeholder="1234 5678 9012 3456" oninput="formatCardNumber(this)" style="width:100%;padding:12px 14px;border:2px solid var(--g200);border-radius:10px;font-size:1rem;font-family:monospace;outline:none;transition:.2s;box-sizing:border-box" onfocus="this.style.borderColor='#635bff'" onblur="this.style.borderColor='var(--g200)'"/>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+          <div>
+            <label style="font-size:.82rem;font-weight:700;color:var(--g600);display:block;margin-bottom:6px">Валидна до</label>
+            <input id="card-expiry" type="text" maxlength="5" placeholder="MM/YY" oninput="formatExpiry(this)" style="width:100%;padding:12px 14px;border:2px solid var(--g200);border-radius:10px;font-size:1rem;font-family:monospace;outline:none;transition:.2s;box-sizing:border-box" onfocus="this.style.borderColor='#635bff'" onblur="this.style.borderColor='var(--g200)'"/>
+          </div>
+          <div>
+            <label style="font-size:.82rem;font-weight:700;color:var(--g600);display:block;margin-bottom:6px">CVV</label>
+            <input id="card-cvv" type="password" maxlength="4" placeholder="•••" style="width:100%;padding:12px 14px;border:2px solid var(--g200);border-radius:10px;font-size:1rem;font-family:monospace;outline:none;transition:.2s;box-sizing:border-box" onfocus="this.style.borderColor='#635bff'" onblur="this.style.borderColor='var(--g200)'"/>
+          </div>
+        </div>
+        <div style="margin-bottom:20px">
+          <label style="font-size:.82rem;font-weight:700;color:var(--g600);display:block;margin-bottom:6px">Име на картодържателя</label>
+          <input id="card-name" type="text" placeholder="IVAN IVANOV" style="width:100%;padding:12px 14px;border:2px solid var(--g200);border-radius:10px;font-size:1rem;text-transform:uppercase;outline:none;transition:.2s;box-sizing:border-box" onfocus="this.style.borderColor='#635bff'" onblur="this.style.borderColor='var(--g200)'"/>
+        </div>
+        <div id="stripe-error" style="color:#e53e3e;font-size:.83rem;margin-bottom:12px;display:none"></div>
+        <button onclick="submitStripePayment()" id="stripe-pay-btn" style="width:100%;background:#635bff;color:#fff;border:none;border-radius:12px;padding:14px;font-size:1rem;font-weight:700;cursor:pointer;transition:.2s">
+          🔒 Плати сигурно
+        </button>
+        <button onclick="document.getElementById('pay-step-stripe').style.display='none';document.getElementById('pay-step-1').style.display='block'" style="width:100%;background:none;border:none;color:var(--g500);padding:10px;cursor:pointer;font-size:.85rem;margin-top:6px">← Назад</button>
+        <div style="text-align:center;margin-top:12px;font-size:.75rem;color:var(--g400)">🔒 Защитено плащане · SSL криптиране</div>
+      </div>
+    </div>
+
+    <!-- PayPal form -->
+    <div id="pay-step-paypal" style="display:none">
+      <div style="background:linear-gradient(135deg,#003087,#009cde);padding:24px 28px;color:#fff">
+        <div style="font-size:1.2rem;font-weight:800;font-family:Sora,sans-serif">🅿 PayPal плащане</div>
+        <div style="opacity:.85;font-size:.88rem;margin-top:4px" id="paypal-amount-label"></div>
+      </div>
+      <div style="padding:24px 28px">
+        <div style="margin-bottom:16px">
+          <label style="font-size:.82rem;font-weight:700;color:var(--g600);display:block;margin-bottom:6px">PayPal имейл</label>
+          <input id="paypal-email" type="email" placeholder="example@paypal.com" style="width:100%;padding:12px 14px;border:2px solid var(--g200);border-radius:10px;font-size:1rem;outline:none;transition:.2s;box-sizing:border-box" onfocus="this.style.borderColor='#009cde'" onblur="this.style.borderColor='var(--g200)'"/>
+        </div>
+        <div style="margin-bottom:20px">
+          <label style="font-size:.82rem;font-weight:700;color:var(--g600);display:block;margin-bottom:6px">PayPal парола</label>
+          <input id="paypal-pass" type="password" placeholder="••••••••" style="width:100%;padding:12px 14px;border:2px solid var(--g200);border-radius:10px;font-size:1rem;outline:none;transition:.2s;box-sizing:border-box" onfocus="this.style.borderColor='#009cde'" onblur="this.style.borderColor='var(--g200)'"/>
+        </div>
+        <div id="paypal-error" style="color:#e53e3e;font-size:.83rem;margin-bottom:12px;display:none"></div>
+        <button onclick="submitPayPalPayment()" style="width:100%;background:#ffc439;color:#003087;border:none;border-radius:12px;padding:14px;font-size:1rem;font-weight:800;cursor:pointer;transition:.2s">
+          🅿 Плати с PayPal
+        </button>
+        <button onclick="document.getElementById('pay-step-paypal').style.display='none';document.getElementById('pay-step-1').style.display='block'" style="width:100%;background:none;border:none;color:var(--g500);padding:10px;cursor:pointer;font-size:.85rem;margin-top:6px">← Назад</button>
+        <div style="text-align:center;margin-top:12px;font-size:.75rem;color:var(--g400)">🔒 Защитено от PayPal · SSL криптиране</div>
+      </div>
+    </div>
+
+  </div>
+</div>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

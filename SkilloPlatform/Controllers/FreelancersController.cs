@@ -1,4 +1,4 @@
-﻿using System.Security.Claims;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,8 +14,6 @@ public class FreelancersController : ControllerBase
 {
     private readonly SkilloDbContext _db;
 
-    // Freelancers Controller - handles profile CRUD
-    // Dependency injection
     public FreelancersController(SkilloDbContext db) => _db = db;
 
     private int UserId => int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
@@ -59,7 +57,7 @@ public class FreelancersController : ControllerBase
             .Include(fp => fp.Certificates)
             .FirstOrDefaultAsync(fp => fp.UserId == UserId);
 
-        if (profile is null) return NotFound(new { message = "ÐŸÑ€Ð¾Ñ„Ð¸Ð»ÑŠÑ‚ Ð½Ðµ Ðµ Ð½Ð°Ð¼ÐµÑ€ÐµÐ½." });
+        if (profile is null) return NotFound(new { message = "Профилът не е намерен." });
 
         var services = await _db.Services.Where(s => s.UserId == UserId && s.IsActive).ToListAsync();
         var reviews  = await GetReviews(UserId);
@@ -100,7 +98,7 @@ public class FreelancersController : ControllerBase
             .Include(fp => fp.Certificates)
             .FirstOrDefaultAsync(fp => fp.UserId == userId);
 
-        if (profile is null) return NotFound(new { message = "ÐÐµ Ðµ Ð½Ð°Ð¼ÐµÑ€ÐµÐ½." });
+        if (profile is null) return NotFound(new { message = "Не е намерен." });
 
         var services = await _db.Services.Where(s => s.UserId == userId && s.IsActive).ToListAsync();
         var reviews  = await GetReviews(userId);
@@ -154,7 +152,7 @@ public class FreelancersController : ControllerBase
         profile.UpdatedAt       = DateTime.UtcNow;
 
         await _db.SaveChangesAsync();
-        return Ok(new { message = "ÐŸÑ€Ð¾Ñ„Ð¸Ð»ÑŠÑ‚ Ðµ Ð¾Ð±Ð½Ð¾Ð²ÐµÐ½." });
+        return Ok(new { message = "Профилът е обновен." });
     }
 
     // POST /api/freelancers/avatar
@@ -163,10 +161,10 @@ public class FreelancersController : ControllerBase
     public async Task<IActionResult> UploadAvatar(IFormFile avatar)
     {
         if (avatar is null || avatar.Length == 0)
-            return BadRequest(new { message = "ÐÐµ Ðµ ÐºÐ°Ñ‡ÐµÐ½ Ñ„Ð°Ð¹Ð»." });
+            return BadRequest(new { message = "Не е качен файл." });
 
         if (avatar.Length > 5 * 1024 * 1024)
-            return BadRequest(new { message = "Ð¤Ð°Ð¹Ð»ÑŠÑ‚ Ðµ Ð¿Ñ€ÐµÐºÐ°Ð»ÐµÐ½Ð¾ Ð³Ð¾Ð»ÑÐ¼ (Ð¼Ð°ÐºÑ. 5MB)." });
+            return BadRequest(new { message = "Файлът е прекалено голям (макс. 5MB)." });
 
         var uploadsDir = Path.Combine("wwwroot", "uploads");
         Directory.CreateDirectory(uploadsDir);
@@ -186,7 +184,7 @@ public class FreelancersController : ControllerBase
         return Ok(new { avatar = url });
     }
 
-    // â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── Helpers ───────────────────────────────────────────────
     private async Task<List<object>> GetReviews(int userId)
     {
         var reviews = await _db.Reviews
@@ -221,6 +219,3 @@ public class FreelancersController : ControllerBase
         );
     }
 }
-
-
-

@@ -72,11 +72,15 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<SkilloDbContext>();
-    if (app.Environment.IsProduction())
-        db.Database.EnsureCreated();
-    else
+    try
+    {
         db.Database.Migrate();
-    SkilloDbContext.SeedData(db);
+        SkilloDbContext.SeedData(db);
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Migration/Seed error: {ex.Message}");
+    }
 }
 
 if (app.Environment.IsDevelopment())

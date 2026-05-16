@@ -1,4 +1,4 @@
-const API = window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : '/api';
+const API = 'http://localhost:5000/api';
 
 const Auth = {
   token:       () => localStorage.getItem('sk_token'),
@@ -215,23 +215,18 @@ async function updateChatBadge() {
     let unread = 0;
 
     for (const conv of arr) {
-      if (!conv.lastMessage) continue; // no messages yet
-      
+      if (!conv.lastMessage) continue;
+
       const convKey = 'c' + conv.id;
-      const lastTime = new Date(conv.lastMessageAt || conv.updatedAt || 0).getTime();
+      const lastMsg = conv.lastMessage;
+      
+      // Only count if last message is from OTHER person
+      if (!lastMsg || lastMsg.senderId === myId) continue;
+
+      const lastTime = new Date(lastMsg.createdAt || conv.updatedAt || 0).getTime();
       const seenTime = seenData[convKey] || 0;
 
-      if (lastTime <= seenTime) continue; // already seen
-
-      // Need to check if last message is from someone else
-      // Use the otherUserId to determine - if conv has unread from OTHER
-      // We check via a lightweight request
-      const msgs = await apiFetch('/chat/conversations/' + conv.id + '/messages').catch(() => []);
-      const msgsArr = Array.isArray(msgs) ? msgs : [];
-      if (!msgsArr.length) continue;
-      
-      const lastMsg = msgsArr[msgsArr.length - 1];
-      if (lastMsg && lastMsg.senderId !== myId) {
+      if (lastTime > seenTime) {
         unread++;
       }
     }
@@ -243,7 +238,7 @@ async function updateChatBadge() {
       badge.style.display = 'none';
     }
   } catch(e) {
-    // Silently fail - don't break the page
+    // Silently fail
   }
 }
 

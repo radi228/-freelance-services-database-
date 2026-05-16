@@ -1,0 +1,33 @@
+## .NET
+bin/
+obj/
+*.user
+*.suo
+.vs/
+*.swp
+
+## Migrations (generated locally)
+Migrations/
+
+## Database files
+*.db
+*.mdf
+*.ldf
+*.db-shm
+*.db-wal
+
+## Build output
+out/
+publish/
+
+## Environment
+appsettings.Development.json
+.env
+
+## OS
+.DS_Store
+Thumbs.db
+
+## IDE
+.idea/
+*.user

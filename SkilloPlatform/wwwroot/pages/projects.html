@@ -151,15 +151,10 @@ async function init() {
   // Check if specific project ID in URL
   const urlId = new URLSearchParams(window.location.search).get('id');
   if (urlId) {
-    // Load and scroll to that project
     await load();
     setTimeout(() => {
-      const card = document.querySelector(`[data-proj-id="${urlId}"]`);
-      if (card) {
-        card.style.border = '2px solid var(--blue)';
-        card.style.boxShadow = '0 0 0 4px rgba(27,95,168,.15)';
-        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
+      const proj = allProjects.find(p => String(p.id) === String(urlId));
+      if (proj) openDetail(proj);
     }, 500);
     return;
   }

@@ -285,7 +285,7 @@ async function uploadAv() {
   const fd = new FormData();
   fd.append('avatar', file);
   try {
-    const data = await apiFetch('/users/avatar', { method:'POST', body: fd });
+    const data = await apiFetch('/freelancers/avatar', { method:'POST', body: fd });
     const saved = Auth.user();
     saved.avatar = data.avatar;
     localStorage.setItem('sk_user', JSON.stringify(saved));

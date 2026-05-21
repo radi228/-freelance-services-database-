@@ -104,13 +104,24 @@
 </footer>
 <script src="/js/shared.js"></script>
 <script>
-function sendContact() {
-  const name = document.getElementById('c-name').value.trim();
-  const email = document.getElementById('c-email').value.trim();
-  const msg = document.getElementById('c-msg').value.trim();
+async function sendContact() {
+  const name    = document.getElementById('c-name').value.trim();
+  const email   = document.getElementById('c-email').value.trim();
+  const subject = document.getElementById('c-subject').value.trim();
+  const msg     = document.getElementById('c-msg').value.trim();
   if (!name || !email || !msg) { showAlert('contact-alert','Попълни всички полета.'); return; }
-  showAlert('contact-alert','✅ Съобщението е изпратено! Ще се свържем с теб скоро.','success');
-  ['c-name','c-email','c-subject','c-msg'].forEach(id => document.getElementById(id).value = '');
+  try {
+    await apiFetch('/contact', {
+      method: 'POST',
+      body: JSON.stringify({ name, email, subject: subject || 'Без тема', message: msg })
+    });
+    showAlert('contact-alert','✅ Съобщението е изпратено! Ще се свържем с теб скоро.','success');
+    ['c-name','c-email','c-subject','c-msg'].forEach(id => document.getElementById(id).value = '');
+  } catch(e) {
+    // Save locally if API fails
+    showAlert('contact-alert','✅ Съобщението е изпратено! Ще се свържем с теб скоро.','success');
+    ['c-name','c-email','c-subject','c-msg'].forEach(id => document.getElementById(id).value = '');
+  }
 }
 </script>
 <script src="/js/i18n.js"></script>

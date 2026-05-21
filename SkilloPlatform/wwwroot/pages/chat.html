@@ -111,8 +111,7 @@
         <div class="chat-top" id="chat-top"></div>
         <div class="chat-messages" id="chat-messages"></div>
         <div class="chat-input-area">
-          <input type="file" id="chat-file-input" accept="image/*,.pdf,.doc,.docx" style="display:none" onchange="sendFile(this)"/>
-          <button onclick="document.getElementById('chat-file-input').click()" style="width:38px;height:38px;border-radius:50%;background:var(--g100);border:2px solid var(--g200);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;transition:.2s" title="Прикачи файл" onmouseover="this.style.borderColor='var(--blue)'" onmouseout="this.style.borderColor='var(--g200)'">📎</button>
+          
           <textarea id="msg-input" placeholder="Напиши съобщение…" rows="1"
             onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMsg()}"
             oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,120)+'px'"></textarea>

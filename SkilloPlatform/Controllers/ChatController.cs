@@ -67,6 +67,7 @@ public class ChatController : ControllerBase
             return new { id=c.Id, otherUserId=other.Id, otherUserName=other.FullName,
                 otherAvatar=other.Avatar, otherRole=other.Role,
                 lastMessage=last?.Content??"", lastMessageAt=last?.CreatedAt,
+                lastSenderId=last?.SenderId,
                 isSupport=c.IsSupport, updatedAt=c.UpdatedAt };
         }));
     }

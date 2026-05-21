@@ -209,26 +209,20 @@ async function updateChatBadge() {
     const me = Auth.user();
     const myId = me?.id;
     const convs = await apiFetch('/chat/conversations');
-    const arr = Array.isArray(convs) ? convs : [];
+    const arr = Array.isArray(convs) ? convs : (convs?.$values || []);
 
     const seenData = JSON.parse(localStorage.getItem('sk_seen_v2') || '{}');
     let unread = 0;
 
     for (const conv of arr) {
       if (!conv.lastMessage) continue;
+      // Skip if last message was sent by me
+      if (conv.lastSenderId === myId) continue;
 
       const convKey = 'c' + conv.id;
-      const lastMsg = conv.lastMessage;
-      
-      // Only count if last message is from OTHER person
-      if (!lastMsg || lastMsg.senderId === myId) continue;
-
-      const lastTime = new Date(lastMsg.createdAt || conv.updatedAt || 0).getTime();
+      const lastTime = new Date(conv.lastMessageAt || conv.updatedAt || 0).getTime();
       const seenTime = seenData[convKey] || 0;
-
-      if (lastTime > seenTime) {
-        unread++;
-      }
+      if (lastTime > seenTime) unread++;
     }
 
     if (unread > 0) {
@@ -237,9 +231,7 @@ async function updateChatBadge() {
     } else {
       badge.style.display = 'none';
     }
-  } catch(e) {
-    // Silently fail
-  }
+  } catch(e) { /* silently fail */ }
 }
 
 function markChatSeen() {

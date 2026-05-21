@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Профил – Skillo</title>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="/css/main.css"/>
+  <link rel="stylesheet" href="/css/main.css?v=20260521155424"/>
   <style>
     .profile-layout{display:grid;grid-template-columns:320px 1fr;gap:32px;max-width:1100px;margin:40px auto;padding:0 5vw}
     .sidebar{display:flex;flex-direction:column;gap:20px}
@@ -126,7 +126,7 @@
   </div>
 </div>
 
-<script src="/js/shared.js"></script>
+<script src="/js/shared.js?v=20260521155424"></script>
 <script>
 const userId = new URLSearchParams(location.search).get('id');
 
@@ -154,7 +154,7 @@ async function load() {
 
     // Avatar
     const avEl = document.getElementById('p-avatar');
-    avEl.innerHTML = f.avatar ? `<img src="http://localhost:5000${f.avatar}" alt=""/>` : f.fullName[0];
+    avEl.innerHTML = f.avatar ? `<img src="${f.avatar}" alt=""/>` : f.fullName[0];
 
     document.getElementById('p-name').textContent = f.fullName;
     document.getElementById('p-title').textContent = f.title;

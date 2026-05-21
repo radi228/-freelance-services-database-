@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="bg">
 <head>
   <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Администрация – Skillo</title>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="/css/main.css"/>
+  <link rel="stylesheet" href="/css/main.css?v=20260521155424"/>
   <style>
     .admin-layout{display:grid;grid-template-columns:220px 1fr;gap:0;min-height:calc(100vh - 68px)}
     .admin-side{background:var(--g900);padding:24px 0;position:sticky;top:68px;height:calc(100vh - 68px);overflow-y:auto}
@@ -100,6 +100,9 @@
       </button>
       <button class="aside-item super-only" onclick="showPanel('categories')" id="btn-categories">
         <span class="icon">🗂</span>Категории
+      </button>
+      <button class="aside-item" onclick="showPanel('contacts')" id="btn-contacts">
+        <span class="icon">📬</span>Контакти
       </button>
 
       <div style="margin-top:auto;padding:20px">
@@ -240,9 +243,17 @@
     <div class="form-group"><label>Икона (emoji)</label><input id="cat-icon" placeholder="🎵" maxlength="4"/></div>
     <button class="btn btn-primary btn-full" style="padding:12px" onclick="saveCategory()">Добави</button>
   </div>
+
+      <!-- CONTACTS PANEL -->
+      <div id="panel-contacts" class="panel">
+        <div class="admin-header"><div><h2>📬 Контактни съобщения</h2></div></div>
+        <div id="contacts-list"><div class="loading"><div class="spinner"></div></div></div>
+      </div>
+
+  </div>
 </div>
 
-<script src="/js/shared.js"></script>
+<script src="/js/shared.js?v=20260521155424"></script>
 <script>
 const me = Auth.user();
 if (!me || !Auth.isAdmin()) { window.location.href = '/index.html'; }
@@ -265,7 +276,7 @@ function showPanel(id) {
   document.querySelectorAll('.aside-item').forEach(b => b.classList.remove('active'));
   document.getElementById('panel-' + id)?.classList.add('active');
   document.getElementById('btn-' + id)?.classList.add('active');
-  const loaders = { users: loadUsers, freelancers: loadFLAdmin, projects: loadProjects, services: loadServices, admins: loadAdmins, categories: loadCategories, dashboard: loadDashboard };
+  const loaders = { users: loadUsers, freelancers: loadFLAdmin, projects: loadProjects, services: loadServices, admins: loadAdmins, categories: loadCategories, dashboard: loadDashboard, contacts: loadContacts };
   loaders[id]?.();
 }
 
@@ -307,7 +318,11 @@ async function loadDashboard() {
         <div style="font-size:.74rem;color:var(--g500)">${p.clientName} · ${p.budgetMin}–${p.budgetMax} €</div>
       </div>`).join('');
 
-  } catch(e) { console.error(e); }
+  } catch(e) { 
+    console.error('Dashboard error:', e);
+    const sr = document.getElementById('stats-row');
+    if (sr) sr.innerHTML = '<p style="color:red;padding:10px">Грешка при зареждане: ' + e.message + '</p>';
+  }
   // Also load admins and categories for SuperAdmin
   if (isSuperAdmin) {
     loadAdmins();
@@ -336,7 +351,7 @@ async function loadUsers() {
       return `
       <div class="user-row ${banned ? 'opacity:0.6' : ''}">
         <div class="user-av">
-          ${u.avatar ? `<img src="http://localhost:5000${u.avatar}" alt=""/>` : (u.fullName?.[0] || '?')}
+          ${u.avatar ? `<img src="${u.avatar}" alt=""/>` : (u.fullName?.[0] || '?')}
         </div>
         <div class="user-info-col">
           <div class="user-name">${u.fullName} ${banned ? '<span class="badge badge-red">Блокиран</span>' : ''}</div>
@@ -410,7 +425,7 @@ async function loadFLAdmin() {
     el.innerHTML = list.map(f => `
       <div class="user-row">
         <div class="user-av">
-          ${f.avatar ? `<img src="http://localhost:5000${f.avatar}" alt=""/>` : f.fullName[0]}
+          ${f.avatar ? `<img src="${f.avatar}" alt=""/>` : f.fullName[0]}
         </div>
         <div class="user-info-col">
           <div class="user-name">${f.fullName} ${f.isVerified ? '<span class="badge badge-green">✓ Верифициран</span>' : ''}</div>
@@ -584,6 +599,46 @@ async function deleteCat(id) {
 
 // ── Init ───────────────────────────────────────────
 loadDashboard();
+
+async function loadContacts() {
+  const el = document.getElementById('contacts-list');
+  el.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+  try {
+    const msgs = await apiFetch('/contact');
+    const arr = Array.isArray(msgs) ? msgs : [];
+    if (!arr.length) { el.innerHTML = '<p style="color:var(--g500);padding:20px">Няма съобщения.</p>'; return; }
+    el.innerHTML = arr.map(m => `
+      <div style="background:#fff;border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:var(--sh);border-left:4px solid ${m.isReplied ? '#38a169' : '#e53e3e'}">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:8px">
+          <div>
+            <strong>${m.name}</strong> · <a href="mailto:${m.email}" style="color:var(--blue)">${m.email}</a>
+            <span style="margin-left:12px;font-size:.8rem;color:var(--g500)">${new Date(m.createdAt).toLocaleString('bg-BG')}</span>
+          </div>
+          <span style="padding:4px 12px;border-radius:20px;font-size:.78rem;font-weight:700;background:${m.isReplied ? '#c6f6d5' : '#fed7d7'};color:${m.isReplied ? '#276749' : '#9b2c2c'}">
+            ${m.isReplied ? '✓ Отговорено' : '⏳ Чака отговор'}
+          </span>
+        </div>
+        <div style="font-weight:600;margin-bottom:8px;color:var(--blue)">📌 ${m.subject}</div>
+        <div style="color:var(--g600);font-size:.9rem;line-height:1.6;background:var(--g100);padding:12px;border-radius:8px;margin-bottom:12px">${m.message}</div>
+        ${m.replyNote ? `<div style="font-size:.82rem;color:var(--g500);margin-bottom:8px">Бележка: ${m.replyNote}</div>` : ''}
+        ${!m.isReplied ? `
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <input id="note-${m.id}" placeholder="Бележка (незадължително)" style="flex:1;padding:8px 12px;border:1px solid var(--g200);border-radius:8px;font-size:.85rem"/>
+          <button onclick="markReplied(${m.id})" class="btn btn-primary btn-sm">✓ Маркирай като отговорено</button>
+        </div>` : ''}
+      </div>
+    `).join('');
+  } catch(e) { el.innerHTML = `<p style="color:red;padding:20px">Грешка: ${e.message}</p>`; }
+}
+
+async function markReplied(id) {
+  const note = document.getElementById('note-' + id)?.value || '';
+  try {
+    await apiFetch('/contact/' + id + '/replied', { method: 'PATCH', body: JSON.stringify({ note }) });
+    loadContacts();
+  } catch(e) { alert('Грешка: ' + e.message); }
+}
+
 </script>
 <script src="/js/i18n.js"></script>
 </body>

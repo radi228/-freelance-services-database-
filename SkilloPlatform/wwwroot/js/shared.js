@@ -1,4 +1,5 @@
-const API = 'http://localhost:5000/api';
+// Skillo v1.3.0 - Build 202605211501
+const API = window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : '/api';
 
 const Auth = {
   token:       () => localStorage.getItem('sk_token'),
@@ -93,7 +94,7 @@ function buildNav() {
     if (userNameEl)  userNameEl.textContent    = u.name.split(' ')[0];
     if (userAvatarEl) {
       if (u.avatar) {
-        userAvatarEl.innerHTML = `<img src="http://localhost:5000${u.avatar}" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;
+        userAvatarEl.innerHTML = `<img src="${u.avatar}" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;
       } else {
         userAvatarEl.textContent = u.name[0].toUpperCase();
       }

@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Моят профил – Skillo</title>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="/css/main.css"/>
+  <link rel="stylesheet" href="/css/main.css?v=20260521155424"/>
   <style>
     .profile-wrap{max-width:580px;margin:40px auto;padding:0 5vw}
     .profile-card-big{background:#fff;border-radius:var(--rl);padding:36px;box-shadow:var(--sh);border:1px solid var(--g200)}
@@ -88,7 +88,7 @@
   </div>
 </div>
 
-<script src="/js/shared.js"></script>
+<script src="/js/shared.js?v=20260521155424"></script>
 <script>
 const user = Auth.user();
 if (!user) window.location.href = '/index.html';
@@ -103,7 +103,7 @@ async function loadProfile() {
 
     const av = document.getElementById('big-av');
     if (data.avatar) {
-      av.innerHTML = `<img src="http://localhost:5000${data.avatar}" alt=""/>`;
+      av.innerHTML = `<img src="${data.avatar}" alt=""/>`;
     }
   } catch(e) { showAlert('main-alert', e.message); }
 }

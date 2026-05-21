@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Оферти от фрийлансъри – Skillo</title>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="/css/main.css"/>
+  <link rel="stylesheet" href="/css/main.css?v=20260521155424"/>
   <style>
     .filters{background:#fff;border-radius:var(--rl);padding:20px 24px;box-shadow:var(--sh);margin-bottom:28px;display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end;border:1px solid var(--g200)}
     .filter-group{display:flex;flex-direction:column;gap:6px}
@@ -115,7 +115,7 @@
   <div class="footer-bottom"><p>© 2025 Skillo. Всички права запазени.</p></div>
 </footer>
 
-<script src="/js/shared.js"></script>
+<script src="/js/shared.js?v=20260521155424"></script>
 <script>
 const emojis = ['👨‍💻','🎨','✍️','📊','🎬','🤖','📱','🔒','🌐','📈'];
 const serviceMap = {};
@@ -159,7 +159,7 @@ async function load() {
     list.forEach(s => { serviceMap[s.id] = s; });
     grid.innerHTML = list.map((s,i) => {
       const av = s.avatar
-        ? `<img src="http://localhost:5000${s.avatar}" alt=""/>`
+        ? `<img src="${s.avatar}" alt=""/>`
         : emojis[i % emojis.length];
       return `
       <div class="svc-card">
@@ -196,7 +196,7 @@ function viewDetail(id) {
   const s = serviceMap[id];
   if (!s) return;
   const av = s.avatar
-    ? `<img src="http://localhost:5000${s.avatar}" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:50%"/>`
+    ? `<img src="${s.avatar}" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:50%"/>`
     : (s.freelancerName?.[0] || '?');
   document.getElementById('svc-detail-body').innerHTML = `
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--g200)">

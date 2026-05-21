@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Моят профил – Skillo</title>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="/css/main.css"/>
+  <link rel="stylesheet" href="/css/main.css?v=20260521155424"/>
   <style>
     .prof-layout{display:grid;grid-template-columns:260px 1fr;gap:28px;max-width:1100px;margin:40px auto;padding:0 5vw}
     .prof-nav{background:#fff;border-radius:var(--rl);padding:16px;box-shadow:var(--sh);height:fit-content;position:sticky;top:88px}
@@ -72,7 +72,7 @@
           <div class="form-group"><label>Заглавие (позиция)</label><input id="b-title" placeholder="напр. Full-Stack Developer"/></div>
           <div class="form-group"><label>Биография</label><textarea id="b-bio" rows="5" placeholder="Разкажи за себе си, опита и специализацията ти…"></textarea></div>
           <div class="form-row">
-            <div class="form-group"><label>Категория</label><select id="b-cat"><option value="">Избери…</option></select></div>
+            <div class="form-group"><label>Категории (избери няколко)</label><div id="b-cat-wrap" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;padding:10px;border:1px solid var(--g200);border-radius:8px"></div><input type="hidden" id="b-cat"/></div>
             <div class="form-group"><label>Цена (€/час)</label><input id="b-rate" type="number" placeholder="45"/></div>
           </div>
           <div class="form-group"><label>Местоположение</label><input id="b-location" placeholder="София, България"/></div>
@@ -198,7 +198,7 @@
   </div>
 </div>
 
-<script src="/js/shared.js"></script>
+<script src="/js/shared.js?v=20260521155424"></script>
 <script>
 const user = Auth.user();
 if (!user || user.role !== 'Freelancer') window.location.href = '/index.html';
@@ -218,16 +218,25 @@ function switchPanel(id) {
 async function loadProfile() {
   try {
     profile = await apiFetch('/freelancers/me/full');
-    const cats = await apiFetch('/categories');
-    const sel = document.getElementById('b-cat');
-    cats.forEach(c => sel.add(new Option(c.name, c.name)));
+    const catsRaw = await apiFetch('/categories');
 
     document.getElementById('b-title').value    = profile.title || '';
     document.getElementById('b-bio').value      = profile.bio || '';
     document.getElementById('b-rate').value     = profile.hourlyRate || '';
     document.getElementById('b-location').value = profile.location || '';
     document.getElementById('b-avail').value    = profile.isAvailable ? '1' : '0';
-    if (profile.category) sel.value             = profile.category;
+    // Build category checkboxes
+    const catWrap = document.getElementById('b-cat-wrap');
+    if (catWrap && catsRaw) {
+      const catsArr = Array.isArray(catsRaw) ? catsRaw : (catsRaw?.$values || []);
+      const selectedCats = (profile.category || '').split(',').map(s => s.trim()).filter(Boolean);
+      catWrap.innerHTML = catsArr.map(cat => `
+        <label style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border:2px solid var(--g200);border-radius:20px;cursor:pointer;font-size:.82rem;font-weight:600;background:${selectedCats.includes(cat.name)?'var(--blue)':'#fff'};color:${selectedCats.includes(cat.name)?'#fff':'var(--g700)'};transition:all .15s">
+          <input type="checkbox" data-val="${cat.name}" ${selectedCats.includes(cat.name)?'checked':''} onchange="updateProfileCats()" style="accent-color:white;cursor:pointer"/>
+          ${cat.icon||'📁'} ${cat.name}
+        </label>`).join('');
+      document.getElementById('b-cat').value = selectedCats.join(', ');
+    }
 
     document.getElementById('sk-level').value   = profile.experienceLevel || 'Mid';
     document.getElementById('l-web').value      = profile.website || '';
@@ -235,7 +244,7 @@ async function loadProfile() {
     document.getElementById('l-gh').value       = profile.github || '';
 
     if (profile.avatar) {
-      document.getElementById('av-preview').innerHTML = `<img src="http://localhost:5000${profile.avatar}" alt=""/>`;
+      document.getElementById('av-preview').innerHTML = `<img src="${profile.avatar}" alt=""/>`;
     }
 
     document.getElementById('skills-hidden').value = profile.skills?.join(',') || '';
@@ -414,7 +423,7 @@ async function loadCerts() {
           <div class="exp-pos">${c.issuer}</div>
           <div class="exp-date">Издаден: ${c.issueDate}${c.expiryDate ? ' · Изтича: '+c.expiryDate : ''}</div>
           ${c.credential ? `<a href="${c.credential}" target="_blank" style="font-size:.8rem;color:var(--blue)">Провери →</a>` : ''}
-          ${c.fileUrl ? `<a href="http://localhost:5000${c.fileUrl}" target="_blank" style="font-size:.8rem;color:var(--blue);margin-left:8px">📄 Файл</a>` : ''}
+          ${c.fileUrl ? `<a href="${c.fileUrl}" target="_blank" style="font-size:.8rem;color:var(--blue);margin-left:8px">📄 Файл</a>` : ''}
         </div>
         <button class="btn btn-danger btn-sm" onclick="deleteCert(${c.id})">🗑</button>
       </div>`).join('');
@@ -458,6 +467,23 @@ async function deleteCert(id) {
 }
 
 loadProfile();
+
+function updateProfileCats() {
+  const selected = Array.from(document.querySelectorAll('#b-cat-wrap input[type=checkbox]:checked')).map(cb => cb.dataset.val);
+  document.getElementById('b-cat').value = selected.join(', ');
+  document.querySelectorAll('#b-cat-wrap label').forEach(label => {
+    const cb = label.querySelector('input');
+    if (cb.checked) {
+      label.style.background = 'var(--blue)';
+      label.style.color = '#fff';
+      label.style.borderColor = 'var(--blue)';
+    } else {
+      label.style.background = '#fff';
+      label.style.color = 'var(--g700)';
+      label.style.borderColor = 'var(--g200)';
+    }
+  });
+}
 </script>
 <script src="/js/i18n.js"></script>
 </body>

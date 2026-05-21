@@ -163,25 +163,21 @@ public class FreelancersController : ControllerBase
         if (avatar is null || avatar.Length == 0)
             return BadRequest(new { message = "Не е качен файл." });
 
-        if (avatar.Length > 5 * 1024 * 1024)
-            return BadRequest(new { message = "Файлът е прекалено голям (макс. 5MB)." });
+        if (avatar.Length > 2 * 1024 * 1024)
+            return BadRequest(new { message = "Файлът е прекалено голям (макс. 2MB)." });
 
-        var uploadsDir = Path.Combine("wwwroot", "uploads");
-        Directory.CreateDirectory(uploadsDir);
+        // Store as base64 data URL - works in any environment
+        using var ms = new System.IO.MemoryStream();
+        await avatar.CopyToAsync(ms);
+        var base64 = Convert.ToBase64String(ms.ToArray());
+        var mimeType = avatar.ContentType ?? "image/jpeg";
+        var dataUrl = $"data:{mimeType};base64,{base64}";
 
-        var ext      = Path.GetExtension(avatar.FileName);
-        var filename = $"{Guid.NewGuid():N}{ext}";
-        var filepath = Path.Combine(uploadsDir, filename);
-
-        using var stream = System.IO.File.Create(filepath);
-        await avatar.CopyToAsync(stream);
-
-        var url  = $"/uploads/{filename}";
         var user = await _db.Users.FindAsync(UserId)!;
-        user!.Avatar = url;
+        user!.Avatar = dataUrl;
         await _db.SaveChangesAsync();
 
-        return Ok(new { avatar = url });
+        return Ok(new { avatar = dataUrl });
     }
 
     // ── Helpers ───────────────────────────────────────────────

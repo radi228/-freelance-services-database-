@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="bg">
 <head>
   <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Проекти – Skillo</title>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="/css/main.css"/>
+  <link rel="stylesheet" href="/css/main.css?v=20260521155424"/>
   <style>
     .filters{background:#fff;border-radius:var(--rl);padding:24px;box-shadow:var(--sh);margin-bottom:28px;display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end}
     .filter-group{display:flex;flex-direction:column;gap:6px}
@@ -143,7 +143,7 @@
   <div class="footer-bottom"><p>© 2025 Skillo. Всички права запазени.</p></div>
 </footer>
 
-<script src="/js/shared.js"></script>
+<script src="/js/shared.js?v=20260521155424"></script>
 <script>
 let cats = [];
 
@@ -167,7 +167,10 @@ async function init() {
   const wrap = document.getElementById('pp-cats-wrap');
   if (wrap) {
     wrap.innerHTML = cats.map(cat => {
-      return `<input type="checkbox" data-val="${cat.name}" onchange="toggleCat(this)" style="display:inline-flex;align-items:center;gap:5px;padding:6px 14px;border:2px solid var(--g200);border-radius:20px;cursor:pointer;font-size:.82rem;font-weight:600;transition:all .15s;background:#fff;color:var(--g700)">${cat.icon||'📁'} ${cat.name}</span>`;
+      return `<label style="display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border:2px solid var(--g200);border-radius:20px;cursor:pointer;font-size:.82rem;font-weight:600;transition:all .15s;background:#fff;color:var(--g700);user-select:none">
+        <input type="checkbox" data-val="${cat.name}" onchange="toggleCat(this)" style="width:15px;height:15px;accent-color:var(--blue);cursor:pointer"/>
+        ${cat.icon||'📁'} ${cat.name}
+      </label>`;
     }).join('');
   }
 
@@ -178,21 +181,18 @@ async function init() {
 }
 
 function toggleCat(checkbox) {
-  const selected = el.getAttribute('data-selected') === 'true';
-  if (selected) {
-    el.removeAttribute('data-selected');
-    el.style.background = '#fff';
-    el.style.color = 'var(--g700)';
-    el.style.borderColor = 'var(--g200)';
+  const label = checkbox.closest('label');
+  if (checkbox.checked) {
+    label.style.background = 'var(--blue)';
+    label.style.color = '#fff';
+    label.style.borderColor = 'var(--blue)';
   } else {
-    el.setAttribute('data-selected', 'true');
-    el.style.background = 'var(--blue)';
-    el.style.color = '#fff';
-    el.style.borderColor = 'var(--blue)';
+    label.style.background = '#fff';
+    label.style.color = 'var(--g700)';
+    label.style.borderColor = 'var(--g200)';
   }
-  // Update hidden input
-  const selected2 = [...document.querySelectorAll('#pp-cats-wrap [data-selected]')].map(e=>e.getAttribute('data-val'));
-  document.getElementById('pp-cat').value = selected2.join(',');
+  const selected = [...document.querySelectorAll('#pp-cats-wrap input:checked')].map(cb => cb.dataset.val);
+  document.getElementById('pp-cat').value = selected.join(',');
 }
 
 async function load() {
@@ -244,7 +244,8 @@ async function load() {
             <div style="font-size:.84rem;color:var(--g700)">${p.deadlineDays}д · ${p.bidCount} оферти</div>
           </div>
         </div>
-        ${canBid() ? `<button class="btn btn-orange btn-full" style="margin-top:14px;padding:11px" onclick="openBid(${p.id},'${p.title.replace(/'/g,"\\'")}')">Кандидатствай</button>` : ''}
+        <button class="btn btn-outline btn-full" style="margin-top:10px;padding:9px" onclick="openDetail(allProjects.find(x=>x.id===${p.id}))">🔍 Виж проекта</button>
+        ${canBid() ? `<button class="btn btn-orange btn-full" style="margin-top:8px;padding:11px" onclick="openBid(${p.id},'${p.title.replace(/'/g,"\\'")}')">Кандидатствай</button>` : ''}
       </div>`).join('');
   } catch(e) {
     grid.innerHTML = `<div class="empty" style="grid-column:1/-1"><div class="icon">⚠️</div><p>${e.message}</p></div>`;

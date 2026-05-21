@@ -195,5 +195,12 @@ public class SkilloDbContext : DbContext
             new Review { ReviewerId = alex.Id,   RevieweeId = client1.Id, ProjectId = proj7.Id, Rating = 4, Comment = "Добър клиент, ясни изисквания и бърза комуникация." }
         );
         db.SaveChanges();
+
+        db.ContactMessages.AddRange(
+            new ContactMessage { Name = "Георги Димитров", Email = "georgi@example.com", Subject = "Въпрос за регистрация", Message = "Здравейте, имам проблем при регистрацията на профил. Моля помогнете.", CreatedAt = DateTime.UtcNow.AddDays(-3), IsReplied = false },
+            new ContactMessage { Name = "Елена Василева",  Email = "elena@example.com",  Subject = "Как да публикувам услуга?", Message = "Искам да публикувам услуга като фрийлансър но не намирам бутона. Можете ли да обясните?", CreatedAt = DateTime.UtcNow.AddDays(-1), IsReplied = true, ReplyNote = "Отговорено по имейл — трябва да има верифициран профил." },
+            new ContactMessage { Name = "Стефан Николов",  Email = "stefan@example.com", Subject = "Проблем с плащане", Message = "Опитвам се да платя за проект но получавам грешка. Моля проверете.", CreatedAt = DateTime.UtcNow.AddHours(-5), IsReplied = false }
+        );
+        db.SaveChanges();
     }
 }

@@ -163,7 +163,7 @@ public class AdminController : ControllerBase
             TotalRevenue:  totalRevenue,
             BannedUsers:   await _db.Users.CountAsync(u => u.IsBanned)
         ));
-        } catch (Exception ex) {
+        } catch {
             return Ok(new AdminStatsResponse(0,0,0,0,0,0,0,0,0,0,0));
         }
     }

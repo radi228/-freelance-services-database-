@@ -22,6 +22,9 @@
     .proj-footer{display:flex;align-items:center;justify-content:space-between;padding-top:14px;border-top:1px solid var(--g200)}
     .budget{font-family:'Sora',sans-serif;font-weight:700;color:var(--orange);font-size:1rem}
     .budget-lbl{color:var(--g500);font-size:.74rem;margin-bottom:2px}
+    .cat-chip{display:inline-flex;align-items:center;padding:7px 14px;border:2px solid var(--g200);border-radius:25px;cursor:pointer;font-size:.82rem;font-weight:600;background:#fff;color:var(--g700);transition:all .15s;user-select:none}
+    .cat-chip:hover{border-color:var(--blue);color:var(--blue)}
+    .cat-chip.selected{background:var(--blue);color:#fff;border-color:var(--blue)}
   </style>
 </head>
 <body>
@@ -101,8 +104,9 @@
     <div class="form-group"><label>Описание</label><textarea id="pp-desc" placeholder="Опиши подробно задачата…"></textarea></div>
     <div class="form-row">
       <div class="form-group" style="grid-column:1/-1">
-        <label>Категории (избери една или повече)</label>
-        <select id="pp-cat" multiple size="5" style="width:100%;padding:8px;border:2px solid var(--g200);border-radius:var(--r);font-size:.9rem;font-family:inherit"></select>
+        <label>Категория (избери една)</label>
+        <input type="hidden" id="pp-cat"/>
+        <div id="pp-cats-wrap" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px"></div>
       </div>
       <div class="form-group"><label>Срок (дни)</label><input id="pp-deadline" type="number" placeholder="30"/></div>
     </div>
@@ -166,9 +170,9 @@ async function init() {
   const wrap = document.getElementById('pp-cats-wrap');
   if (wrap) {
     wrap.innerHTML = cats.map(cat => `
-      <label style="display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border:1.5px solid var(--g200);border-radius:20px;cursor:pointer;font-size:.82rem;font-weight:600;background:#fff;color:var(--g700);transition:all .15s;white-space:nowrap">
-        <input type="checkbox" value="${cat.name}" onchange="updateCatField()" style="accent-color:var(--blue);cursor:pointer;width:14px;height:14px"/>
-        ${cat.icon||'📁'} ${cat.name}
+      <label class="cat-chip">
+        <input type="checkbox" value="${cat.name}" onchange="updateCatField(this)" style="display:none"/>
+        <span>${cat.icon||'📁'} ${cat.name}</span>
       </label>`).join('');
   }
 
@@ -184,8 +188,16 @@ async function load() {
   const grid = document.getElementById('proj-grid');
   grid.innerHTML = '<div class="loading" style="grid-column:1/-1"><div class="spinner"></div></div>';
 
+  // Timeout fallback — ако сървърът не отговаря за 10 секунди
+  const timeout = setTimeout(() => {
+    if (grid.querySelector('.spinner')) {
+      grid.innerHTML = '<div class="empty" style="grid-column:1/-1"><div class="icon">⏱️</div><p>Сървърът не отговаря. Провери дали backend-ът работи на Render.</p></div>';
+    }
+  }, 10000);
+
   try {
     const raw = await apiFetch('/projects?' + params);
+    clearTimeout(timeout);
     const rawList = Array.isArray(raw) ? raw : (raw?.$values || raw?.value || []);
     let list = Array.isArray(rawList) ? rawList : (rawList?.$values || rawList?.value || []);
 
@@ -227,11 +239,24 @@ async function load() {
         ${canBid() ? `<button class="btn btn-orange btn-full" style="margin-top:8px;padding:11px" onclick="openBid(${p.id},'${p.title.replace(/'/g,"\\'")}')">Кандидатствай</button>` : ''}
       </div>`).join('');
   } catch(e) {
+    clearTimeout(timeout);
     grid.innerHTML = `<div class="empty" style="grid-column:1/-1"><div class="icon">⚠️</div><p>${e.message}</p></div>`;
   }
 }
 
-function canBid() { const u = Auth.user(); return u?.role === 'Freelancer'; }
+function updateCatField(cb) {
+  // Only one category at a time — deselect others
+  document.querySelectorAll('#pp-cats-wrap input').forEach(other => {
+    if (other !== cb) {
+      other.checked = false;
+      other.closest('label').classList.remove('selected');
+    }
+  });
+  cb.closest('label').classList.toggle('selected', cb.checked);
+  document.getElementById('pp-cat').value = cb.checked ? cb.value : '';
+}
+
+ const u = Auth.user(); return u?.role === 'Freelancer'; }
 
 function openBid(id, title) {
   if (!Auth.loggedIn()) { window.location.href = '/index.html'; return; }
@@ -261,8 +286,7 @@ function openPostProject() {
   // Reset category chips
   document.querySelectorAll('#pp-cats-wrap input').forEach(cb => {
     cb.checked = false;
-    const label = cb.closest('label');
-    if (label) { label.style.background='#fff'; label.style.color='var(--g700)'; label.style.borderColor='var(--g200)'; }
+    cb.closest('label')?.classList.remove('selected');
   });
   document.getElementById('pp-cat').value = '';
   openModal('post-modal');

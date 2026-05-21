@@ -276,7 +276,7 @@ async function loadContacts() {
   el.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
   try {
     const msgs = await apiFetch('/contact');
-    const arr = Array.isArray(msgs) ? msgs : [];
+    const arr = Array.isArray(msgs) ? msgs : (msgs?.$values || []);
     if (!arr.length) { el.innerHTML = '<p style="color:var(--g500);padding:20px">Няма съобщения.</p>'; return; }
     el.innerHTML = arr.map(m => `
       <div style="background:#fff;border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:var(--sh);border-left:4px solid ${m.isReplied ? '#38a169' : '#e53e3e'}">
@@ -324,9 +324,9 @@ function showPanel(id) {
 async function loadDashboard() {
   try {
     const [stats, users, projs] = await Promise.all([
-      apiFetch('/admin/stats'),
-      apiFetch('/admin/users'),
-      apiFetch('/admin/projects'),
+      apiFetch('/admin/stats').catch(() => ({})),
+      apiFetch('/admin/users').catch(() => []),
+      apiFetch('/admin/projects').catch(() => []),
     ]);
 
     document.getElementById('stats-row').innerHTML = `

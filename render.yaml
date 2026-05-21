@@ -1,6 +1,6 @@
-﻿services:
+services:
   - type: web
-    name: skillo-freelance-platform
+    name: skillo-platform
     runtime: dotnet
     plan: free
     buildCommand: dotnet publish SkilloPlatform/SkilloPlatform.csproj -c Release -o out
@@ -26,5 +26,3 @@
       name: skillo-data
       mountPath: /data
       sizeGB: 1
-
-

@@ -258,7 +258,7 @@ public class ReviewsController : ControllerBase
 
         return Ok(reviews.Select(r => new ReviewResponse(
             r.Id, r.ReviewerId, r.Reviewer.FullName,
-            r.RevieweeId, r.ProjectId ?? 0, r.Rating, r.Comment, r.CreatedAt
+            r.RevieweeId, r.ProjectId, r.Rating, r.Comment, r.CreatedAt
         )));
     }
 
@@ -266,7 +266,7 @@ public class ReviewsController : ControllerBase
     [Authorize]
     public async Task<IActionResult> Create(ReviewRequest req)
     {
-        if (req.ProjectId > 0 && await _db.Reviews.AnyAsync(r =>
+        if (req.ProjectId.HasValue && req.ProjectId > 0 && await _db.Reviews.AnyAsync(r =>
                 r.ReviewerId == UserId &&
                 r.RevieweeId == req.RevieweeId &&
                 r.ProjectId  == req.ProjectId))

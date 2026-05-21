@@ -74,12 +74,22 @@ using (var scope = app.Services.CreateScope())
     var db = scope.ServiceProvider.GetRequiredService<SkilloDbContext>();
     try
     {
-        db.Database.Migrate();
+        if (app.Environment.IsProduction())
+            db.Database.EnsureCreated();
+        else
+            db.Database.Migrate();
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Migration error: {ex.Message}");
+    }
+    try
+    {
         SkilloDbContext.SeedData(db);
     }
     catch (Exception ex)
     {
-        Console.WriteLine($"Migration/Seed error: {ex.Message}");
+        Console.WriteLine($"Seed error: {ex.Message}");
     }
 }
 

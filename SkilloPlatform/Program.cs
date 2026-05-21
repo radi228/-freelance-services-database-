@@ -75,7 +75,20 @@ using (var scope = app.Services.CreateScope())
     try
     {
         if (app.Environment.IsProduction())
+        {
             db.Database.EnsureCreated();
+            // Ensure ContactMessages table exists (added later)
+            db.Database.ExecuteSqlRaw(@"CREATE TABLE IF NOT EXISTS ""ContactMessages"" (
+                ""Id"" INTEGER NOT NULL CONSTRAINT ""PK_ContactMessages"" PRIMARY KEY AUTOINCREMENT,
+                ""Name"" TEXT NOT NULL DEFAULT '',
+                ""Email"" TEXT NOT NULL DEFAULT '',
+                ""Subject"" TEXT NOT NULL DEFAULT '',
+                ""Message"" TEXT NOT NULL DEFAULT '',
+                ""CreatedAt"" TEXT NOT NULL DEFAULT '0001-01-01T00:00:00',
+                ""IsReplied"" INTEGER NOT NULL DEFAULT 0,
+                ""ReplyNote"" TEXT NULL
+            )");
+        }
         else
             db.Database.Migrate();
     }

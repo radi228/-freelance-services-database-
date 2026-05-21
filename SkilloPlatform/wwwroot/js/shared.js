@@ -1,4 +1,3 @@
-// Skillo v1.3.0 - Build 202605211501
 const API = window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : '/api';
 
 const Auth = {

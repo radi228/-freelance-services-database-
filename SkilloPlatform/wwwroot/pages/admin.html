@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Администрация – Skillo</title>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="/css/main.css?v=20260521155424"/>
+  <link rel="stylesheet" href="/css/main.css"/>
   <style>
     .admin-layout{display:grid;grid-template-columns:220px 1fr;gap:0;min-height:calc(100vh - 68px)}
     .admin-side{background:var(--g900);padding:24px 0;position:sticky;top:68px;height:calc(100vh - 68px);overflow-y:auto}
@@ -253,7 +253,7 @@
   </div>
 </div>
 
-<script src="/js/shared.js?v=20260521155424"></script>
+<script src="/js/shared.js"></script>
 <script>
 const me = Auth.user();
 if (!me || !Auth.isAdmin()) { window.location.href = '/index.html'; }

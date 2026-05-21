@@ -76,6 +76,33 @@
   </div>
 </div>
 
+<!-- DETAIL MODAL -->
+<div class="modal-overlay" id="detail-modal">
+  <div class="modal modal-lg">
+    <button class="modal-close" onclick="closeModal('detail-modal')">✕</button>
+    <span id="detail-cat" style="display:inline-block;padding:4px 12px;border-radius:20px;background:var(--g100);color:var(--blue);font-size:.8rem;font-weight:700;margin-bottom:10px"></span>
+    <h2 id="detail-title" style="margin-bottom:8px"></h2>
+    <p id="detail-desc" style="color:var(--g600);line-height:1.7;margin-bottom:16px"></p>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px">
+      <div style="background:var(--g100);border-radius:10px;padding:12px;text-align:center">
+        <div style="font-size:.75rem;color:var(--g500);margin-bottom:4px">Бюджет</div>
+        <div id="detail-budget" style="font-weight:700;color:var(--orange)"></div>
+      </div>
+      <div style="background:var(--g100);border-radius:10px;padding:12px;text-align:center">
+        <div style="font-size:.75rem;color:var(--g500);margin-bottom:4px">Срок</div>
+        <div id="detail-deadline" style="font-weight:700"></div>
+      </div>
+      <div style="background:var(--g100);border-radius:10px;padding:12px;text-align:center">
+        <div style="font-size:.75rem;color:var(--g500);margin-bottom:4px">Оферти</div>
+        <div id="detail-bids" style="font-weight:700"></div>
+      </div>
+    </div>
+    <div style="margin-bottom:12px"><strong>Клиент:</strong> <span id="detail-client"></span></div>
+    <div style="margin-bottom:16px"><strong>Необходими умения:</strong><br/><div id="detail-skills" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px"></div></div>
+    <button id="detail-bid-btn" class="btn btn-orange btn-full" style="padding:13px">Кандидатствай за проекта</button>
+  </div>
+</div>
+
 <!-- BID MODAL -->
 <div class="modal-overlay" id="bid-modal">
   <div class="modal">
@@ -149,6 +176,29 @@
 <script src="/js/shared.js"></script>
 <script>
 let cats = [];
+let allProjects = [];
+
+function openDetail(proj) {
+  if (!proj) return;
+  document.getElementById('detail-title').textContent = proj.title;
+  document.getElementById('detail-cat').textContent = proj.category;
+  document.getElementById('detail-desc').textContent = proj.description;
+  document.getElementById('detail-budget').textContent = `${proj.budgetMin} – ${proj.budgetMax} €`;
+  document.getElementById('detail-deadline').textContent = `${proj.deadlineDays} дни`;
+  document.getElementById('detail-bids').textContent = proj.bidCount;
+  document.getElementById('detail-client').textContent = proj.clientName || 'Клиент';
+  document.getElementById('detail-skills').innerHTML = (proj.requiredSkills||[]).map(s=>`<span class="ptag">${s}</span>`).join('') || 'Няма';
+  const bidBtn = document.getElementById('detail-bid-btn');
+  if (bidBtn) {
+    if (canBid()) {
+      bidBtn.style.display = '';
+      bidBtn.onclick = () => { closeModal('detail-modal'); openBid(proj.id, proj.title); };
+    } else {
+      bidBtn.style.display = 'none';
+    }
+  }
+  openModal('detail-modal');
+}
 
 async function init() {
   // Check if specific project ID in URL
@@ -201,6 +251,7 @@ async function load() {
     clearTimeout(timeout);
     const rawList = Array.isArray(raw) ? raw : (raw?.$values || raw?.value || []);
     let list = Array.isArray(rawList) ? rawList : (rawList?.$values || rawList?.value || []);
+    allProjects = list;
 
     // Sort: matching freelancer category first
     const u = Auth.user();

@@ -167,7 +167,6 @@ public class AdminController : ControllerBase
             return Ok(new AdminStatsResponse(0,0,0,0,0,0,0,0,0,0,0));
         }
     }
-    }
 
     // GET /api/admin/users
     [HttpGet("users")]

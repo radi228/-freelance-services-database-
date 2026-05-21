@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="bg">
 <head>
   <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
@@ -265,7 +265,7 @@ function showPanel(id) {
   document.querySelectorAll('.aside-item').forEach(b => b.classList.remove('active'));
   document.getElementById('panel-' + id)?.classList.add('active');
   document.getElementById('btn-' + id)?.classList.add('active');
-  const loaders = { users: loadUsers, freelancers: loadFLAdmin, projects: loadProjects, services: loadServices, admins: loadAdmins, categories: loadCategories, dashboard: loadDashboard };
+  const loaders = { users: loadUsers, freelancers: loadFLAdmin, projects: loadProjects, services: loadServices, admins: loadAdmins, categories: loadCategories, dashboard: loadDashboard, contacts: loadContacts };
   loaders[id]?.();
 }
 

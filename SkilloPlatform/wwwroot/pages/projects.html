@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="bg">
 <head>
   <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
@@ -167,7 +167,7 @@ async function init() {
   const wrap = document.getElementById('pp-cats-wrap');
   if (wrap) {
     wrap.innerHTML = cats.map(cat => {
-      return `<span class="cat-chip" data-val="${cat.name}" onclick="toggleCat(this)" style="display:inline-flex;align-items:center;gap:5px;padding:6px 14px;border:2px solid var(--g200);border-radius:20px;cursor:pointer;font-size:.82rem;font-weight:600;transition:all .15s;background:#fff;color:var(--g700)">${cat.icon||'📁'} ${cat.name}</span>`;
+      return `<input type="checkbox" data-val="${cat.name}" onchange="toggleCat(this)" style="display:inline-flex;align-items:center;gap:5px;padding:6px 14px;border:2px solid var(--g200);border-radius:20px;cursor:pointer;font-size:.82rem;font-weight:600;transition:all .15s;background:#fff;color:var(--g700)">${cat.icon||'📁'} ${cat.name}</span>`;
     }).join('');
   }
 
@@ -177,7 +177,7 @@ async function init() {
   load();
 }
 
-function toggleCat(el) {
+function toggleCat(checkbox) {
   const selected = el.getAttribute('data-selected') === 'true';
   if (selected) {
     el.removeAttribute('data-selected');

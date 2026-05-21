@@ -17,6 +17,7 @@ public class SkilloDbContext : DbContext
     public DbSet<Payment> Payments => Set<Payment>();
     public DbSet<Review> Reviews => Set<Review>();
     public DbSet<Category> Categories => Set<Category>();
+    public DbSet<ContactMessage> ContactMessages => Set<ContactMessage>();
     public DbSet<Conversation> Conversations => Set<Conversation>();
     public DbSet<ChatMessage> ChatMessages => Set<ChatMessage>();
 

@@ -211,7 +211,7 @@ public record PayPalPaymentRequest(
 // ── Review ────────────────────────────────────────────────────
 public record ReviewRequest(
     [Required] int RevieweeId,
-    [Required] int ProjectId,
+    int? ProjectId,
     [Range(1, 5)] int Rating,
     string? Comment
 );
@@ -221,7 +221,7 @@ public record ReviewResponse(
     int ReviewerId,
     string ReviewerName,
     int RevieweeId,
-    int ProjectId,
+    int? ProjectId,
     int Rating,
     string Comment,
     DateTime CreatedAt

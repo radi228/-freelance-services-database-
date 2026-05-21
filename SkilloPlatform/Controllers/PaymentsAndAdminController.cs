@@ -141,15 +141,14 @@ public class AdminController : ControllerBase
     private int UserId => int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
     private bool IsSuperAdmin => User.IsInRole("SuperAdmin");
 
-    // GET /api/admin/stats
+    // GET /api/admin/stats — v28 fix: safe payment sum
     [HttpGet("stats")]
     public async Task<IActionResult> GetStats()
     {
-        var totalRevenue = await _db.Payments
+        var completedPayments = await _db.Payments
             .Where(p => p.Status == "Completed")
-            .Select(p => p.Amount)
-            .DefaultIfEmpty(0)
-            .SumAsync();
+            .ToListAsync();
+        var totalRevenue = completedPayments.Any() ? completedPayments.Sum(p => p.Amount) : 0m;
 
         return Ok(new AdminStatsResponse(
             TotalUsers:    await _db.Users.CountAsync(u => u.Role != "Admin" && u.Role != "SuperAdmin"),

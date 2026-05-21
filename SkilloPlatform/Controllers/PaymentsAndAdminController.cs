@@ -147,7 +147,9 @@ public class AdminController : ControllerBase
     {
         var totalRevenue = await _db.Payments
             .Where(p => p.Status == "Completed")
-            .SumAsync(p => p.Amount);
+            .Select(p => p.Amount)
+            .DefaultIfEmpty(0)
+            .SumAsync();
 
         return Ok(new AdminStatsResponse(
             TotalUsers:    await _db.Users.CountAsync(u => u.Role != "Admin" && u.Role != "SuperAdmin"),

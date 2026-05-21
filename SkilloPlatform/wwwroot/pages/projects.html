@@ -257,7 +257,7 @@ function updateCatField(cb) {
   document.getElementById('pp-cat').value = cb.checked ? cb.value : '';
 }
 
- const u = Auth.user(); return u?.role === 'Freelancer'; }
+function canBid() { const u = Auth.user(); return u?.role === 'Freelancer'; }
 
 function openBid(id, title) {
   if (!Auth.loggedIn()) { window.location.href = '/index.html'; return; }

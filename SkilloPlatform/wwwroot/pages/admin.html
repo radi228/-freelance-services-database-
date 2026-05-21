@@ -277,7 +277,7 @@ async function loadContacts() {
   try {
     const msgs = await apiFetch('/contact');
     const arr = Array.isArray(msgs) ? msgs : (msgs?.$values || []);
-    if (!arr.length) { el.innerHTML = '<p style="color:var(--g500);padding:20px">Няма съобщения.</p>'; return; }
+    if (!arr.length) { el.innerHTML = '<p style="color:var(--g500);padding:20px">Няма контактни съобщения все още.</p>'; return; }
     el.innerHTML = arr.map(m => `
       <div style="background:#fff;border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:var(--sh);border-left:4px solid ${m.isReplied ? '#38a169' : '#e53e3e'}">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:8px">
@@ -299,7 +299,16 @@ async function loadContacts() {
         </div>` : ''}
       </div>
     `).join('');
-  } catch(e) { el.innerHTML = `<p style="color:red;padding:20px">Грешка: ${e.message}</p>`; }
+  } catch(e) {
+    if (e.message.includes('401') || e.message.includes('403') || e.message.toLowerCase().includes('unauthorized')) {
+      el.innerHTML = `<div style="padding:20px;background:#fff3cd;border-radius:12px;border-left:4px solid #f6a623">
+        <strong>⚠️ Сесията е изтекла</strong><br/>
+        <span style="font-size:.9rem">Излез и влез отново в акаунта си, след което опитай пак.</span>
+      </div>`;
+    } else {
+      el.innerHTML = `<p style="color:red;padding:20px">Грешка: ${e.message}</p>`;
+    }
+  }
 }
 
 async function markReplied(id) {

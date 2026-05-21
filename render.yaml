@@ -11,7 +11,7 @@ services:
       - key: ConnectionStrings__DefaultConnection
         value: Data Source=/data/skillo.db
       - key: Jwt__Key
-        generateValue: true
+        value: SkilloJwtSuperSecretKey2026XyZ@#$%ProductionFixed!
       - key: Jwt__Issuer
         value: SkilloPlatform
       - key: Jwt__Audience

@@ -99,6 +99,10 @@ using (var scope = app.Services.CreateScope())
                 ""IsReplied"" INTEGER NOT NULL DEFAULT 0,
                 ""ReplyNote"" TEXT NULL
             )");
+            // Ensure IsBanned column exists (added later)
+            try { db.Database.ExecuteSqlRaw(@"ALTER TABLE ""Users"" ADD COLUMN ""IsBanned"" INTEGER NOT NULL DEFAULT 0"); } catch { }
+            // Ensure IsVerified column exists
+            try { db.Database.ExecuteSqlRaw(@"ALTER TABLE ""FreelancerProfiles"" ADD COLUMN ""IsVerified"" INTEGER NOT NULL DEFAULT 0"); } catch { }
         }
         else
             db.Database.Migrate();

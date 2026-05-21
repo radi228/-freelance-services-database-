@@ -11,11 +11,22 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<SkilloDbContext>(opt =>
 {
-    var conn = builder.Configuration.GetConnectionString("DefaultConnection");
+    string dbPath;
     if (builder.Environment.IsProduction())
-        opt.UseSqlite(conn);
+    {
+        // Use /data if it exists (Render persistent disk), otherwise /tmp
+        var dataDir = "/data";
+        if (Directory.Exists(dataDir))
+            dbPath = Path.Combine(dataDir, "skillo.db");
+        else
+            dbPath = "/tmp/skillo.db";
+        opt.UseSqlite($"Data Source={dbPath}");
+    }
     else
+    {
+        var conn = builder.Configuration.GetConnectionString("DefaultConnection");
         opt.UseSqlServer(conn);
+    }
 });
 
 var jwtKey = builder.Configuration["Jwt:Key"]!;

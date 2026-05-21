@@ -120,6 +120,26 @@
         <div class="section-box" id="reviews-box">
           <h3>Отзиви</h3>
           <div id="p-reviews-list"><p style="color:var(--g500)">Все още няма отзиви.</p></div>
+          <div id="review-form-box" style="display:none;margin-top:24px;padding:20px;border:2px solid var(--g200);border-radius:var(--r);background:var(--g50)">
+            <h4 style="margin-bottom:14px">Остави отзив</h4>
+            <div style="margin-bottom:12px">
+              <label style="font-weight:600;font-size:.9rem">Оценка</label>
+              <div id="star-picker" style="font-size:1.8rem;cursor:pointer;margin-top:6px">
+                <span onclick="setStar(1)" data-star="1">☆</span>
+                <span onclick="setStar(2)" data-star="2">☆</span>
+                <span onclick="setStar(3)" data-star="3">☆</span>
+                <span onclick="setStar(4)" data-star="4">☆</span>
+                <span onclick="setStar(5)" data-star="5">☆</span>
+              </div>
+              <input type="hidden" id="review-rating" value="0"/>
+            </div>
+            <div style="margin-bottom:12px">
+              <label style="font-weight:600;font-size:.9rem">Коментар</label>
+              <textarea id="review-comment" rows="3" placeholder="Сподели опита си..." style="width:100%;margin-top:6px;padding:10px;border:1px solid var(--g200);border-radius:8px;font-family:inherit;font-size:.9rem;resize:vertical"></textarea>
+            </div>
+            <div id="review-alert" style="display:none;margin-bottom:10px"></div>
+            <button onclick="submitReview()" class="btn btn-primary">Изпрати отзив</button>
+          </div>
         </div>
       </div>
     </div>
@@ -160,6 +180,11 @@ async function load() {
     document.getElementById('p-title').textContent = f.title;
     document.getElementById('p-rating').textContent = f.averageRating > 0 ? f.averageRating.toFixed(1) + '★' : '—';
     document.getElementById('p-reviews').textContent = f.reviewCount;
+    // Show review form if logged in and not own profile
+    const me = Auth.user();
+    if (me && me.id !== userId) {
+      document.getElementById('review-form-box').style.display = 'block';
+    }
     document.getElementById('p-rate').textContent = f.hourlyRate;
 
     // Info rows
@@ -265,6 +290,45 @@ async function load() {
 }
 
 load();
+
+let selectedStar = 0;
+function setStar(n) {
+  selectedStar = n;
+  document.getElementById('review-rating').value = n;
+  document.querySelectorAll('#star-picker span').forEach((s, i) => {
+    s.textContent = i < n ? '★' : '☆';
+    s.style.color = i < n ? 'var(--orange)' : 'var(--g400)';
+  });
+}
+
+async function submitReview() {
+  const rating = parseInt(document.getElementById('review-rating').value);
+  const comment = document.getElementById('review-comment').value.trim();
+  const alertEl = document.getElementById('review-alert');
+  
+  if (!rating) {
+    alertEl.style.display = 'block';
+    alertEl.innerHTML = '<div class="alert alert-error">Избери оценка.</div>';
+    return;
+  }
+  
+  try {
+    await apiFetch('/reviews', {
+      method: 'POST',
+      body: JSON.stringify({ revieweeId: userId, projectId: 0, rating, comment })
+    });
+    alertEl.style.display = 'block';
+    alertEl.innerHTML = '<div class="alert alert-success">✅ Отзивът е добавен!</div>';
+    document.getElementById('review-comment').value = '';
+    setStar(0);
+    // Reload reviews
+    setTimeout(() => location.reload(), 1500);
+  } catch(e) {
+    alertEl.style.display = 'block';
+    alertEl.innerHTML = `<div class="alert alert-error">${e.message}</div>`;
+  }
+}
+
 </script>
 <script src="/js/i18n.js"></script>
 </body>

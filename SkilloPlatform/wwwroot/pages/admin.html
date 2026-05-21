@@ -271,6 +271,46 @@ document.getElementById('welcome-msg').textContent =
   `Добре дошъл, ${me.name}! Влезли сте като ${isSuperAdmin ? 'Супер Администратор' : 'Администратор'}.`;
 
 // ── Panel switcher ─────────────────────────────────
+async function loadContacts() {
+  const el = document.getElementById('contacts-list');
+  el.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+  try {
+    const msgs = await apiFetch('/contact');
+    const arr = Array.isArray(msgs) ? msgs : [];
+    if (!arr.length) { el.innerHTML = '<p style="color:var(--g500);padding:20px">Няма съобщения.</p>'; return; }
+    el.innerHTML = arr.map(m => `
+      <div style="background:#fff;border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:var(--sh);border-left:4px solid ${m.isReplied ? '#38a169' : '#e53e3e'}">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:8px">
+          <div>
+            <strong>${m.name}</strong> · <a href="mailto:${m.email}" style="color:var(--blue)">${m.email}</a>
+            <span style="margin-left:12px;font-size:.8rem;color:var(--g500)">${new Date(m.createdAt).toLocaleString('bg-BG')}</span>
+          </div>
+          <span style="padding:4px 12px;border-radius:20px;font-size:.78rem;font-weight:700;background:${m.isReplied ? '#c6f6d5' : '#fed7d7'};color:${m.isReplied ? '#276749' : '#9b2c2c'}">
+            ${m.isReplied ? '✓ Отговорено' : '⏳ Чака отговор'}
+          </span>
+        </div>
+        <div style="font-weight:600;margin-bottom:8px;color:var(--blue)">📌 ${m.subject}</div>
+        <div style="color:var(--g600);font-size:.9rem;line-height:1.6;background:var(--g100);padding:12px;border-radius:8px;margin-bottom:12px">${m.message}</div>
+        ${m.replyNote ? `<div style="font-size:.82rem;color:var(--g500);margin-bottom:8px">Бележка: ${m.replyNote}</div>` : ''}
+        ${!m.isReplied ? `
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <input id="note-${m.id}" placeholder="Бележка (незадължително)" style="flex:1;padding:8px 12px;border:1px solid var(--g200);border-radius:8px;font-size:.85rem"/>
+          <button onclick="markReplied(${m.id})" class="btn btn-primary btn-sm">✓ Маркирай като отговорено</button>
+        </div>` : ''}
+      </div>
+    `).join('');
+  } catch(e) { el.innerHTML = `<p style="color:red;padding:20px">Грешка: ${e.message}</p>`; }
+}
+
+async function markReplied(id) {
+  const note = document.getElementById('note-' + id)?.value || '';
+  try {
+    await apiFetch('/contact/' + id + '/replied', { method: 'PATCH', body: JSON.stringify({ note }) });
+    loadContacts();
+  } catch(e) { alert('Грешка: ' + e.message); }
+}
+
+
 function showPanel(id) {
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.aside-item').forEach(b => b.classList.remove('active'));
@@ -599,45 +639,6 @@ async function deleteCat(id) {
 
 // ── Init ───────────────────────────────────────────
 loadDashboard();
-
-async function loadContacts() {
-  const el = document.getElementById('contacts-list');
-  el.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
-  try {
-    const msgs = await apiFetch('/contact');
-    const arr = Array.isArray(msgs) ? msgs : [];
-    if (!arr.length) { el.innerHTML = '<p style="color:var(--g500);padding:20px">Няма съобщения.</p>'; return; }
-    el.innerHTML = arr.map(m => `
-      <div style="background:#fff;border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:var(--sh);border-left:4px solid ${m.isReplied ? '#38a169' : '#e53e3e'}">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:8px">
-          <div>
-            <strong>${m.name}</strong> · <a href="mailto:${m.email}" style="color:var(--blue)">${m.email}</a>
-            <span style="margin-left:12px;font-size:.8rem;color:var(--g500)">${new Date(m.createdAt).toLocaleString('bg-BG')}</span>
-          </div>
-          <span style="padding:4px 12px;border-radius:20px;font-size:.78rem;font-weight:700;background:${m.isReplied ? '#c6f6d5' : '#fed7d7'};color:${m.isReplied ? '#276749' : '#9b2c2c'}">
-            ${m.isReplied ? '✓ Отговорено' : '⏳ Чака отговор'}
-          </span>
-        </div>
-        <div style="font-weight:600;margin-bottom:8px;color:var(--blue)">📌 ${m.subject}</div>
-        <div style="color:var(--g600);font-size:.9rem;line-height:1.6;background:var(--g100);padding:12px;border-radius:8px;margin-bottom:12px">${m.message}</div>
-        ${m.replyNote ? `<div style="font-size:.82rem;color:var(--g500);margin-bottom:8px">Бележка: ${m.replyNote}</div>` : ''}
-        ${!m.isReplied ? `
-        <div style="display:flex;gap:8px;margin-top:8px">
-          <input id="note-${m.id}" placeholder="Бележка (незадължително)" style="flex:1;padding:8px 12px;border:1px solid var(--g200);border-radius:8px;font-size:.85rem"/>
-          <button onclick="markReplied(${m.id})" class="btn btn-primary btn-sm">✓ Маркирай като отговорено</button>
-        </div>` : ''}
-      </div>
-    `).join('');
-  } catch(e) { el.innerHTML = `<p style="color:red;padding:20px">Грешка: ${e.message}</p>`; }
-}
-
-async function markReplied(id) {
-  const note = document.getElementById('note-' + id)?.value || '';
-  try {
-    await apiFetch('/contact/' + id + '/replied', { method: 'PATCH', body: JSON.stringify({ note }) });
-    loadContacts();
-  } catch(e) { alert('Грешка: ' + e.message); }
-}
 
 </script>
 <script src="/js/i18n.js"></script>

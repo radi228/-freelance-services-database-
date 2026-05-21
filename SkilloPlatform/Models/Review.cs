@@ -16,8 +16,8 @@ public class Review
     public User Reviewee { get; set; } = null!;
 
     [ForeignKey("Project")]
-    public int ProjectId { get; set; }
-    public Project Project { get; set; } = null!;
+    public int? ProjectId { get; set; }
+    public Project? Project { get; set; }
 
     [Range(1, 5)]
     public int Rating { get; set; }

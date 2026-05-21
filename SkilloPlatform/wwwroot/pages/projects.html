@@ -102,8 +102,7 @@
     <div class="form-row">
       <div class="form-group" style="grid-column:1/-1">
         <label>Категории (избери една или повече)</label>
-        <div id="pp-cats-wrap" style="display:flex;flex-wrap:wrap;gap:8px;padding:10px;border:2px solid var(--g200);border-radius:var(--r);min-height:46px;"></div>
-        <input type="hidden" id="pp-cat"/>
+        <select id="pp-cat" multiple size="5" style="width:100%;padding:8px;border:2px solid var(--g200);border-radius:var(--r);font-size:.9rem;font-family:inherit"></select>
       </div>
       <div class="form-group"><label>Срок (дни)</label><input id="pp-deadline" type="number" placeholder="30"/></div>
     </div>
@@ -163,36 +162,16 @@ async function init() {
   const sel = document.getElementById('f-cat');
   const catArr = Array.isArray(cats) ? cats : []; catArr.forEach(c => sel.add(new Option(c.name, c.name)));
 
-  // Build category chips for post modal
+  // Build category checkboxes for post modal
   const wrap = document.getElementById('pp-cats-wrap');
   if (wrap) {
-    wrap.innerHTML = cats.map(cat => {
-      return `<label style="display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border:2px solid var(--g200);border-radius:20px;cursor:pointer;font-size:.82rem;font-weight:600;transition:all .15s;background:#fff;color:var(--g700);user-select:none">
-        <input type="checkbox" data-val="${cat.name}" onchange="toggleCat(this)" style="width:15px;height:15px;accent-color:var(--blue);cursor:pointer"/>
+    wrap.innerHTML = cats.map(cat => `
+      <label style="display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border:1.5px solid var(--g200);border-radius:20px;cursor:pointer;font-size:.82rem;font-weight:600;background:#fff;color:var(--g700);transition:all .15s;white-space:nowrap">
+        <input type="checkbox" value="${cat.name}" onchange="updateCatField()" style="accent-color:var(--blue);cursor:pointer;width:14px;height:14px"/>
         ${cat.icon||'📁'} ${cat.name}
-      </label>`;
-    }).join('');
+      </label>`).join('');
   }
 
-  const u = Auth.user();
-  if (u?.role === 'Client') document.getElementById('post-btn').style.display = '';
-  initSkillsInput('pp-skills-wrap', 'pp-skills-input', 'pp-skills-hidden');
-  load();
-}
-
-function toggleCat(checkbox) {
-  const label = checkbox.closest('label');
-  if (checkbox.checked) {
-    label.style.background = 'var(--blue)';
-    label.style.color = '#fff';
-    label.style.borderColor = 'var(--blue)';
-  } else {
-    label.style.background = '#fff';
-    label.style.color = 'var(--g700)';
-    label.style.borderColor = 'var(--g200)';
-  }
-  const selected = [...document.querySelectorAll('#pp-cats-wrap input:checked')].map(cb => cb.dataset.val);
-  document.getElementById('pp-cat').value = selected.join(',');
 }
 
 async function load() {
@@ -280,11 +259,10 @@ async function submitBid() {
 function openPostProject() {
   hideAlert('post-alert');
   // Reset category chips
-  document.querySelectorAll('#pp-cats-wrap [data-selected]').forEach(el => {
-    el.removeAttribute('data-selected');
-    el.style.background = '#fff';
-    el.style.color = 'var(--g700)';
-    el.style.borderColor = 'var(--g200)';
+  document.querySelectorAll('#pp-cats-wrap input').forEach(cb => {
+    cb.checked = false;
+    const label = cb.closest('label');
+    if (label) { label.style.background='#fff'; label.style.color='var(--g700)'; label.style.borderColor='var(--g200)'; }
   });
   document.getElementById('pp-cat').value = '';
   openModal('post-modal');

@@ -266,7 +266,7 @@ public class ReviewsController : ControllerBase
     [Authorize]
     public async Task<IActionResult> Create(ReviewRequest req)
     {
-        if (await _db.Reviews.AnyAsync(r =>
+        if (req.ProjectId.HasValue && req.ProjectId > 0 && await _db.Reviews.AnyAsync(r =>
                 r.ReviewerId == UserId &&
                 r.RevieweeId == req.RevieweeId &&
                 r.ProjectId  == req.ProjectId))
@@ -276,7 +276,7 @@ public class ReviewsController : ControllerBase
         {
             ReviewerId = UserId,
             RevieweeId = req.RevieweeId,
-            ProjectId  = req.ProjectId,
+            ProjectId  = req.ProjectId > 0 ? req.ProjectId : null,
             Rating     = req.Rating,
             Comment    = req.Comment ?? "",
         });
